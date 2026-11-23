@@ -1,0 +1,9 @@
+.DS_Store
+node_modules/
+.superpowers/
+*.log
+
+# Private working files: kept on this computer, never published
+docs/
+spec-sheet/
+.impeccable/
