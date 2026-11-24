@@ -151,6 +151,9 @@ export function buildRegistry() {
       component("switch", "Switch", "A fabric strap with a sewing-button thumb that rolls as it slides."),
       component("select", "Select", "A field that opens a stitched denim pocket of options.", { needs: ["@threadcn/field"] }),
       component("tooltip", "Tooltip", "A small stitched leather tag with a pointer."),
+      component("tabs", "Tabs", "Sewn-on label tabs; the active tab is stitched onto its panel."),
+      // Pocket card draws its own double stitch, so it needs only the tokens from base.
+      component("pocket-card", "Pocket Card", "A jeans back pocket with double stitching, rivets and a hang tag.", { needs: ["@threadcn/base"] }),
     ],
   }
 

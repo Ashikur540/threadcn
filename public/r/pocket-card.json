@@ -1,0 +1,76 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "pocket-card",
+  "title": "Pocket Card",
+  "description": "A jeans back pocket with double stitching, rivets and a hang tag.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/base"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/pocket-card.tsx",
+      "content": "import type * as React from \"react\"\nimport { cn } from \"cn\"\n\n// A threadcn extra, not part of shadcn. Parts are named like Card's.\n// The look is in styles/pocket-card.css.\n\n/**\n * A jeans back pocket: double stitching, two copper rivets and an optional\n * hang tag. Good for a product.\n *\n * @example\n * <PocketCard>\n *   <PocketCardTag>W32 · L34</PocketCardTag>\n *   <PocketCardHeader>\n *     <PocketCardTitle>Model 08 Straight</PocketCardTitle>\n *     <PocketCardAction>$128</PocketCardAction>\n *   </PocketCardHeader>\n *   <PocketCardDescription>Deep indigo, unwashed.</PocketCardDescription>\n *   <PocketCardFooter><Button>Add to bag</Button></PocketCardFooter>\n * </PocketCard>\n */\nfunction PocketCard({ className, children, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div data-slot=\"pocket-card\" className={cn(\"tx-pocket-card relative grid gap-3.5 px-[26px] pt-8 pb-9\", className)} {...props}>\n      <span data-slot=\"pocket-card-rivet\" aria-hidden=\"true\" className=\"tx-pocket-card-rivet absolute top-3.5 left-3.5 size-[13px] rounded-full\" />\n      <span data-slot=\"pocket-card-rivet\" aria-hidden=\"true\" className=\"tx-pocket-card-rivet absolute top-3.5 right-3.5 size-[13px] rounded-full\" />\n      {children}\n    </div>\n  )\n}\n\n/** A cream tag hanging off the right edge, for a size or a short note. */\nfunction PocketCardTag({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"pocket-card-tag\"\n      className={cn(\"tx-pocket-card-tag absolute top-[78px] -right-1.5 z-[2] py-1.5 pr-2.5 pl-[18px] text-xs leading-[1.2] font-semibold tabular-nums\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction PocketCardHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"pocket-card-header\" className={cn(\"relative z-[1] flex items-baseline justify-between gap-2.5 pr-14\", className)} {...props} />\n}\n\nfunction PocketCardTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"pocket-card-title\" className={cn(\"tx-pocket-card-title text-xl font-bold\", className)} {...props} />\n}\n\n/** The right side of the header, like a price. */\nfunction PocketCardAction({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"pocket-card-action\" className={cn(\"tx-pocket-card-title shrink-0 text-[19px] font-bold tabular-nums\", className)} {...props} />\n}\n\nfunction PocketCardDescription({ className, ...props }: React.ComponentProps<\"p\">) {\n  return <p data-slot=\"pocket-card-description\" className={cn(\"tx-pocket-card-description relative z-[1] pr-14 text-sm\", className)} {...props} />\n}\n\nfunction PocketCardContent({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"pocket-card-content\" className={cn(\"relative z-[1]\", className)} {...props} />\n}\n\nfunction PocketCardFooter({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"pocket-card-footer\" className={cn(\"relative z-[1] flex flex-wrap items-center gap-2.5\", className)} {...props} />\n}\n\nexport { PocketCard, PocketCardTag, PocketCardHeader, PocketCardTitle, PocketCardAction, PocketCardDescription, PocketCardContent, PocketCardFooter }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-pocket-card": {
+        "border-radius": "18px 18px 40px 40px",
+        "background-color": "var(--tx-surface)",
+        "background-image": "repeating-linear-gradient(135deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 4px),\n      repeating-linear-gradient(45deg, rgb(0 0 0 / 0.12) 0 1px, transparent 1px 3px),\n      var(--tx-card-sheen)",
+        "color": "var(--tx-surface-foreground)",
+        "box-shadow": "var(--tx-card-shadow)"
+      },
+      ".tx-pocket-card::before, .tx-pocket-card::after": {
+        "content": "\"\"",
+        "position": "absolute",
+        "border": "var(--tx-thread-width) dashed var(--tx-thread)",
+        "border-radius": "12px 12px 34px 34px",
+        "pointer-events": "none"
+      },
+      ".tx-pocket-card::before": {
+        "inset": "7px"
+      },
+      ".tx-pocket-card::after": {
+        "inset": "12px",
+        "opacity": "0.75"
+      },
+      ".tx-pocket-card-rivet": {
+        "z-index": "1",
+        "background": "radial-gradient(circle at 35% 30%, var(--tx-rivet-light), var(--tx-rivet) 55%, var(--tx-rivet-dark))",
+        "box-shadow": "0 1px 2px rgb(0 0 0 / 0.5)"
+      },
+      ".tx-pocket-card-tag": {
+        "border-radius": "4px 2px 2px 4px",
+        "background-color": "var(--tx-field)",
+        "color": "var(--tx-field-foreground)",
+        "font-family": "var(--tx-font-patch)",
+        "transform": "rotate(6deg)",
+        "box-shadow": "0 3px 6px rgb(0 0 0 / 0.35)",
+        "clip-path": "polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%)"
+      },
+      ".tx-pocket-card-title": {
+        "font-family": "var(--tx-font-heading)"
+      },
+      ".tx-pocket-card-description": {
+        "color": "var(--tx-muted-foreground)"
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-pocket-card": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-pocket-card::before, :root .tx-pocket-card::after, :root .tx-pocket-card-rivet": {
+          "display": "none"
+        },
+        ":root .tx-pocket-card-tag": {
+          "border": "1px solid CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

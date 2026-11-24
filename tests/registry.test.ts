@@ -93,6 +93,8 @@ test("each item installs exactly the packages and threadcn parts its file import
     switch: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     select: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/field", "@threadcn/stitch"], css: true },
     tooltip: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
+    tabs: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
+    "pocket-card": { deps: ["cn"], parts: ["@threadcn/base"], css: true },
   })
 })
 

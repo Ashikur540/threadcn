@@ -1,0 +1,162 @@
+/* Tabs: sewn-on label tabs. The active tab is stitched onto its panel.
+ *
+ * Public tokens it reads: --tx-patch-secondary*, --tx-field*, --tx-leather*,
+ *   --tx-rivet, --tx-thread, --tx-ring, --tx-radius, --tx-font-patch
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * Base UI sets data-active, data-disabled and data-orientation on each tab.
+ * The variant is on the list: data-variant="default" | "line" | "leather".
+ */
+@layer components {
+  .tx-tabs-trigger {
+    --_stitch: var(--tx-thread);
+    --_inset: 5px;
+    --_radius: 9px;
+    --_thread: var(--tx-thread-width);
+
+    border-radius: 14px 14px 6px 6px;
+    background-color: var(--tx-patch-secondary);
+    color: var(--tx-patch-secondary-foreground);
+    font-family: var(--tx-font-patch);
+  }
+  .tx-tabs-trigger:hover:not([data-disabled], [data-active]) {
+    background-color: color-mix(in srgb, var(--tx-patch-secondary) 85%, var(--tx-patch-secondary-edge));
+  }
+  .tx-tabs-trigger[data-active] {
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+  }
+  .tx-tabs-content {
+    --_stitch: var(--tx-field-border);
+    --_inset: 7px;
+    --_radius: var(--tx-radius);
+
+    border-radius: var(--_radius);
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+  }
+
+  /* ---- Horizontal: the active tab is sewn onto the panel ---- */
+
+  /* It grows 8px down, under the panel's top edge. */
+  .tx-tabs-trigger[data-orientation="horizontal"][data-active] {
+    border-radius: 14px 14px 0 0;
+    padding-bottom: 18px;
+    margin-bottom: -8px;
+  }
+  /* It stitches only three sides, so it hides the rectangle and draws its own. */
+  .tx-tabs-trigger[data-orientation="horizontal"][data-active] > [data-slot="stitch"] {
+    display: none;
+  }
+  .tx-tabs-trigger[data-orientation="horizontal"][data-active]::before {
+    content: "";
+    position: absolute;
+    inset: 5px 5px 0;
+    border: var(--tx-thread-width) dashed var(--tx-field-border);
+    border-bottom: 0;
+    border-radius: 9px 9px 0 0;
+    pointer-events: none;
+  }
+  /* The seam where tab meets panel: a soft line of thread. */
+  .tx-tabs-trigger[data-orientation="horizontal"][data-active]::after {
+    content: "";
+    position: absolute;
+    right: 8px;
+    bottom: 8px;
+    left: 8px;
+    border-top: 1.6px dashed color-mix(in srgb, var(--tx-field-border) 85%, transparent);
+    filter: blur(0.35px);
+    pointer-events: none;
+  }
+
+  /* ---- Variant: leather ----
+     The active tab is a leather strap folded over the panel, closed with a
+     small matte snap. */
+
+  .tx-tabs-list-leather .tx-tabs-trigger[data-orientation="horizontal"][data-active] {
+    background-color: var(--tx-leather);
+    background-image:
+      linear-gradient(to bottom, transparent calc(100% - 15px), var(--tx-leather-edge) calc(100% - 13px), transparent calc(100% - 9px)),
+      radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px);
+    background-size: 100% 100%, 3px 3px;
+    color: var(--tx-leather-foreground);
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 0.45);
+    padding-bottom: 24px;
+    margin-bottom: -12px;
+  }
+  .tx-tabs-list-leather .tx-tabs-trigger[data-orientation="horizontal"][data-active]::before {
+    border-color: var(--tx-thread);
+  }
+  /* The snap is pressed into the leather, not shiny. */
+  .tx-tabs-list-leather .tx-tabs-trigger[data-orientation="horizontal"][data-active]::after {
+    right: auto;
+    bottom: 3px;
+    left: 50%;
+    width: 7px;
+    height: 7px;
+    margin-left: -3.5px;
+    border: 0;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--tx-rivet) 45%, var(--tx-leather)), var(--tx-leather-edge) 80%);
+    box-shadow:
+      inset 0 0 0 1px var(--tx-leather-edge),
+      0 1px 0 color-mix(in srgb, var(--tx-leather-foreground) 22%, transparent);
+    filter: none;
+  }
+  .tx-tabs-list-leather ~ .tx-tabs-content {
+    padding-top: 22px;
+  }
+
+  /* ---- Variant: line ----
+     Flat tabs on the fabric; the active one gets a thread underline. */
+
+  .tx-tabs-list-line .tx-tabs-trigger,
+  .tx-tabs-list-line .tx-tabs-trigger[data-active] {
+    --_stitch: transparent;
+    background-color: transparent;
+    color: var(--tx-surface-foreground);
+  }
+  .tx-tabs-list-line .tx-tabs-trigger[data-orientation="horizontal"][data-active] {
+    margin-bottom: 0;
+    padding-bottom: 10px;
+    border-radius: 14px 14px 6px 6px;
+  }
+  .tx-tabs-list-line .tx-tabs-trigger[data-active]::before {
+    content: none;
+  }
+  .tx-tabs-list-line .tx-tabs-trigger[data-orientation="horizontal"][data-active]::after {
+    right: 12px;
+    bottom: 2px;
+    left: 12px;
+    border-top: 2px dashed var(--tx-thread);
+    filter: none;
+  }
+  .tx-tabs-list-line ~ .tx-tabs-content {
+    margin-top: 10px;
+  }
+
+  /* ---- States ---- */
+
+  /* An outline, not a shadow: shadow-* classes can't erase it. */
+  .tx-tabs-trigger:focus-visible,
+  .tx-tabs-content:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-tabs-trigger[data-disabled] {
+    opacity: 0.5;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-tabs-trigger,
+    :root .tx-tabs-content {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-tabs-trigger[data-active] {
+      border-width: 3px;
+    }
+  }
+}

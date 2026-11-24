@@ -13,6 +13,8 @@
 @import "../registry/threadcn/styles/switch.css";
 @import "../registry/threadcn/styles/select.css";
 @import "../registry/threadcn/styles/tooltip.css";
+@import "../registry/threadcn/styles/tabs.css";
+@import "../registry/threadcn/styles/pocket-card.css";
 
 /* dark mode follows the .dark class on <html>, like shadcn */
 @custom-variant dark (&:where(.dark, .dark *));

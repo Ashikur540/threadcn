@@ -1,0 +1,77 @@
+/* Pocket card: a jeans back pocket with double stitching, copper rivets and
+ * a hang tag. threadcn only.
+ *
+ * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-card-shadow,
+ *   --tx-thread, --tx-rivet*, --tx-field*, --tx-muted-foreground,
+ *   --tx-font-heading, --tx-font-patch
+ *
+ * The two stitch lines use dashed borders, not <Stitch />: a pocket is wider
+ * at the bottom corners, and an SVG rectangle has only one corner radius.
+ */
+@layer components {
+  .tx-pocket-card {
+    border-radius: 18px 18px 40px 40px;
+    background-color: var(--tx-surface);
+    background-image:
+      repeating-linear-gradient(135deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 4px),
+      repeating-linear-gradient(45deg, rgb(0 0 0 / 0.12) 0 1px, transparent 1px 3px),
+      var(--tx-card-sheen);
+    color: var(--tx-surface-foreground);
+    box-shadow: var(--tx-card-shadow);
+  }
+  /* Double stitching: two dashed lines, the inner one a little fainter. */
+  .tx-pocket-card::before,
+  .tx-pocket-card::after {
+    content: "";
+    position: absolute;
+    border: var(--tx-thread-width) dashed var(--tx-thread);
+    border-radius: 12px 12px 34px 34px;
+    pointer-events: none;
+  }
+  .tx-pocket-card::before {
+    inset: 7px;
+  }
+  .tx-pocket-card::after {
+    inset: 12px;
+    opacity: 0.75;
+  }
+  .tx-pocket-card-rivet {
+    z-index: 1;
+    background: radial-gradient(circle at 35% 30%, var(--tx-rivet-light), var(--tx-rivet) 55%, var(--tx-rivet-dark));
+    box-shadow: 0 1px 2px rgb(0 0 0 / 0.5);
+  }
+  /* The tag's left end is cut to a point, like a real hang tag. */
+  .tx-pocket-card-tag {
+    border-radius: 4px 2px 2px 4px;
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+    font-family: var(--tx-font-patch);
+    transform: rotate(6deg);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 0.35);
+    clip-path: polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%);
+  }
+  .tx-pocket-card-title {
+    font-family: var(--tx-font-heading);
+  }
+  .tx-pocket-card-description {
+    color: var(--tx-muted-foreground);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-pocket-card {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-pocket-card::before,
+    :root .tx-pocket-card::after,
+    :root .tx-pocket-card-rivet {
+      display: none;
+    }
+    :root .tx-pocket-card-tag {
+      border: 1px solid CanvasText;
+    }
+  }
+}

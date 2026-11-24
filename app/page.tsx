@@ -4,9 +4,11 @@ import { Checkbox } from "@/registry/threadcn/ui/checkbox"
 import { Input } from "@/registry/threadcn/ui/input"
 import { Label } from "@/registry/threadcn/ui/label"
 import { Patch, PatchDot } from "@/registry/threadcn/ui/patch"
+import { PocketCard, PocketCardAction, PocketCardContent, PocketCardDescription, PocketCardFooter, PocketCardHeader, PocketCardTag, PocketCardTitle } from "@/registry/threadcn/ui/pocket-card"
 import { RadioGroup, RadioGroupItem } from "@/registry/threadcn/ui/radio-group"
 import { Separator } from "@/registry/threadcn/ui/separator"
 import { Switch } from "@/registry/threadcn/ui/switch"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/threadcn/ui/tabs"
 import { Textarea } from "@/registry/threadcn/ui/textarea"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 
@@ -196,6 +198,49 @@ export default function Home() {
             Orders this week
           </Patch>
         </div>
+      </Section>
+
+      <Section title="Tabs">
+        <div className="grid gap-8 lg:grid-cols-3">
+          {(["default", "leather", "line"] as const).map((variant) => (
+            <div key={variant} className="grid content-start gap-2">
+              <p className="text-xs text-(--tx-muted-foreground)">variant=&quot;{variant}&quot;</p>
+              <Tabs defaultValue="details">
+                <TabsList variant={variant} aria-label={`Product (${variant})`}>
+                  <TabsTrigger value="details">Details</TabsTrigger>
+                  <TabsTrigger value="sizing">Sizing</TabsTrigger>
+                  <TabsTrigger value="reviews" disabled>Reviews</TabsTrigger>
+                </TabsList>
+                <TabsContent value="details">Raw selvedge denim, 14 oz cotton. Fades to your shape in about 6 months.</TabsContent>
+                <TabsContent value="sizing">True to size. Size down for a slim fit.</TabsContent>
+              </Tabs>
+            </div>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Pocket card">
+        <PocketCard className="w-full max-w-sm">
+          <PocketCardTag>W32 · L34</PocketCardTag>
+          <PocketCardHeader>
+            <PocketCardTitle>Model 08 Straight</PocketCardTitle>
+            <PocketCardAction>$128</PocketCardAction>
+          </PocketCardHeader>
+          <PocketCardDescription>Deep indigo, unwashed. Fades to your shape in about 6 months.</PocketCardDescription>
+          <PocketCardContent>
+            <div role="group" aria-label="Waist size" className="flex flex-wrap gap-2">
+              {[28, 30, 32, 34].map((size) => (
+                <Button key={size} size="sm" variant={size === 32 ? "default" : "secondary"} aria-pressed={size === 32}>
+                  {size}
+                </Button>
+              ))}
+              <Button size="sm" variant="secondary" disabled aria-label="36, sold out">36</Button>
+            </div>
+          </PocketCardContent>
+          <PocketCardFooter>
+            <Button>Add to bag</Button>
+          </PocketCardFooter>
+        </PocketCard>
       </Section>
 
       <Section title="Dialog">
