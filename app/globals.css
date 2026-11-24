@@ -22,6 +22,12 @@
 @import "../registry/threadcn/styles/skeleton.css";
 @import "../registry/threadcn/styles/spinner.css";
 @import "../registry/threadcn/styles/toast.css";
+@import "../registry/threadcn/styles/accordion.css";
+@import "../registry/threadcn/styles/breadcrumb.css";
+@import "../registry/threadcn/styles/avatar.css";
+@import "../registry/threadcn/styles/table.css";
+@import "../registry/threadcn/styles/kbd.css";
+@import "../registry/threadcn/styles/scroll-area.css";
 
 /* dark mode follows the .dark class on <html>, like shadcn */
 @custom-variant dark (&:where(.dark, .dark *));

@@ -1,0 +1,18 @@
+/* Kbd: a small cream key cap with an edge underneath, like a button.
+ *
+ * Public tokens it reads: --tx-field*, --tx-font-patch
+ */
+@layer components {
+  .tx-kbd {
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+    font-family: var(--tx-font-patch);
+    box-shadow: 0 2px 0 var(--tx-field-border);
+  }
+
+  @media (forced-colors: active) {
+    :root .tx-kbd {
+      border: 1px solid CanvasText;
+    }
+  }
+}

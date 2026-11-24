@@ -1,0 +1,52 @@
+/* Accordion: stacked questions with dashed thread between them.
+ *
+ * Public tokens it reads: --tx-thread, --tx-ring
+ * Base UI sets --accordion-panel-height and data-starting-style /
+ * data-ending-style on the panel while it opens and closes.
+ */
+@layer components {
+  /* The same 1px dashed line as the Select dividers (5px stitch, 4px gap). */
+  .tx-accordion-item + .tx-accordion-item {
+    background-image: repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
+  /* The chevron: two borders of a small box, turned. It flips when open. */
+  .tx-accordion-icon {
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 200ms ease-out;
+  }
+  .tx-accordion-trigger[aria-expanded="true"] .tx-accordion-icon {
+    transform: translateY(2px) rotate(225deg);
+  }
+  .tx-accordion-trigger:hover:where(:not([aria-disabled="true"])) {
+    text-decoration: underline dashed var(--tx-thread);
+    text-underline-offset: 5px;
+  }
+  /* An outline, not a shadow: shadow-* classes can't erase it. */
+  .tx-accordion-trigger:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  /* The panel slides between 0 and its own height. */
+  .tx-accordion-content {
+    height: var(--accordion-panel-height);
+    transition: height 200ms ease-out;
+  }
+  .tx-accordion-content:is([data-starting-style], [data-ending-style]) {
+    height: 0;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-accordion-icon,
+    :root .tx-accordion-content {
+      transition: none;
+    }
+  }
+}

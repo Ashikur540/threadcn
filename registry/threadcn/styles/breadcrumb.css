@@ -1,0 +1,24 @@
+/* Breadcrumb: muted links with thread chevrons between them.
+ *
+ * Public tokens it reads: --tx-thread, --tx-ring
+ * Links take a dimmed version of the surrounding text color, so the trail
+ * reads on denim, cards and cream.
+ */
+@layer components {
+  .tx-breadcrumb-link {
+    color: color-mix(in srgb, currentColor 78%, transparent);
+    text-decoration: none;
+  }
+  .tx-breadcrumb-link:hover {
+    color: inherit;
+    text-decoration: underline dashed var(--tx-thread);
+    text-underline-offset: 4px;
+  }
+  .tx-breadcrumb-link:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-breadcrumb-separator {
+    color: var(--tx-thread);
+  }
+}

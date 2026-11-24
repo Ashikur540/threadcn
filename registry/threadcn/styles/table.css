@@ -1,0 +1,63 @@
+/* Table: dashed thread lines between rows.
+ *
+ * Public tokens it reads: --tx-thread, --tx-font-heading
+ * Tints come from the surrounding text color, so the table reads on denim,
+ * cards and cream.
+ */
+@layer components {
+  .tx-table {
+    border-collapse: collapse;
+  }
+  /* Every row except the first gets a 1px dashed thread line on top
+     (the same line as the Select and Accordion dividers). */
+  .tx-table-row {
+    background-image: repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 55%, transparent) 0 5px, transparent 5px 9px);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+    transition: background-color 120ms;
+  }
+  .tx-table-header .tx-table-row,
+  .tx-table-body .tx-table-row:first-child {
+    background-image: none;
+  }
+  /* The header sits on a solid thread line. */
+  .tx-table-header .tx-table-row {
+    box-shadow: inset 0 -2px 0 color-mix(in srgb, var(--tx-thread) 70%, transparent);
+  }
+  .tx-table-head {
+    font-family: var(--tx-font-heading);
+    color: color-mix(in srgb, currentColor 80%, transparent);
+  }
+  .tx-table-body .tx-table-row:hover {
+    background-color: color-mix(in srgb, currentColor 6%, transparent);
+  }
+  .tx-table-row[data-state="selected"] {
+    background-color: color-mix(in srgb, currentColor 11%, transparent);
+  }
+  .tx-table-footer .tx-table-row {
+    box-shadow: inset 0 2px 0 color-mix(in srgb, var(--tx-thread) 70%, transparent);
+  }
+  .tx-table-caption {
+    color: color-mix(in srgb, currentColor 75%, transparent);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-table-row {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-table-row {
+      border-top: 1px solid CanvasText;
+    }
+    :root .tx-table-row[data-state="selected"] {
+      forced-color-adjust: none;
+      background: Highlight;
+      color: HighlightText;
+    }
+  }
+}

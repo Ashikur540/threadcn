@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "collapsible",
+  "title": "Collapsible",
+  "description": "A trigger that shows and hides a panel. No look of its own.",
+  "dependencies": [
+    "@base-ui/react"
+  ],
+  "registryDependencies": [],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/collapsible.tsx",
+      "content": "\"use client\"\n\nimport { Collapsible as CollapsiblePrimitive } from \"@base-ui/react/collapsible\"\n\n/**\n * A trigger that shows and hides a panel. Same API as shadcn's Collapsible.\n * It has no look of its own: style the trigger and panel however you like\n * (for example render the trigger as a <Button>).\n *\n * @example\n * <Collapsible>\n *   <CollapsibleTrigger render={<Button variant=\"ghost\" />}>Care details</CollapsibleTrigger>\n *   <CollapsibleContent>Wash cold, inside out.</CollapsibleContent>\n * </Collapsible>\n */\nfunction Collapsible({ ...props }: CollapsiblePrimitive.Root.Props) {\n  return <CollapsiblePrimitive.Root data-slot=\"collapsible\" {...props} />\n}\n\nfunction CollapsibleTrigger({ ...props }: CollapsiblePrimitive.Trigger.Props) {\n  return <CollapsiblePrimitive.Trigger data-slot=\"collapsible-trigger\" {...props} />\n}\n\nfunction CollapsibleContent({ ...props }: CollapsiblePrimitive.Panel.Props) {\n  return <CollapsiblePrimitive.Panel data-slot=\"collapsible-content\" {...props} />\n}\n\nexport { Collapsible, CollapsibleTrigger, CollapsibleContent }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

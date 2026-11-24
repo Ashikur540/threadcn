@@ -1,6 +1,6 @@
 import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { denim } from "@/registry/threadcn/fabrics/denim"
-import { buildRegistry } from "@/scripts/build-registry"
+import { buildRegistry, importsOf } from "@/scripts/build-registry"
 
 const built = buildRegistry()
 
@@ -105,6 +105,14 @@ test("each item installs exactly the packages and threadcn parts its file import
     skeleton: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
     spinner: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
     toast: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/button", "@threadcn/spinner", "@threadcn/stitch"], css: true },
+    accordion: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
+    collapsible: { deps: ["@base-ui/react"], parts: [], css: false },
+    breadcrumb: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
+    pagination: { deps: ["cn"], parts: ["@threadcn/button", "@threadcn/stitch"], css: false },
+    avatar: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
+    table: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
+    kbd: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
+    "scroll-area": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
   })
 })
 
@@ -191,4 +199,19 @@ test("on/off controls say 'on' with leather, which stands out in both modes", ()
   }
   expect(on("checkbox", ".tx-checkbox:is([data-checked], [data-indeterminate])")).toContain("var(--tx-leather)")
   expect(on("toggle", ".tx-toggle[data-pressed]")).toContain("background-color: var(--tx-leather)")
+})
+
+// In a Next.js server component, render={<Button />} would otherwise be rendered
+// on the server first, freezing Button's <Stitch /> as its only content and
+// dropping the trigger's text. "use client" keeps Button a client reference.
+test("Button is a client component, but buttonVariants stays callable on the server", () => {
+  expect(ui("button-client").startsWith('"use client"')).toBe(true)
+  expect(ui("button").startsWith('"use client"')).toBe(false)
+  const button = built.registry.items.find((i) => i.name === "button")!
+  expect(button.files!.map((f) => f.path)).toEqual(["registry/threadcn/ui/button.tsx", "registry/threadcn/ui/button-client.tsx"])
+})
+
+test("importsOf ignores imports mentioned in comments", () => {
+  const source = '// import it from "button"\n/* or from "card" */\nimport { cn } from "cn"\n'
+  expect(importsOf(source)).toEqual({ dependencies: ["cn"], registryDependencies: [] })
 })

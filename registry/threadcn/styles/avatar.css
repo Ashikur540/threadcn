@@ -1,0 +1,50 @@
+/* Avatar: a round photo with a stitched ring.
+ *
+ * Public tokens it reads: --tx-field*, --tx-thread, --tx-fabric, --tx-patch*
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ */
+@layer components {
+  /* A huge radius makes the stitch rectangle a circle. */
+  .tx-avatar {
+    --_stitch: color-mix(in srgb, #fff 80%, transparent);
+    --_inset: 3px;
+    --_radius: 999px;
+    --_thread: 1.2px;
+
+    background-color: var(--tx-field);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 0.3);
+  }
+  .tx-avatar-fallback {
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+    font-family: var(--tx-font-patch);
+  }
+  /* With no photo, the ring is brown thread on the cream. */
+  .tx-avatar:has(.tx-avatar-fallback) {
+    --_stitch: var(--tx-field-border);
+  }
+  .tx-avatar-badge {
+    background-color: var(--tx-patch);
+    box-shadow: 0 0 0 2px var(--tx-fabric);
+  }
+  /* Overlapping avatars get a fabric-colored cut-out ring. */
+  .tx-avatar-group > :is(.tx-avatar, .tx-avatar-group-count) {
+    box-shadow: 0 0 0 2px var(--tx-fabric);
+  }
+  .tx-avatar-group-count {
+    background-color: var(--tx-patch-secondary);
+    color: var(--tx-patch-secondary-foreground);
+    font-family: var(--tx-font-patch);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-avatar,
+    :root .tx-avatar-group-count {
+      border: 1px solid CanvasText;
+    }
+  }
+}

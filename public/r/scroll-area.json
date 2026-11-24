@@ -1,0 +1,47 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "scroll-area",
+  "title": "Scroll Area",
+  "description": "A box that scrolls with a thin thread-colored scrollbar.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/base"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/scroll-area.tsx",
+      "content": "\"use client\"\n\nimport { ScrollArea as ScrollAreaPrimitive } from \"@base-ui/react/scroll-area\"\nimport { cn } from \"cn\"\n\n// Same parts and API as shadcn's Base UI ScrollArea. Base UI keeps native\n// scrolling (wheel, touch, keyboard) and draws a custom scrollbar.\n// The look is in styles/scroll-area.css.\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\n/**\n * A box that scrolls with a thin thread-colored scrollbar.\n *\n * @example\n * <ScrollArea className=\"h-64\"><LongCareGuide /></ScrollArea>\n */\nfunction ScrollArea({ className, children, ...props }: WithClassName<ScrollAreaPrimitive.Root.Props>) {\n  return (\n    <ScrollAreaPrimitive.Root data-slot=\"scroll-area\" className={cn(\"relative overflow-hidden\", className)} {...props}>\n      <ScrollAreaPrimitive.Viewport data-slot=\"scroll-area-viewport\" className=\"tx-scroll-area-viewport size-full rounded-[inherit]\">\n        {children}\n      </ScrollAreaPrimitive.Viewport>\n      <ScrollBar />\n      <ScrollAreaPrimitive.Corner />\n    </ScrollAreaPrimitive.Root>\n  )\n}\n\nfunction ScrollBar({ className, orientation = \"vertical\", ...props }: WithClassName<ScrollAreaPrimitive.Scrollbar.Props>) {\n  return (\n    <ScrollAreaPrimitive.Scrollbar\n      data-slot=\"scroll-area-scrollbar\"\n      data-orientation={orientation}\n      orientation={orientation}\n      className={cn(\n        \"tx-scroll-area-scrollbar flex touch-none p-0.5 select-none data-[orientation=horizontal]:h-2.5 data-[orientation=horizontal]:flex-col data-[orientation=vertical]:w-2.5\",\n        className,\n      )}\n      {...props}\n    >\n      <ScrollAreaPrimitive.Thumb data-slot=\"scroll-area-thumb\" className=\"tx-scroll-area-thumb relative flex-1 rounded-full\" />\n    </ScrollAreaPrimitive.Scrollbar>\n  )\n}\n\nexport { ScrollArea, ScrollBar }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-scroll-area-thumb": {
+        "background-color": "color-mix(in srgb, var(--tx-thread) 55%, transparent)",
+        "transition": "background-color 120ms"
+      },
+      ".tx-scroll-area-scrollbar:is([data-hovering], [data-scrolling]) .tx-scroll-area-thumb": {
+        "background-color": "var(--tx-thread)"
+      },
+      ".tx-scroll-area-viewport:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "-3px"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-scroll-area-thumb": {
+          "transition": "none"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-scroll-area-thumb": {
+          "forced-color-adjust": "none",
+          "background-color": "CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

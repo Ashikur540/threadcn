@@ -1,8 +1,12 @@
-import { Button as ButtonPrimitive } from "@base-ui/react/button"
 import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "cn"
 
-import { Stitch } from "@/registry/threadcn/ui/stitch"
+import type { Button as ButtonPrimitive } from "@base-ui/react/button"
+
+// This file stays server-safe (no "use client"), so buttonVariants() can be
+// called in server components, e.g. <Link className={buttonVariants()} />.
+// The Button component itself lives in button-client.tsx: it must be a client
+// component, or render={<Button />} in a server component would be rendered
+// early and lose the trigger's text. You import both from this file.
 
 /**
  * Button classes. Layout (size, padding) is Tailwind here; the textile look
@@ -51,29 +55,5 @@ type ButtonProps = Omit<ButtonPrimitive.Props, "className"> &
     className?: string
   }
 
-/**
- * A sewn-on patch that sinks when pressed. Same API as shadcn's Button.
- *
- * threadcn extras: the `leather` variant, and `shape="round"` for circular
- * icon buttons.
- *
- * @example
- * <Button variant="secondary">Book a repair</Button>
- * <Button size="icon" shape="round" aria-label="Save"><HeartIcon /></Button>
- */
-function Button({ className, variant = "default", size = "default", shape = "default", children, ...props }: ButtonProps) {
-  return (
-    <ButtonPrimitive
-      data-slot="button"
-      data-variant={variant}
-      data-size={size}
-      className={cn(buttonVariants({ variant, size, shape }), className)}
-      {...props}
-    >
-      <Stitch />
-      {children}
-    </ButtonPrimitive>
-  )
-}
-
-export { Button, buttonVariants, type ButtonProps }
+export { Button } from "@/registry/threadcn/ui/button-client"
+export { buttonVariants, type ButtonProps }

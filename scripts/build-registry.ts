@@ -67,7 +67,9 @@ const style = (name: string) => cssToObject(readFileSync(`${STYLES}/${name}.css`
  * React is skipped: every app already has it.
  */
 export function importsOf(source: string) {
-  const specifiers = [...source.matchAll(/from\s+"([^"]+)"/g)].map((m) => m[1])
+  // Ignore comments, so a sentence like `import it from "button"` isn't read as code.
+  const code = source.replace(/\/\*[\s\S]*?\*\//g, "").replace(/^\s*\/\/.*$/gm, "")
+  const specifiers = [...code.matchAll(/from\s+"([^"]+)"/g)].map((m) => m[1])
   const dependencies = new Set<string>()
   const registryDependencies = new Set<string>()
   for (const spec of specifiers) {
@@ -86,10 +88,17 @@ function styleOnly(name: string, title: string, description: string): RegistryIt
   return { name, type: "registry:item", title, description, dependencies: [], registryDependencies: ["@threadcn/base"], css: style(name) }
 }
 
-/** One installable component: ui/<name>.tsx plus styles/<name>.css when it exists. */
-function component(name: string, title: string, description: string, extra: { needs?: string[] } = {}): RegistryItem {
-  const path = `${UI}/${name}.tsx`
-  const { dependencies, registryDependencies } = importsOf(readFileSync(path, "utf8"))
+/**
+ * One installable component: ui/<name>.tsx plus styles/<name>.css when it exists.
+ * `files` adds more ui files to the same item (e.g. "button-client").
+ */
+function component(name: string, title: string, description: string, extra: { needs?: string[]; files?: string[] } = {}): RegistryItem {
+  const names = [name, ...(extra.files ?? [])]
+  const paths = names.map((n) => `${UI}/${n}.tsx`)
+  const found = paths.map((p) => importsOf(readFileSync(p, "utf8")))
+  const own = new Set(names.map((n) => `@threadcn/${n}`))
+  const dependencies = [...new Set(found.flatMap((f) => f.dependencies))].sort()
+  const registryDependencies = [...new Set(found.flatMap((f) => f.registryDependencies))].filter((d) => !own.has(d))
   const hasCss = existsSync(`${STYLES}/${name}.css`)
   return {
     name,
@@ -98,7 +107,7 @@ function component(name: string, title: string, description: string, extra: { ne
     description,
     dependencies,
     registryDependencies: [...(extra.needs ?? []), ...registryDependencies],
-    files: [{ path, type: "registry:ui" }],
+    files: paths.map((path) => ({ path, type: "registry:ui" })),
     ...(hasCss ? { css: style(name) } : {}),
   }
 }
@@ -135,7 +144,7 @@ export function buildRegistry() {
       },
       // Stitch imports no threadcn part, but its drawing CSS lives in base.
       component("stitch", "Stitch", "The stitch line drawn inside a part's edge.", { needs: ["@threadcn/base"] }),
-      component("button", "Button", "A sewn-on patch that sinks when pressed."),
+      component("button", "Button", "A sewn-on patch that sinks when pressed.", { files: ["button-client"] }),
       component("card", "Card", "A stitched piece of fabric. Puffy and quilted in dark mode."),
       styleOnly("modal", "Modal look", "The shared look of Dialog and Alert Dialog: a stitched card over a dimmed page."),
       component("dialog", "Dialog", "A stitched card that floats over a dimmed page.", { needs: ["@threadcn/modal"] }),
@@ -165,6 +174,14 @@ export function buildRegistry() {
       component("skeleton", "Skeleton", "A basted fabric placeholder that pulses while content loads.", { needs: ["@threadcn/base"] }),
       component("spinner", "Spinner", "A ring of stitches that turns while something loads.", { needs: ["@threadcn/base"] }),
       component("toast", "Toast", "A small stitched card that slides in from the corner."),
+      component("accordion", "Accordion", "Stacked questions with dashed thread between them.", { needs: ["@threadcn/base"] }),
+      component("collapsible", "Collapsible", "A trigger that shows and hides a panel. No look of its own."),
+      component("breadcrumb", "Breadcrumb", "Muted links with thread chevrons between them.", { needs: ["@threadcn/base"] }),
+      component("pagination", "Pagination", "Page links built from Button; the current page is the leather patch."),
+      component("avatar", "Avatar", "A round photo with a stitched ring, or initials on cream canvas."),
+      component("table", "Table", "A data table with dashed thread lines between rows.", { needs: ["@threadcn/base"] }),
+      component("kbd", "Kbd", "A keyboard key as a small cream key cap.", { needs: ["@threadcn/base"] }),
+      component("scroll-area", "Scroll Area", "A box that scrolls with a thin thread-colored scrollbar.", { needs: ["@threadcn/base"] }),
     ],
   }
 

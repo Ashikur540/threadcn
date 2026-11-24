@@ -172,6 +172,10 @@
         {
           "path": "registry/threadcn/ui/button.tsx",
           "type": "registry:ui"
+        },
+        {
+          "path": "registry/threadcn/ui/button-client.tsx",
+          "type": "registry:ui"
         }
       ],
       "css": {
@@ -1734,6 +1738,339 @@
             },
             ":root .tx-toast[data-type=\"error\"]": {
               "border": "3px double CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Stacked questions with dashed thread between them.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-accordion-item + .tx-accordion-item": {
+            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px)",
+            "background-size": "100% 1px",
+            "background-repeat": "no-repeat"
+          },
+          ".tx-accordion-icon": {
+            "border-right": "2px solid currentColor",
+            "border-bottom": "2px solid currentColor",
+            "transform": "translateY(-2px) rotate(45deg)",
+            "transition": "transform 200ms ease-out"
+          },
+          ".tx-accordion-trigger[aria-expanded=\"true\"] .tx-accordion-icon": {
+            "transform": "translateY(2px) rotate(225deg)"
+          },
+          ".tx-accordion-trigger:hover:where(:not([aria-disabled=\"true\"]))": {
+            "text-decoration": "underline dashed var(--tx-thread)",
+            "text-underline-offset": "5px"
+          },
+          ".tx-accordion-trigger:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-accordion-content": {
+            "height": "var(--accordion-panel-height)",
+            "transition": "height 200ms ease-out"
+          },
+          ".tx-accordion-content:is([data-starting-style], [data-ending-style])": {
+            "height": "0"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-accordion-icon, :root .tx-accordion-content": {
+              "transition": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "A trigger that shows and hides a panel. No look of its own.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Muted links with thread chevrons between them.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-breadcrumb-link": {
+            "color": "color-mix(in srgb, currentColor 78%, transparent)",
+            "text-decoration": "none"
+          },
+          ".tx-breadcrumb-link:hover": {
+            "color": "inherit",
+            "text-decoration": "underline dashed var(--tx-thread)",
+            "text-underline-offset": "4px"
+          },
+          ".tx-breadcrumb-link:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-breadcrumb-separator": {
+            "color": "var(--tx-thread)"
+          }
+        }
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Page links built from Button; the current page is the leather patch.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/button",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "A round photo with a stitched ring, or initials on cream canvas.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-avatar": {
+            "--_stitch": "color-mix(in srgb, #fff 80%, transparent)",
+            "--_inset": "3px",
+            "--_radius": "999px",
+            "--_thread": "1.2px",
+            "background-color": "var(--tx-field)",
+            "box-shadow": "0 2px 4px rgb(0 0 0 / 0.3)"
+          },
+          ".tx-avatar-fallback": {
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)",
+            "font-family": "var(--tx-font-patch)"
+          },
+          ".tx-avatar:has(.tx-avatar-fallback)": {
+            "--_stitch": "var(--tx-field-border)"
+          },
+          ".tx-avatar-badge": {
+            "background-color": "var(--tx-patch)",
+            "box-shadow": "0 0 0 2px var(--tx-fabric)"
+          },
+          ".tx-avatar-group > :is(.tx-avatar, .tx-avatar-group-count)": {
+            "box-shadow": "0 0 0 2px var(--tx-fabric)"
+          },
+          ".tx-avatar-group-count": {
+            "background-color": "var(--tx-patch-secondary)",
+            "color": "var(--tx-patch-secondary-foreground)",
+            "font-family": "var(--tx-font-patch)"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-avatar, :root .tx-avatar-group-count": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "A data table with dashed thread lines between rows.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-table": {
+            "border-collapse": "collapse"
+          },
+          ".tx-table-row": {
+            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 55%, transparent) 0 5px, transparent 5px 9px)",
+            "background-size": "100% 1px",
+            "background-repeat": "no-repeat",
+            "transition": "background-color 120ms"
+          },
+          ".tx-table-header .tx-table-row, .tx-table-body .tx-table-row:first-child": {
+            "background-image": "none"
+          },
+          ".tx-table-header .tx-table-row": {
+            "box-shadow": "inset 0 -2px 0 color-mix(in srgb, var(--tx-thread) 70%, transparent)"
+          },
+          ".tx-table-head": {
+            "font-family": "var(--tx-font-heading)",
+            "color": "color-mix(in srgb, currentColor 80%, transparent)"
+          },
+          ".tx-table-body .tx-table-row:hover": {
+            "background-color": "color-mix(in srgb, currentColor 6%, transparent)"
+          },
+          ".tx-table-row[data-state=\"selected\"]": {
+            "background-color": "color-mix(in srgb, currentColor 11%, transparent)"
+          },
+          ".tx-table-footer .tx-table-row": {
+            "box-shadow": "inset 0 2px 0 color-mix(in srgb, var(--tx-thread) 70%, transparent)"
+          },
+          ".tx-table-caption": {
+            "color": "color-mix(in srgb, currentColor 75%, transparent)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-table-row": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-table-row": {
+              "border-top": "1px solid CanvasText"
+            },
+            ":root .tx-table-row[data-state=\"selected\"]": {
+              "forced-color-adjust": "none",
+              "background": "Highlight",
+              "color": "HighlightText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "A keyboard key as a small cream key cap.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-kbd": {
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)",
+            "font-family": "var(--tx-font-patch)",
+            "box-shadow": "0 2px 0 var(--tx-field-border)"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-kbd": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "A box that scrolls with a thin thread-colored scrollbar.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-scroll-area-thumb": {
+            "background-color": "color-mix(in srgb, var(--tx-thread) 55%, transparent)",
+            "transition": "background-color 120ms"
+          },
+          ".tx-scroll-area-scrollbar:is([data-hovering], [data-scrolling]) .tx-scroll-area-thumb": {
+            "background-color": "var(--tx-thread)"
+          },
+          ".tx-scroll-area-viewport:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "-3px"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-scroll-area-thumb": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-scroll-area-thumb": {
+              "forced-color-adjust": "none",
+              "background-color": "CanvasText"
             }
           }
         }
