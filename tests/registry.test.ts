@@ -80,7 +80,8 @@ test("each item installs exactly the packages and threadcn parts its file import
     stitch: { deps: ["cn"], parts: ["@threadcn/base"], css: false },
     button: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     card: { deps: ["cn"], parts: ["@threadcn/stitch"], css: true },
-    dialog: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/button", "@threadcn/stitch"], css: true },
+    modal: { deps: [], parts: ["@threadcn/base"], css: true },
+    dialog: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/modal", "@threadcn/button", "@threadcn/stitch"], css: false },
     badge: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     label: { deps: ["cn"], parts: ["@threadcn/base"], css: false },
     separator: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
@@ -95,6 +96,15 @@ test("each item installs exactly the packages and threadcn parts its file import
     tooltip: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     tabs: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     "pocket-card": { deps: ["cn"], parts: ["@threadcn/base"], css: true },
+    toggle: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
+    "toggle-group": { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch", "@threadcn/toggle"], css: false },
+    alert: { deps: ["class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
+    "alert-dialog": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/modal", "@threadcn/button", "@threadcn/stitch"], css: false },
+    progress: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
+    slider: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
+    skeleton: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
+    spinner: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
+    toast: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/button", "@threadcn/spinner", "@threadcn/stitch"], css: true },
   })
 })
 
@@ -171,4 +181,14 @@ test("a focused field keeps its dashed stitch (darker) and gets a gold ring on i
   expect(rule).toContain("outline-color: var(--tx-field-foreground)")
   expect(rule).toContain("0 0 0 3px var(--tx-ring)")
   expect(rule).not.toContain("solid")
+})
+
+test("on/off controls say 'on' with leather, which stands out in both modes", () => {
+  const on = (name: string, selector: string) => {
+    const css = styles(name)
+    const start = css.indexOf(selector + " {")
+    return css.slice(start, css.indexOf("}", start))
+  }
+  expect(on("checkbox", ".tx-checkbox:is([data-checked], [data-indeterminate])")).toContain("var(--tx-leather)")
+  expect(on("toggle", ".tx-toggle[data-pressed]")).toContain("background-color: var(--tx-leather)")
 })

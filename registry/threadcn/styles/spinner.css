@@ -1,0 +1,10 @@
+/* Spinner: a ring of stitches that turns.
+ *
+ * Public tokens it reads: --tx-stitch-dash (the same stitch rhythm as everywhere)
+ * The turning is the Tailwind class motion-safe:animate-spin in spinner.tsx.
+ */
+@layer components {
+  .tx-spinner circle {
+    stroke-dasharray: var(--tx-stitch-dash);
+  }
+}

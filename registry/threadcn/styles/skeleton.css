@@ -1,0 +1,14 @@
+/* Skeleton: a piece of fabric basted in place while content loads.
+ *
+ * Tinted from the surrounding text color, so it works on any surface.
+ * The pulse is the Tailwind class motion-safe:animate-pulse in skeleton.tsx,
+ * so it never starts for users who ask for reduced motion.
+ */
+@layer components {
+  .tx-skeleton {
+    background-color: color-mix(in srgb, currentColor 13%, transparent);
+    /* Basting stitch: long, loose and faint. */
+    outline: 1px dashed color-mix(in srgb, currentColor 28%, transparent);
+    outline-offset: -4px;
+  }
+}

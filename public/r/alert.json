@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "alert",
+  "title": "Alert",
+  "description": "A notice sewn on like a garment care label.",
+  "dependencies": [
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/alert.tsx",
+      "content": "import type * as React from \"react\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n/** Alert classes. Layout is Tailwind here; the care-label look is in styles/alert.css. */\nconst alertVariants = cva(\n  \"tx-alert relative grid w-full gap-y-1 px-4 py-3.5 text-sm has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-3 has-data-[slot=alert-action]:pr-28 [&>svg]:row-span-2 [&>svg]:translate-y-0.5 [&>svg:not([data-slot=stitch])]:size-[18px]\",\n  {\n    variants: {\n      variant: {\n        default: \"\",\n        destructive: \"tx-alert-destructive\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  },\n)\n\n/**\n * A notice sewn on like a garment care label. Same API as shadcn's Alert.\n * `destructive` is a rust patch, for errors.\n *\n * @example\n * <Alert>\n *   <InfoIcon />\n *   <AlertTitle>Free repairs</AlertTitle>\n *   <AlertDescription>Send them back any time.</AlertDescription>\n * </Alert>\n */\nfunction Alert({ className, variant = \"default\", children, ...props }: React.ComponentProps<\"div\"> & VariantProps<typeof alertVariants>) {\n  return (\n    <div data-slot=\"alert\" data-variant={variant} role=\"alert\" className={cn(alertVariants({ variant }), className)} {...props}>\n      <Stitch />\n      {children}\n    </div>\n  )\n}\n\nfunction AlertTitle({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-title\"\n      className={cn(\"tx-alert-title font-bold [&_a]:underline [&_a]:underline-offset-3\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction AlertDescription({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"alert-description\"\n      className={cn(\"tx-alert-description [&_a]:underline [&_a]:underline-offset-3\", className)}\n      {...props}\n    />\n  )\n}\n\n/** A button or link in the top-right corner of the label. */\nfunction AlertAction({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"alert-action\" className={cn(\"tx-alert-action absolute top-2.5 right-3\", className)} {...props} />\n}\n\nexport { Alert, AlertTitle, AlertDescription, AlertAction }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-alert": {
+        "--_stitch": "var(--tx-field-border)",
+        "--_inset": "5px",
+        "--_radius": "calc(var(--tx-radius) - 4px)",
+        "--_thread": "var(--tx-thread-width)",
+        "border-radius": "var(--_radius)",
+        "background-color": "var(--tx-field)",
+        "color": "var(--tx-field-foreground)",
+        "box-shadow": "0 2px 0 rgb(0 0 0 / 0.2)"
+      },
+      ".tx-alert-title": {
+        "font-family": "var(--tx-font-heading)"
+      },
+      ".tx-alert-destructive": {
+        "--_stitch": "color-mix(in srgb, #fff 80%, var(--tx-patch-destructive))",
+        "background-color": "var(--tx-patch-destructive)",
+        "color": "var(--tx-patch-destructive-foreground)",
+        "box-shadow": "0 2px 0 var(--tx-patch-destructive-edge)"
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-alert": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-alert-destructive": {
+          "border": "3px double CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

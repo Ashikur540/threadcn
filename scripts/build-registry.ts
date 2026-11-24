@@ -137,7 +137,8 @@ export function buildRegistry() {
       component("stitch", "Stitch", "The stitch line drawn inside a part's edge.", { needs: ["@threadcn/base"] }),
       component("button", "Button", "A sewn-on patch that sinks when pressed."),
       component("card", "Card", "A stitched piece of fabric. Puffy and quilted in dark mode."),
-      component("dialog", "Dialog", "A stitched card that floats over a dimmed page."),
+      styleOnly("modal", "Modal look", "The shared look of Dialog and Alert Dialog: a stitched card over a dimmed page."),
+      component("dialog", "Dialog", "A stitched card that floats over a dimmed page.", { needs: ["@threadcn/modal"] }),
       component("badge", "Badge", "A small woven label."),
       // Label and Separator draw no stitch, but they read the fabric tokens from base.
       component("label", "Label", "A field label in the fabric's text color.", { needs: ["@threadcn/base"] }),
@@ -154,6 +155,16 @@ export function buildRegistry() {
       component("tabs", "Tabs", "Sewn-on label tabs; the active tab is stitched onto its panel."),
       // Pocket card draws its own double stitch, so it needs only the tokens from base.
       component("pocket-card", "Pocket Card", "A jeans back pocket with double stitching, rivets and a hang tag.", { needs: ["@threadcn/base"] }),
+      component("toggle", "Toggle", "Plain fabric when off, a cream canvas patch sewn on when on."),
+      component("toggle-group", "Toggle Group", "A row of toggles that share a variant, size and spacing."),
+      component("alert", "Alert", "A notice sewn on like a garment care label."),
+      component("alert-dialog", "Alert Dialog", "A dialog that must be answered, in the stitched modal look.", { needs: ["@threadcn/modal"] }),
+      // Progress, Slider, Skeleton and Spinner draw no stitch, but read the fabric tokens.
+      component("progress", "Progress", "A recessed denim strap filled by a gold patch with a running thread.", { needs: ["@threadcn/base"] }),
+      component("slider", "Slider", "A denim strap with sewing-button thumbs.", { needs: ["@threadcn/base"] }),
+      component("skeleton", "Skeleton", "A basted fabric placeholder that pulses while content loads.", { needs: ["@threadcn/base"] }),
+      component("spinner", "Spinner", "A ring of stitches that turns while something loads.", { needs: ["@threadcn/base"] }),
+      component("toast", "Toast", "A small stitched card that slides in from the corner."),
     ],
   }
 

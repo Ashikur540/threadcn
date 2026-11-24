@@ -1,0 +1,45 @@
+/* Alert: a notice sewn on like a garment care label.
+ *
+ * Public tokens it reads: --tx-field*, --tx-patch-destructive*, --tx-radius,
+ *   --tx-font-heading
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ */
+@layer components {
+  /* Default: cream canvas with a brown stitch, like a care label. */
+  .tx-alert {
+    --_stitch: var(--tx-field-border);
+    --_inset: 5px;
+    --_radius: calc(var(--tx-radius) - 4px);
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 0.2);
+  }
+  .tx-alert-title {
+    font-family: var(--tx-font-heading);
+  }
+
+  /* ---- Variants ---- */
+
+  .tx-alert-destructive {
+    --_stitch: color-mix(in srgb, #fff 80%, var(--tx-patch-destructive));
+    background-color: var(--tx-patch-destructive);
+    color: var(--tx-patch-destructive-foreground);
+    box-shadow: 0 2px 0 var(--tx-patch-destructive-edge);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-alert {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-alert-destructive {
+      border: 3px double CanvasText;
+    }
+  }
+}

@@ -14,6 +14,7 @@ import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader,
 
 import { DialogDemo } from "./dialog-demo"
 import { PopupsDemo } from "./popups-demo"
+import { FeedbackDemo, ToggleDemo } from "./wave1-demo"
 import { ThemeToggle } from "./theme-toggle"
 
 const variants = ["default", "secondary", "destructive", "leather", "outline", "ghost", "link"] as const
@@ -244,6 +245,14 @@ export default function Home() {
             <Button>Add to bag</Button>
           </PocketCardFooter>
         </PocketCard>
+      </Section>
+
+      <Section title="Toggle and Toggle Group">
+        <ToggleDemo />
+      </Section>
+
+      <Section title="Feedback: Alert, Toast, Alert Dialog, Progress, Slider, Skeleton, Spinner">
+        <FeedbackDemo />
       </Section>
 
       <Section title="Dialog">

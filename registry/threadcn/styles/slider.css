@@ -1,0 +1,55 @@
+/* Slider: a denim strap with sewing-button thumbs.
+ *
+ * Public tokens it reads: --tx-patch*, --tx-rivet*, --tx-ring
+ * The thumb is the same four-hole sewing button as the Switch thumb.
+ * Base UI sets data-dragging, data-disabled and data-orientation.
+ */
+@layer components {
+  .tx-slider-track {
+    background-color: var(--tx-patch-secondary);
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.45);
+  }
+  .tx-slider-range {
+    background-color: var(--tx-patch);
+    box-shadow: inset 0 -2px 0 var(--tx-patch-edge);
+  }
+  .tx-slider-thumb {
+    background:
+      radial-gradient(circle at 38% 38%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),
+      radial-gradient(circle at 62% 38%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),
+      radial-gradient(circle at 38% 62%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),
+      radial-gradient(circle at 62% 62%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),
+      radial-gradient(circle, var(--tx-rivet-light) 55%, color-mix(in srgb, var(--tx-rivet-light) 70%, var(--tx-rivet)) 100%);
+    box-shadow: 0 2px 3px rgb(0 0 0 / 0.45);
+    transition: scale 140ms ease-out;
+  }
+  /* The button squishes a little while you drag it. */
+  .tx-slider-thumb[data-dragging] {
+    scale: 0.9;
+  }
+  /* The thumb holds a hidden input; ring the thumb when that input has keyboard focus. */
+  .tx-slider-thumb:has(:focus-visible) {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-slider-thumb {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-slider-track {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-slider-range,
+    :root .tx-slider-thumb {
+      forced-color-adjust: none;
+      background: CanvasText;
+    }
+  }
+}

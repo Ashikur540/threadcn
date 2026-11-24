@@ -1,0 +1,82 @@
+/* Toggle: plain fabric when off, a leather patch sewn on when on.
+ * Toggle Group items use this same look.
+ *
+ * Leather is the "on" signal for every on/off control (Checkbox, Radio,
+ * Toggle). The cream canvas turns dark navy in dark mode, so it can't carry
+ * an on/off state there.
+ *
+ * Public tokens it reads: --tx-leather*, --tx-thread, --tx-ring, --tx-radius,
+ *   --tx-font-patch
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * Base UI sets data-pressed and data-disabled.
+ */
+@layer components {
+  .tx-toggle {
+    --_stitch: transparent;
+    --_inset: 4px;
+    --_radius: calc(var(--tx-radius) - 4px);
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    color: inherit;
+    font-family: var(--tx-font-patch);
+    transition:
+      background-color 150ms ease-out,
+      color 150ms ease-out,
+      box-shadow 150ms ease-out;
+  }
+  .tx-toggle > [data-slot="stitch"] rect {
+    transition: stroke 150ms ease-out;
+  }
+
+  /* ---- Variants and sizes ---- */
+
+  .tx-toggle-outline {
+    --_stitch: var(--tx-thread);
+  }
+  .tx-toggle-sm {
+    --_inset: 3px;
+    --_radius: calc(var(--tx-radius) - 6px);
+  }
+
+  /* ---- States: hover, on, focus, disabled ---- */
+
+  .tx-toggle:hover:where(:not([data-pressed], [data-disabled])) {
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
+  }
+  /* On: a leather patch with its edge underneath, like a checked Checkbox. */
+  .tx-toggle[data-pressed] {
+    --_stitch: var(--tx-thread);
+    background-color: var(--tx-leather);
+    color: var(--tx-leather-foreground);
+    box-shadow: 0 2px 0 var(--tx-leather-edge);
+  }
+  /* An outline, not a shadow: shadow-* classes can't erase it. */
+  .tx-toggle:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-toggle[data-disabled] {
+    opacity: 0.5;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-toggle,
+    :root .tx-toggle > [data-slot="stitch"] rect {
+      transition: none;
+    }
+  }
+  /* High contrast: "on" gets a thick border, since fills are recolored. */
+  @media (forced-colors: active) {
+    :root .tx-toggle {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-toggle[data-pressed] {
+      border-width: 3px;
+    }
+  }
+}

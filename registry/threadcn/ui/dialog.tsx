@@ -8,7 +8,8 @@ import { Button } from "@/registry/threadcn/ui/button"
 import { Stitch } from "@/registry/threadcn/ui/stitch"
 
 // Same parts and API as shadcn's Base UI Dialog. Base UI handles focus,
-// Escape and screen-reader labels; the look is in styles/dialog.css.
+// Escape and screen-reader labels; the look is in styles/modal.css,
+// shared with Alert Dialog.
 
 function Dialog({ ...props }: DialogPrimitive.Root.Props) {
   return <DialogPrimitive.Root data-slot="dialog" {...props} />
@@ -30,7 +31,7 @@ function DialogOverlay({ className, ...props }: Omit<DialogPrimitive.Backdrop.Pr
   return (
     <DialogPrimitive.Backdrop
       data-slot="dialog-overlay"
-      className={cn("tx-dialog-overlay fixed inset-0 isolate z-50", className)}
+      className={cn("tx-modal-overlay fixed inset-0 isolate z-50", className)}
       {...props}
     />
   )
@@ -56,7 +57,7 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "tx-dialog-content fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-3.5 p-6 sm:max-w-md",
+          "tx-modal fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-3.5 p-6 sm:max-w-md",
           className,
         )}
         {...props}
@@ -113,14 +114,14 @@ function DialogTitle({ className, ...props }: Omit<DialogPrimitive.Title.Props, 
   return (
     <DialogPrimitive.Title
       data-slot="dialog-title"
-      className={cn("tx-dialog-title text-[21px] leading-tight font-bold", className)}
+      className={cn("tx-modal-title text-[21px] leading-tight font-bold", className)}
       {...props}
     />
   )
 }
 
 function DialogDescription({ className, ...props }: Omit<DialogPrimitive.Description.Props, "className"> & { className?: string }) {
-  return <DialogPrimitive.Description data-slot="dialog-description" className={cn("tx-dialog-description text-sm", className)} {...props} />
+  return <DialogPrimitive.Description data-slot="dialog-description" className={cn("tx-modal-description text-sm", className)} {...props} />
 }
 
 export {

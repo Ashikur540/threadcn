@@ -1,0 +1,72 @@
+/* Toast: a small stitched card that slides in from the corner.
+ *
+ * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-thread,
+ *   --tx-invalid, --tx-ring, --tx-radius, --tx-muted-foreground
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * Base UI sets data-type ("success", "error", …), data-expanded,
+ * data-starting-style and data-ending-style.
+ */
+@layer components {
+  .tx-toast {
+    --_stitch: var(--tx-thread);
+    --_inset: 6px;
+    --_radius: var(--tx-radius);
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    background-color: var(--tx-surface);
+    background-image: var(--tx-card-sheen);
+    color: var(--tx-surface-foreground);
+    box-shadow:
+      var(--tx-card-shadow),
+      0 10px 24px rgb(0 0 0 / 0.35);
+    transition:
+      transform 500ms cubic-bezier(0.22, 1, 0.36, 1),
+      opacity 500ms,
+      height 150ms;
+  }
+  .tx-toast-content {
+    transition: opacity 250ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .tx-toast-description {
+    color: var(--tx-muted-foreground);
+  }
+
+  /* ---- Types ---- */
+
+  /* An error toast is stitched and marked in the error color. */
+  .tx-toast[data-type="error"] {
+    --_stitch: var(--tx-invalid);
+  }
+  .tx-toast[data-type="error"] .tx-toast-icon {
+    color: var(--tx-invalid);
+  }
+
+  /* ---- States ---- */
+
+  /* An outline, not a shadow: shadow-* classes can't erase it. */
+  .tx-toast:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  /* Reduced motion: toasts appear and leave in place, without sliding. */
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-toast,
+    :root .tx-toast-content {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-toast {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-toast[data-type="error"] {
+      border: 3px double CanvasText;
+    }
+  }
+}
