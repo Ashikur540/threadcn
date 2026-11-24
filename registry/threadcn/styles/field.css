@@ -1,0 +1,62 @@
+/* Field: the cream canvas look shared by Input, Textarea and the Select trigger.
+ *
+ * Public tokens it reads: --tx-field*, --tx-invalid-edge, --tx-ring,
+ *   --tx-radius, --tx-thread-width, --tx-focus-ring
+ *
+ * An <input> can't hold <Stitch />, so fields stitch with a dashed outline.
+ */
+@layer components {
+  .tx-field {
+    border: 0;
+    border-radius: calc(var(--tx-radius) - 4px);
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+    outline: var(--tx-thread-width) dashed var(--tx-field-border);
+    outline-offset: -5px;
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.14);
+    transition:
+      outline-color 120ms,
+      box-shadow 120ms;
+  }
+  /* 70% keeps the hint lighter than typed text but readable (the contrast test checks it). */
+  .tx-field::placeholder {
+    color: color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field));
+  }
+
+  /* ---- States: hover, focus, error, disabled ---- */
+
+  .tx-field:hover:not(:disabled, [data-disabled]) {
+    outline-color: var(--tx-field-foreground);
+  }
+  /* The stitch turns solid and thicker, plus the gold ring outside.
+     If a shadow-* class removes the ring, the thick stitch still shows focus. */
+  .tx-field:is(:focus-visible, [data-popup-open]) {
+    outline: 2px solid var(--tx-field-foreground);
+    box-shadow:
+      inset 0 2px 3px rgb(0 0 0 / 0.14),
+      var(--tx-focus-ring);
+  }
+  .tx-field:is([aria-invalid="true"], [data-invalid]) {
+    outline: 2px solid var(--tx-invalid-edge);
+  }
+  .tx-field:is(:disabled, [data-disabled]) {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-field {
+      transition: none;
+    }
+  }
+  /* High-contrast mode drops shadows, so focus and errors use a thicker outline. */
+  @media (forced-colors: active) {
+    :root .tx-field:is(:focus-visible, [aria-invalid="true"], [data-invalid]) {
+      outline-width: 3px;
+    }
+  }
+}

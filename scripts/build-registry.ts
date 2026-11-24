@@ -81,6 +81,11 @@ export function importsOf(source: string) {
   return { dependencies: [...dependencies], registryDependencies: [...registryDependencies] }
 }
 
+/** A CSS-only item shared by several components, like the field look. */
+function styleOnly(name: string, title: string, description: string): RegistryItem {
+  return { name, type: "registry:item", title, description, dependencies: [], registryDependencies: ["@threadcn/base"], css: style(name) }
+}
+
 /** One installable component: ui/<name>.tsx plus styles/<name>.css when it exists. */
 function component(name: string, title: string, description: string, extra: { needs?: string[] } = {}): RegistryItem {
   const path = `${UI}/${name}.tsx`
@@ -138,6 +143,9 @@ export function buildRegistry() {
       component("label", "Label", "A field label in the fabric's text color.", { needs: ["@threadcn/base"] }),
       component("separator", "Separator", "A line of thread between two blocks.", { needs: ["@threadcn/base"] }),
       component("patch", "Patch", "A sewn-on brand patch: leather label or round denim patch."),
+      styleOnly("field", "Field look", "The cream canvas look shared by Input, Textarea and the Select trigger."),
+      component("input", "Input", "A text field on cream canvas.", { needs: ["@threadcn/field"] }),
+      component("textarea", "Textarea", "A multi-line text field on cream canvas.", { needs: ["@threadcn/field"] }),
     ],
   }
 

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "input",
+  "title": "Input",
+  "description": "A text field on cream canvas.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/field"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/input.tsx",
+      "content": "import type * as React from \"react\"\nimport { Input as InputPrimitive } from \"@base-ui/react/input\"\nimport { cn } from \"cn\"\n\n/**\n * A text field on cream canvas. Same API as shadcn's Input.\n * Mark an error with aria-invalid=\"true\". The look is in styles/field.css,\n * shared with Textarea and the Select trigger.\n *\n * @example\n * <Input type=\"email\" placeholder=\"you@studio.dev\" />\n */\nfunction Input({ className, type, ...props }: React.ComponentProps<\"input\">) {\n  return (\n    <InputPrimitive\n      type={type}\n      data-slot=\"input\"\n      className={cn(\n        \"tx-field min-h-11 w-full min-w-0 px-3.5 py-2.5 text-[15px] leading-[1.4] file:inline-flex file:border-0 file:bg-transparent disabled:pointer-events-none\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Input }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,8 +1,10 @@
 import { Badge } from "@/registry/threadcn/ui/badge"
 import { Button } from "@/registry/threadcn/ui/button"
+import { Input } from "@/registry/threadcn/ui/input"
 import { Label } from "@/registry/threadcn/ui/label"
 import { Patch, PatchDot } from "@/registry/threadcn/ui/patch"
 import { Separator } from "@/registry/threadcn/ui/separator"
+import { Textarea } from "@/registry/threadcn/ui/textarea"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 
 import { DialogDemo } from "./dialog-demo"
@@ -117,7 +119,7 @@ export default function Home() {
         <div className="grid max-w-sm gap-4">
           <div className="grid gap-1.5">
             <Label htmlFor="demo-email">Email</Label>
-            <input id="demo-email" placeholder="you@studio.dev" className="rounded-md bg-(--tx-field) px-3 py-2 text-(--tx-field-foreground)" />
+            <Input id="demo-email" type="email" placeholder="you@studio.dev" />
           </div>
           <Separator />
           <div className="flex h-12 items-center gap-4 text-sm">
@@ -126,6 +128,28 @@ export default function Home() {
             <span>Wash</span>
             <Separator orientation="vertical" />
             <span>Repairs</span>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Input and Textarea">
+        <div className="grid max-w-2xl gap-5 sm:grid-cols-2">
+          <div className="grid gap-1.5">
+            <Label htmlFor="f-name">Name</Label>
+            <Input id="f-name" defaultValue="Rafi" />
+          </div>
+          <div className="grid gap-1.5">
+            <Label htmlFor="f-email">Email</Label>
+            <Input id="f-email" aria-invalid="true" aria-describedby="f-email-error" defaultValue="rafi@indigo" />
+            <p id="f-email-error" className="text-[13px] text-(--tx-invalid)">Add the part after the dot, like .shop</p>
+          </div>
+          <div className="grid gap-1.5">
+            <Label htmlFor="f-off">Order number</Label>
+            <Input id="f-off" disabled defaultValue="IND-2041" />
+          </div>
+          <div className="grid gap-1.5 sm:col-span-2">
+            <Label htmlFor="f-notes">Repair notes</Label>
+            <Textarea id="f-notes" placeholder="Where is the tear?" />
           </div>
         </div>
       </Section>

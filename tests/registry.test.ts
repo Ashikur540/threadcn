@@ -85,5 +85,14 @@ test("each item installs exactly the packages and threadcn parts its file import
     label: { deps: ["cn"], parts: ["@threadcn/base"], css: false },
     separator: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
     patch: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
+    field: { deps: [], parts: ["@threadcn/base"], css: true },
+    input: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/field"], css: false },
+    textarea: { deps: ["cn"], parts: ["@threadcn/field"], css: false },
   })
+})
+
+test("the field placeholder uses the same blend the contrast test measures", () => {
+  const pair = denim.pairs.find((p) => typeof p.fg === "object" && p.fg.mix[0] === "field-foreground")
+  expect(pair).toEqual({ fg: { mix: ["field-foreground", "field", 0.7] }, bg: "field", min: 4.5 })
+  expect(readFileSync("registry/threadcn/styles/field.css", "utf8")).toContain("color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))")
 })
