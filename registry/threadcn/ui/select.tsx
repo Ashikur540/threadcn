@@ -8,7 +8,7 @@ import { Stitch } from "@/registry/threadcn/ui/stitch"
 
 // Same parts and API as shadcn's Base UI Select. Base UI handles the keyboard,
 // typeahead and screen-reader roles. The trigger wears the shared field look
-// (styles/field.css); the list is in styles/select.css.
+// (styles/canvas.css); the list is in styles/select.css.
 
 type WithClassName<T> = Omit<T, "className"> & { className?: string }
 
@@ -36,7 +36,7 @@ function SelectTrigger({
       data-slot="select-trigger"
       data-size={size}
       className={cn(
-        "tx-field tx-select-trigger flex w-fit min-w-0 cursor-pointer items-center justify-between gap-2.5 text-left whitespace-nowrap data-[size=default]:min-h-11 data-[size=default]:px-3.5 data-[size=default]:py-2.5 data-[size=default]:text-[15px] data-[size=sm]:min-h-9 data-[size=sm]:px-3 data-[size=sm]:py-1.5 data-[size=sm]:text-sm",
+        "tx-canvas tx-select-trigger flex w-fit min-w-0 cursor-pointer items-center data-disabled:cursor-not-allowed justify-between gap-2.5 text-left whitespace-nowrap data-[size=default]:min-h-11 data-[size=default]:px-3.5 data-[size=default]:py-2.5 data-[size=default]:text-[15px] data-[size=sm]:min-h-9 data-[size=sm]:px-3 data-[size=sm]:py-1.5 data-[size=sm]:text-sm",
         className,
       )}
       {...props}
@@ -88,7 +88,7 @@ function SelectContent({
         >
           <Stitch />
           <SelectScrollUpButton />
-          <SelectPrimitive.List className="min-h-0 overflow-y-auto">{children}</SelectPrimitive.List>
+          <SelectPrimitive.List className="relative min-h-0 overflow-y-auto">{children}</SelectPrimitive.List>
           <SelectScrollDownButton />
         </SelectPrimitive.Popup>
       </SelectPrimitive.Positioner>
@@ -135,9 +135,11 @@ function SelectScrollUpButton({ className, ...props }: WithClassName<React.Compo
   return (
     <SelectPrimitive.ScrollUpArrow
       data-slot="select-scroll-up-button"
-      className={cn("tx-select-scroll tx-select-scroll-up flex h-6 w-full shrink-0 items-center justify-center", className)}
+      className={cn("tx-select-scroll tx-select-scroll-up top-0 z-[1] flex h-6 w-full items-center justify-center", className)}
       {...props}
-    />
+    >
+      {null /* empty on purpose: the chevron is drawn in CSS, and Base UI would add a "▲" */}
+    </SelectPrimitive.ScrollUpArrow>
   )
 }
 
@@ -145,9 +147,11 @@ function SelectScrollDownButton({ className, ...props }: WithClassName<React.Com
   return (
     <SelectPrimitive.ScrollDownArrow
       data-slot="select-scroll-down-button"
-      className={cn("tx-select-scroll flex h-6 w-full shrink-0 items-center justify-center", className)}
+      className={cn("tx-select-scroll bottom-0 z-[1] flex h-6 w-full items-center justify-center", className)}
       {...props}
-    />
+    >
+      {null /* empty on purpose: the chevron is drawn in CSS, and Base UI would add a "▼" */}
+    </SelectPrimitive.ScrollDownArrow>
   )
 }
 

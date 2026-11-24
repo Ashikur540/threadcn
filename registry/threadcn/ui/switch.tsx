@@ -24,7 +24,7 @@ function Switch({
     <SwitchPrimitive.Root
       data-slot="switch"
       data-size={size}
-      className={cn("tx-switch peer relative inline-flex shrink-0 cursor-pointer items-center rounded-full", className)}
+      className={cn("tx-switch peer relative inline-flex shrink-0 cursor-pointer items-center rounded-full data-disabled:cursor-not-allowed", className)}
       {...props}
     >
       <Stitch />

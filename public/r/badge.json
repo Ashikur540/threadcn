@@ -43,7 +43,7 @@
       },
       ".tx-badge-outline, .tx-badge-ghost, .tx-badge-link": {
         "--_bg": "transparent",
-        "--_fg": "var(--tx-surface-foreground)",
+        "--_fg": "currentColor",
         "box-shadow": "none"
       },
       ".tx-badge-outline": {

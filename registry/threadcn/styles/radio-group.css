@@ -70,6 +70,7 @@
       border: 1px solid CanvasText;
     }
     :root .tx-radio-group-indicator {
+      forced-color-adjust: none;
       background-color: CanvasText;
     }
   }

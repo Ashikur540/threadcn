@@ -211,7 +211,10 @@ export default function Home() {
                   <TabsTrigger value="sizing">Sizing</TabsTrigger>
                   <TabsTrigger value="reviews" disabled>Reviews</TabsTrigger>
                 </TabsList>
-                <TabsContent value="details">Raw selvedge denim, 14 oz cotton. Fades to your shape in about 6 months.</TabsContent>
+                <TabsContent value="details" className="grid gap-3">
+                  Raw selvedge denim, 14 oz cotton. Fades to your shape in about 6 months.
+                  <Label><Checkbox /> Tell me when 32 is back</Label>
+                </TabsContent>
                 <TabsContent value="sizing">True to size. Size down for a slim fit.</TabsContent>
               </Tabs>
             </div>

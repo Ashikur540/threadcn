@@ -105,6 +105,7 @@
       border: 1px solid CanvasText;
     }
     :root .tx-switch-thumb {
+      forced-color-adjust: none;
       background: CanvasText;
     }
   }

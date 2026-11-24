@@ -14,7 +14,7 @@
   "files": [
     {
       "path": "registry/threadcn/ui/tabs.tsx",
-      "content": "\"use client\"\n\nimport { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// Same parts and API as shadcn's Base UI Tabs. Base UI handles arrow keys and\n// screen-reader roles. The look is in styles/tabs.css.\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\n/**\n * Sewn-on label tabs. The active tab is stitched onto its panel.\n *\n * @example\n * <Tabs defaultValue=\"details\">\n *   <TabsList variant=\"leather\">\n *     <TabsTrigger value=\"details\">Details</TabsTrigger>\n *     <TabsTrigger value=\"care\">Care</TabsTrigger>\n *   </TabsList>\n *   <TabsContent value=\"details\">Raw selvedge denim.</TabsContent>\n *   <TabsContent value=\"care\">Wash inside out.</TabsContent>\n * </Tabs>\n */\nfunction Tabs({ className, orientation = \"horizontal\", ...props }: WithClassName<TabsPrimitive.Root.Props>) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      data-orientation={orientation}\n      orientation={orientation}\n      className={cn(\"tx-tabs flex data-[orientation=horizontal]:flex-col data-[orientation=vertical]:gap-3\", className)}\n      {...props}\n    />\n  )\n}\n\nconst tabsListVariants = cva(\n  \"tx-tabs-list relative z-[1] flex flex-wrap gap-2 data-[orientation=horizontal]:items-end data-[orientation=horizontal]:px-2.5 data-[orientation=vertical]:flex-col\",\n  {\n    variants: {\n      // default: sewn-on tabs with a soft thread seam\n      // line:    flat tabs with a thread underline (shadcn's \"line\")\n      // leather: the active tab is a leather strap folded over the panel\n      variant: {\n        default: \"\",\n        line: \"tx-tabs-list-line\",\n        leather: \"tx-tabs-list-leather\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  },\n)\n\nfunction TabsList({ className, variant = \"default\", ...props }: WithClassName<TabsPrimitive.List.Props> & VariantProps<typeof tabsListVariants>) {\n  return <TabsPrimitive.List data-slot=\"tabs-list\" data-variant={variant} className={cn(tabsListVariants({ variant }), className)} {...props} />\n}\n\nfunction TabsTrigger({ className, children, ...props }: WithClassName<TabsPrimitive.Tab.Props>) {\n  return (\n    <TabsPrimitive.Tab\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"tx-tabs-trigger relative inline-flex cursor-pointer items-center justify-center gap-1.5 px-[18px] py-2.5 text-sm font-semibold whitespace-nowrap data-disabled:cursor-not-allowed [&_svg:not([data-slot=stitch])]:pointer-events-none [&_svg:not([data-slot=stitch])]:shrink-0\",\n        className,\n      )}\n      {...props}\n    >\n      <Stitch />\n      {children}\n    </TabsPrimitive.Tab>\n  )\n}\n\nfunction TabsContent({ className, children, ...props }: WithClassName<TabsPrimitive.Panel.Props>) {\n  return (\n    <TabsPrimitive.Panel data-slot=\"tabs-content\" className={cn(\"tx-tabs-content relative flex-1 p-[18px] text-sm\", className)} {...props}>\n      <Stitch />\n      {children}\n    </TabsPrimitive.Panel>\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }\n",
+      "content": "\"use client\"\n\nimport { Tabs as TabsPrimitive } from \"@base-ui/react/tabs\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// Same parts and API as shadcn's Base UI Tabs. Base UI handles arrow keys and\n// screen-reader roles. The look is in styles/tabs.css.\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\n/**\n * Sewn-on label tabs. The active tab is stitched onto its panel.\n *\n * @example\n * <Tabs defaultValue=\"details\">\n *   <TabsList variant=\"leather\">\n *     <TabsTrigger value=\"details\">Details</TabsTrigger>\n *     <TabsTrigger value=\"care\">Care</TabsTrigger>\n *   </TabsList>\n *   <TabsContent value=\"details\">Raw selvedge denim.</TabsContent>\n *   <TabsContent value=\"care\">Wash inside out.</TabsContent>\n * </Tabs>\n */\nfunction Tabs({ className, orientation = \"horizontal\", ...props }: WithClassName<TabsPrimitive.Root.Props>) {\n  return (\n    <TabsPrimitive.Root\n      data-slot=\"tabs\"\n      data-orientation={orientation}\n      orientation={orientation}\n      className={cn(\"tx-tabs flex data-[orientation=horizontal]:flex-col data-[orientation=vertical]:gap-3\", className)}\n      {...props}\n    />\n  )\n}\n\nconst tabsListVariants = cva(\n  \"tx-tabs-list relative z-[1] flex flex-wrap gap-2 data-[orientation=horizontal]:items-end data-[orientation=horizontal]:px-2.5 data-[orientation=vertical]:flex-col\",\n  {\n    variants: {\n      // default: sewn-on tabs with a soft thread seam\n      // line:    flat tabs with a thread underline (shadcn's \"line\")\n      // leather: the active tab is a leather strap folded over the panel\n      variant: {\n        default: \"\",\n        line: \"tx-tabs-list-line\",\n        leather: \"tx-tabs-list-leather\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  },\n)\n\nfunction TabsList({ className, variant = \"default\", ...props }: WithClassName<TabsPrimitive.List.Props> & VariantProps<typeof tabsListVariants>) {\n  return <TabsPrimitive.List data-slot=\"tabs-list\" data-variant={variant} className={cn(tabsListVariants({ variant }), className)} {...props} />\n}\n\nfunction TabsTrigger({ className, children, ...props }: WithClassName<TabsPrimitive.Tab.Props>) {\n  return (\n    <TabsPrimitive.Tab\n      data-slot=\"tabs-trigger\"\n      className={cn(\n        \"tx-tabs-trigger relative inline-flex cursor-pointer items-center justify-center gap-1.5 text-sm font-semibold whitespace-nowrap data-disabled:cursor-not-allowed [&_svg:not([data-slot=stitch])]:pointer-events-none [&_svg:not([data-slot=stitch])]:shrink-0\",\n        className,\n      )}\n      {...props}\n    >\n      <Stitch />\n      {children}\n    </TabsPrimitive.Tab>\n  )\n}\n\nfunction TabsContent({ className, children, ...props }: WithClassName<TabsPrimitive.Panel.Props>) {\n  return (\n    <TabsPrimitive.Panel data-slot=\"tabs-content\" className={cn(\"tx-tabs-content relative flex-1 text-sm\", className)} {...props}>\n      <Stitch />\n      {children}\n    </TabsPrimitive.Panel>\n  )\n}\n\nexport { Tabs, TabsList, TabsTrigger, TabsContent, tabsListVariants }\n",
       "type": "registry:ui"
     }
   ],
@@ -25,6 +25,7 @@
         "--_inset": "5px",
         "--_radius": "9px",
         "--_thread": "var(--tx-thread-width)",
+        "padding": "10px 18px",
         "border-radius": "14px 14px 6px 6px",
         "background-color": "var(--tx-patch-secondary)",
         "color": "var(--tx-patch-secondary-foreground)",
@@ -41,6 +42,7 @@
         "--_stitch": "var(--tx-field-border)",
         "--_inset": "7px",
         "--_radius": "var(--tx-radius)",
+        "padding": "18px",
         "border-radius": "var(--_radius)",
         "background-color": "var(--tx-field)",
         "color": "var(--tx-field-foreground)"
@@ -119,6 +121,18 @@
         "left": "12px",
         "border-top": "2px dashed var(--tx-thread)",
         "filter": "none"
+      },
+      ".tx-tabs-list-line .tx-tabs-trigger:hover": {
+        "background-color": "transparent"
+      },
+      ".tx-tabs-list-line .tx-tabs-trigger[data-orientation=\"vertical\"][data-active]::after": {
+        "content": "\"\"",
+        "position": "absolute",
+        "top": "8px",
+        "bottom": "8px",
+        "left": "0",
+        "border-left": "2px dashed var(--tx-thread)",
+        "pointer-events": "none"
       },
       ".tx-tabs-list-line ~ .tx-tabs-content": {
         "margin-top": "10px"

@@ -12,6 +12,8 @@ const delivery = [
   { label: "Bicycle courier", value: "courier" },
 ]
 
+const countries = ["Australia", "Bangladesh", "Belgium", "Brazil", "Canada", "Denmark", "Egypt", "Finland", "France", "Germany", "India", "Ireland", "Italy", "Japan", "Kenya", "Mexico", "Nepal", "Norway", "Portugal", "Spain", "Sweden"]
+
 export function PopupsDemo() {
   return (
     <TooltipProvider>
@@ -42,6 +44,18 @@ export function PopupsDemo() {
             {delivery.map((d) => (
               <SelectItem key={d.value} value={d.value}>
                 {d.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Select items={countries.map((c) => ({ label: c, value: c }))}>
+          <SelectTrigger aria-label="Country" className="w-56">
+            <SelectValue placeholder="Ship to country" />
+          </SelectTrigger>
+          <SelectContent className="max-h-72">
+            {countries.map((c) => (
+              <SelectItem key={c} value={c}>
+                {c}
               </SelectItem>
             ))}
           </SelectContent>

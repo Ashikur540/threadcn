@@ -8,7 +8,7 @@ test("Input is a plain input with the shared field look", () => {
   expect(input.tagName).toBe("INPUT")
   expect(input).toHaveAttribute("type", "email")
   expect(input).toHaveAttribute("data-slot", "input")
-  expect(input).toHaveClass("tx-field", "max-w-xs")
+  expect(input).toHaveClass("tx-canvas", "max-w-xs")
 })
 
 test("Input passes aria-invalid and disabled through", () => {
@@ -23,5 +23,5 @@ test("Textarea shares the field look", () => {
   const area = screen.getByPlaceholderText("Where is the tear?")
   expect(area.tagName).toBe("TEXTAREA")
   expect(area).toHaveAttribute("data-slot", "textarea")
-  expect(area).toHaveClass("tx-field")
+  expect(area).toHaveClass("tx-canvas")
 })

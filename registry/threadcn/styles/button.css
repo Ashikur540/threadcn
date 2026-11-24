@@ -63,12 +63,13 @@
     background-size: 3px 3px, 5px 5px;
     text-shadow: 0 -1px 0 rgb(0 0 0 / 0.45);
   }
-  /* Flat buttons sit on the fabric: no patch, no lift, no shadow. */
+  /* Flat buttons have no patch, lift or shadow. Their text takes the color of
+     whatever they sit on: denim, card or cream panel. */
   .tx-button-outline,
   .tx-button-ghost,
   .tx-button-link {
     --_bg: transparent;
-    --_fg: var(--tx-surface-foreground);
+    --_fg: currentColor;
     --_edge: transparent;
     --_lift: 0px;
     --_shadow: transparent;
@@ -106,7 +107,7 @@
     background-color: color-mix(in srgb, var(--_bg) 85%, var(--_edge));
   }
   .tx-button:is(.tx-button-outline, .tx-button-ghost):hover:not(:disabled, [data-disabled]) {
-    background-color: color-mix(in srgb, var(--tx-surface-foreground) 10%, transparent);
+    background-color: color-mix(in srgb, currentColor 10%, transparent);
     --_stitch: var(--tx-thread);
   }
   .tx-button-link:hover:not(:disabled, [data-disabled]) {

@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync } from "node:fs"
 import { denim } from "@/registry/threadcn/fabrics/denim"
 import { buildRegistry } from "@/scripts/build-registry"
 
@@ -45,8 +45,8 @@ test("rules inside @media start with :root, so they win after the CLI reorders t
 test("the focus ring is an outline on :focus-visible, so shadow classes and high-contrast mode keep it", () => {
   const button = built.registry.items.find((i) => i.name === "button")!.css!["@layer components"] as Record<string, Record<string, string>>
   expect(button[".tx-button:focus-visible"]?.outline).toMatch(/var\(--tx-ring\)/)
-  for (const file of ["base", "button", "card", "dialog"]) {
-    expect(readFileSync(`registry/threadcn/styles/${file}.css`, "utf8"), file).not.toContain("--_ring")
+  for (const file of readdirSync("registry/threadcn/styles")) {
+    expect(readFileSync(`registry/threadcn/styles/${file}`, "utf8"), file).not.toContain("--_ring")
   }
   for (const file of ["button", "dialog"]) {
     expect(readFileSync(`registry/threadcn/ui/${file}.tsx`, "utf8"), file).not.toMatch(/\boutline-(none|hidden)\b/)
@@ -85,13 +85,13 @@ test("each item installs exactly the packages and threadcn parts its file import
     label: { deps: ["cn"], parts: ["@threadcn/base"], css: false },
     separator: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
     patch: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
-    field: { deps: [], parts: ["@threadcn/base"], css: true },
-    input: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/field"], css: false },
-    textarea: { deps: ["cn"], parts: ["@threadcn/field"], css: false },
+    canvas: { deps: [], parts: ["@threadcn/base"], css: true },
+    input: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/canvas"], css: false },
+    textarea: { deps: ["cn"], parts: ["@threadcn/canvas"], css: false },
     checkbox: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     "radio-group": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     switch: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
-    select: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/field", "@threadcn/stitch"], css: true },
+    select: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/canvas", "@threadcn/stitch"], css: true },
     tooltip: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     tabs: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     "pocket-card": { deps: ["cn"], parts: ["@threadcn/base"], css: true },
@@ -101,7 +101,7 @@ test("each item installs exactly the packages and threadcn parts its file import
 test("the field placeholder uses the same blend the contrast test measures", () => {
   const pair = denim.pairs.find((p) => typeof p.fg === "object" && p.fg.mix[0] === "field-foreground")
   expect(pair).toEqual({ fg: { mix: ["field-foreground", "field", 0.7] }, bg: "field", min: 4.5 })
-  expect(readFileSync("registry/threadcn/styles/field.css", "utf8")).toContain("color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))")
+  expect(readFileSync("registry/threadcn/styles/canvas.css", "utf8")).toContain("color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))")
 })
 
 test("every item that animates also turns it off under reduced motion", () => {
@@ -125,4 +125,50 @@ test("the select marks the pick with a tick, and every divider uses one line sty
   expect(indicator).toContain("border-right: 2px solid var(--_mark)")
   expect(indicator).toContain("rotate: 45deg")
   expect(css).toContain(".tx-select-item + .tx-select-item,\n  .tx-select-separator {")
+})
+
+const ui = (name: string) => readFileSync(`registry/threadcn/ui/${name}.tsx`, "utf8")
+const styles = (name: string) => readFileSync(`registry/threadcn/styles/${name}.css`, "utf8")
+
+test("every Base UI part that ships a default glyph gets empty children", () => {
+  // Select.Icon "▼", ItemIndicator "✔️", ScrollArrow "▲"/"▼" (checked in Base UI 1.9)
+  const select = ui("select")
+  for (const part of ["Icon", "ItemIndicator", "ScrollUpArrow", "ScrollDownArrow"]) {
+    expect(select, part).toMatch(new RegExp(`<SelectPrimitive\\.${part}[^>]*>\\s*\\{null\\b`))
+  }
+})
+
+test("tab and panel padding lives in CSS, so the active tab can grow", () => {
+  expect(ui("tabs")).not.toMatch(/\b(py|p)-[\d[]/)
+})
+
+test("text on flat parts inherits its color, so it reads on denim and on cream", () => {
+  expect(ui("label")).not.toMatch(/text-\(--tx-/)
+  for (const name of ["button", "badge"]) expect(styles(name), name).not.toMatch(/--_fg: var\(--tx-surface-foreground\)/)
+})
+
+test("high-contrast mode keeps highlight, focus and error apart", () => {
+  expect(styles("select")).toMatch(/:root \.tx-select-item\[data-highlighted\] \{\s*forced-color-adjust: none;\s*background-color: Highlight;/)
+  expect(styles("canvas")).toMatch(/outline: 3px double/)
+  expect(styles("canvas")).toMatch(/outline-color: Highlight/)
+})
+
+test("hover never hides an error outline, and disabled toggles never show a pointer", () => {
+  expect(styles("canvas")).toContain(".tx-canvas:hover:where(:not(:disabled, [data-disabled]))")
+  for (const name of ["checkbox", "radio-group", "switch", "select"]) expect(ui(name), name).toContain("data-disabled:cursor-not-allowed")
+})
+
+test("line tabs mark the active tab in both orientations and stay flat on hover", () => {
+  const css = styles("tabs")
+  expect(css).toContain('.tx-tabs-list-line .tx-tabs-trigger[data-orientation="vertical"][data-active]::after')
+  expect(css).toContain(".tx-tabs-list-line .tx-tabs-trigger:hover")
+})
+
+test("a focused field keeps its dashed stitch (darker) and gets a gold ring on its edge", () => {
+  const css = styles("canvas")
+  const focus = css.slice(css.indexOf(".tx-canvas:is(:focus-visible, [data-popup-open]) {"))
+  const rule = focus.slice(0, focus.indexOf("}"))
+  expect(rule).toContain("outline-color: var(--tx-field-foreground)")
+  expect(rule).toContain("0 0 0 3px var(--tx-ring)")
+  expect(rule).not.toContain("solid")
 })

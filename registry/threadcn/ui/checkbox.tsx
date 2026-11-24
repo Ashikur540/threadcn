@@ -17,7 +17,7 @@ function Checkbox({ className, ...props }: Omit<CheckboxPrimitive.Root.Props, "c
   return (
     <CheckboxPrimitive.Root
       data-slot="checkbox"
-      className={cn("tx-checkbox peer relative grid size-[26px] shrink-0 cursor-pointer place-items-center", className)}
+      className={cn("tx-checkbox peer relative grid size-[26px] shrink-0 cursor-pointer place-items-center data-disabled:cursor-not-allowed", className)}
       {...props}
     >
       <Stitch />

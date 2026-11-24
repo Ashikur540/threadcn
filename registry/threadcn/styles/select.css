@@ -1,6 +1,6 @@
 /* Select: the open list is a stitched denim pocket.
  *
- * The trigger wears the shared field look (styles/field.css); only its
+ * The trigger wears the shared field look (styles/canvas.css); only its
  * chevron lives here.
  *
  * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-card-shadow,
@@ -90,7 +90,12 @@
   .tx-select-label {
     color: var(--tx-muted-foreground);
   }
-  /* Scroll arrows: a small chevron, up or down. */
+  /* Scroll arrows: a small chevron, up or down, on the pocket's own color so
+     they cover the items scrolling underneath. */
+  .tx-select-scroll {
+    background-color: var(--tx-surface);
+    color: var(--tx-surface-foreground);
+  }
   .tx-select-scroll::before {
     content: "";
     width: 7px;
@@ -116,8 +121,11 @@
     :root .tx-select-content {
       border: 1px solid CanvasText;
     }
+    /* The system highlight colors, kept as-is so the active option stands out. */
     :root .tx-select-item[data-highlighted] {
-      outline: 2px solid Highlight;
+      forced-color-adjust: none;
+      background-color: Highlight;
+      color: HighlightText;
     }
     :root .tx-select-item-indicator {
       border-color: CanvasText;

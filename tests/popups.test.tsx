@@ -29,7 +29,7 @@ test("the Select trigger wears the shared field look and shows the value", () =>
   render(<Delivery />)
   const trigger = screen.getByRole("combobox", { name: "Delivery" })
   expect(trigger).toHaveAttribute("data-slot", "select-trigger")
-  expect(trigger).toHaveClass("tx-field", "tx-select-trigger")
+  expect(trigger).toHaveClass("tx-canvas", "tx-select-trigger")
   expect(trigger).toHaveTextContent("Standard, 5 to 7 days")
 })
 

@@ -16,7 +16,7 @@ import { Stitch } from "@/registry/threadcn/ui/stitch"
  * </RadioGroup>
  */
 function RadioGroup({ className, ...props }: Omit<RadioGroupPrimitive.Props, "className"> & { className?: string }) {
-  return <RadioGroupPrimitive data-slot="radio-group" className={cn("tx-radio-group flex flex-wrap gap-4", className)} {...props} />
+  return <RadioGroupPrimitive data-slot="radio-group" className={cn("tx-radio-group grid gap-3", className)} {...props} />
 }
 
 /** One stitched round option. Turns to leather with a cream dot when picked. */
@@ -24,7 +24,7 @@ function RadioGroupItem({ className, ...props }: Omit<RadioPrimitive.Root.Props,
   return (
     <RadioPrimitive.Root
       data-slot="radio-group-item"
-      className={cn("tx-radio-group-item peer relative grid size-[26px] shrink-0 cursor-pointer place-items-center rounded-full", className)}
+      className={cn("tx-radio-group-item peer relative grid size-[26px] shrink-0 cursor-pointer place-items-center rounded-full data-disabled:cursor-not-allowed", className)}
       {...props}
     >
       <Stitch />

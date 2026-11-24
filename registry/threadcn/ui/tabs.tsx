@@ -64,7 +64,7 @@ function TabsTrigger({ className, children, ...props }: WithClassName<TabsPrimit
     <TabsPrimitive.Tab
       data-slot="tabs-trigger"
       className={cn(
-        "tx-tabs-trigger relative inline-flex cursor-pointer items-center justify-center gap-1.5 px-[18px] py-2.5 text-sm font-semibold whitespace-nowrap data-disabled:cursor-not-allowed [&_svg:not([data-slot=stitch])]:pointer-events-none [&_svg:not([data-slot=stitch])]:shrink-0",
+        "tx-tabs-trigger relative inline-flex cursor-pointer items-center justify-center gap-1.5 text-sm font-semibold whitespace-nowrap data-disabled:cursor-not-allowed [&_svg:not([data-slot=stitch])]:pointer-events-none [&_svg:not([data-slot=stitch])]:shrink-0",
         className,
       )}
       {...props}
@@ -77,7 +77,7 @@ function TabsTrigger({ className, children, ...props }: WithClassName<TabsPrimit
 
 function TabsContent({ className, children, ...props }: WithClassName<TabsPrimitive.Panel.Props>) {
   return (
-    <TabsPrimitive.Panel data-slot="tabs-content" className={cn("tx-tabs-content relative flex-1 p-[18px] text-sm", className)} {...props}>
+    <TabsPrimitive.Panel data-slot="tabs-content" className={cn("tx-tabs-content relative flex-1 text-sm", className)} {...props}>
       <Stitch />
       {children}
     </TabsPrimitive.Panel>
