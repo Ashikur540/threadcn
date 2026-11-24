@@ -25,7 +25,11 @@
         "--_radius": "13px",
         "--_thread": "var(--tx-thread-width)",
         "background-color": "var(--tx-field)",
-        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)"
+        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)",
+        "transition": "background-color 150ms ease-out,\n      box-shadow 150ms ease-out"
+      },
+      ".tx-radio-group-item > [data-slot=\"stitch\"] rect": {
+        "transition": "stroke 150ms ease-out"
       },
       ".tx-radio-group-item[data-checked]": {
         "--_stitch": "var(--tx-leather-foreground)",
@@ -33,7 +37,12 @@
         "box-shadow": "0 2px 0 var(--tx-leather-edge)"
       },
       ".tx-radio-group-indicator": {
-        "background-color": "var(--tx-leather-foreground)"
+        "background-color": "var(--tx-leather-foreground)",
+        "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+      },
+      ".tx-radio-group-indicator:is([data-starting-style], [data-ending-style])": {
+        "opacity": "0",
+        "scale": "0"
       },
       ".tx-radio-group-item:is([aria-invalid=\"true\"], [data-invalid])": {
         "outline": "2px solid var(--tx-invalid)",
@@ -46,6 +55,11 @@
       ".tx-radio-group-item[data-disabled]": {
         "opacity": "0.5",
         "cursor": "not-allowed"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-radio-group-item, :root .tx-radio-group-item > [data-slot=\"stitch\"] rect, :root .tx-radio-group-indicator": {
+          "transition": "none"
+        }
       },
       "@media (forced-colors: active)": {
         ":root .tx-radio-group-item": {

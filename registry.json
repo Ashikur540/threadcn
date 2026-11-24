@@ -686,7 +686,11 @@
             "--_thread": "var(--tx-thread-width)",
             "border-radius": "var(--_radius)",
             "background-color": "var(--tx-field)",
-            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)"
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)",
+            "transition": "background-color 150ms ease-out,\n      box-shadow 150ms ease-out"
+          },
+          ".tx-checkbox > [data-slot=\"stitch\"] rect": {
+            "transition": "stroke 150ms ease-out"
           },
           ".tx-checkbox:is([data-checked], [data-indeterminate])": {
             "--_stitch": "var(--tx-leather-foreground)",
@@ -699,7 +703,12 @@
             "margin-top": "-3px",
             "border-right": "2.5px solid var(--tx-leather-foreground)",
             "border-bottom": "2.5px solid var(--tx-leather-foreground)",
-            "transform": "rotate(45deg)"
+            "transform": "rotate(45deg)",
+            "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+          },
+          ".tx-checkbox-indicator:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0.4"
           },
           ".tx-checkbox[data-indeterminate] .tx-checkbox-indicator": {
             "width": "10px",
@@ -719,6 +728,11 @@
           ".tx-checkbox[data-disabled]": {
             "opacity": "0.5",
             "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-checkbox, :root .tx-checkbox > [data-slot=\"stitch\"] rect, :root .tx-checkbox-indicator": {
+              "transition": "none"
+            }
           },
           "@media (forced-colors: active)": {
             ":root .tx-checkbox": {
@@ -757,7 +771,11 @@
             "--_radius": "13px",
             "--_thread": "var(--tx-thread-width)",
             "background-color": "var(--tx-field)",
-            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)"
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)",
+            "transition": "background-color 150ms ease-out,\n      box-shadow 150ms ease-out"
+          },
+          ".tx-radio-group-item > [data-slot=\"stitch\"] rect": {
+            "transition": "stroke 150ms ease-out"
           },
           ".tx-radio-group-item[data-checked]": {
             "--_stitch": "var(--tx-leather-foreground)",
@@ -765,7 +783,12 @@
             "box-shadow": "0 2px 0 var(--tx-leather-edge)"
           },
           ".tx-radio-group-indicator": {
-            "background-color": "var(--tx-leather-foreground)"
+            "background-color": "var(--tx-leather-foreground)",
+            "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+          },
+          ".tx-radio-group-indicator:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0"
           },
           ".tx-radio-group-item:is([aria-invalid=\"true\"], [data-invalid])": {
             "outline": "2px solid var(--tx-invalid)",
@@ -778,6 +801,11 @@
           ".tx-radio-group-item[data-disabled]": {
             "opacity": "0.5",
             "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-radio-group-item, :root .tx-radio-group-item > [data-slot=\"stitch\"] rect, :root .tx-radio-group-indicator": {
+              "transition": "none"
+            }
           },
           "@media (forced-colors: active)": {
             ":root .tx-radio-group-item": {
@@ -939,11 +967,16 @@
             "--_radius": "8px",
             "--_thread": "1.2px"
           },
-          ".tx-select-item + .tx-select-item": {
-            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 50%, transparent) 0 5px, transparent 5px 9px)",
-            "background-position": "8px 0",
-            "background-size": "calc(100% - 16px) 1px",
+          ".tx-select-item + .tx-select-item, .tx-select-separator": {
+            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px)",
             "background-repeat": "no-repeat"
+          },
+          ".tx-select-item + .tx-select-item": {
+            "background-position": "8px 0",
+            "background-size": "calc(100% - 16px) 1px"
+          },
+          ".tx-select-separator": {
+            "background-size": "100% 1px"
           },
           ".tx-select-item[data-highlighted]": {
             "--_mark": "var(--tx-field-border)",
@@ -956,13 +989,17 @@
             "font-weight": "700"
           },
           ".tx-select-item-indicator": {
-            "background": "linear-gradient(45deg, transparent 40%, var(--_mark) 40% 60%, transparent 60%),\n      linear-gradient(-45deg, transparent 40%, var(--_mark) 40% 60%, transparent 60%)"
+            "top": "50%",
+            "left": "13px",
+            "width": "5px",
+            "height": "10px",
+            "margin-top": "-6px",
+            "border-right": "2px solid var(--_mark)",
+            "border-bottom": "2px solid var(--_mark)",
+            "rotate": "45deg"
           },
           ".tx-select-label": {
             "color": "var(--tx-muted-foreground)"
-          },
-          ".tx-select-separator": {
-            "border-top": "var(--tx-thread-width) dashed var(--tx-thread)"
           },
           ".tx-select-scroll::before": {
             "content": "\"\"",
@@ -988,7 +1025,7 @@
               "outline": "2px solid Highlight"
             },
             ":root .tx-select-item-indicator": {
-              "background": "CanvasText"
+              "border-color": "CanvasText"
             }
           }
         }

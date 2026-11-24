@@ -103,3 +103,26 @@ test("the field placeholder uses the same blend the contrast test measures", () 
   expect(pair).toEqual({ fg: { mix: ["field-foreground", "field", 0.7] }, bg: "field", min: 4.5 })
   expect(readFileSync("registry/threadcn/styles/field.css", "utf8")).toContain("color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))")
 })
+
+test("every item that animates also turns it off under reduced motion", () => {
+  for (const item of built.registry.items) {
+    const layer = (item.css?.["@layer components"] ?? {}) as Record<string, Record<string, string>>
+    const animates = Object.entries(layer).some(([key, rule]) => !key.startsWith("@") && "transition" in rule)
+    if (animates) expect(Object.keys(layer), item.name).toContain("@media (prefers-reduced-motion: reduce)")
+  }
+})
+
+test("checkbox and radio fade their marks in and out", () => {
+  for (const name of ["checkbox", "radio-group"]) {
+    const css = readFileSync(`registry/threadcn/styles/${name}.css`, "utf8")
+    expect(css, name).toMatch(/indicator:is\(\[data-starting-style\], \[data-ending-style\]\)/)
+  }
+})
+
+test("the select marks the pick with a tick, and every divider uses one line style", () => {
+  const css = readFileSync("registry/threadcn/styles/select.css", "utf8")
+  const indicator = css.slice(css.indexOf(".tx-select-item-indicator {"), css.indexOf("}", css.indexOf(".tx-select-item-indicator {")))
+  expect(indicator).toContain("border-right: 2px solid var(--_mark)")
+  expect(indicator).toContain("rotate: 45deg")
+  expect(css).toContain(".tx-select-item + .tx-select-item,\n  .tx-select-separator {")
+})

@@ -14,6 +14,12 @@
     border-radius: var(--_radius);
     background-color: var(--tx-field);
     box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.18);
+    transition:
+      background-color 150ms ease-out,
+      box-shadow 150ms ease-out;
+  }
+  .tx-checkbox > [data-slot="stitch"] rect {
+    transition: stroke 150ms ease-out;
   }
   .tx-checkbox:is([data-checked], [data-indeterminate]) {
     --_stitch: var(--tx-leather-foreground);
@@ -28,6 +34,15 @@
     border-right: 2.5px solid var(--tx-leather-foreground);
     border-bottom: 2.5px solid var(--tx-leather-foreground);
     transform: rotate(45deg);
+    transition:
+      opacity 150ms ease-out,
+      scale 150ms ease-out;
+  }
+  /* The tick pops in and out. Only opacity and scale move, which the
+     browser animates without redoing the page layout. */
+  .tx-checkbox-indicator:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 0.4;
   }
   /* Indeterminate shows a dash instead of a tick. */
   .tx-checkbox[data-indeterminate] .tx-checkbox-indicator {
@@ -58,6 +73,13 @@
      Selectors start with :root because the shadcn CLI moves @media blocks
      above the normal rules on install. :root keeps them winning. */
 
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-checkbox,
+    :root .tx-checkbox > [data-slot="stitch"] rect,
+    :root .tx-checkbox-indicator {
+      transition: none;
+    }
+  }
   @media (forced-colors: active) {
     :root .tx-checkbox {
       border: 1px solid CanvasText;

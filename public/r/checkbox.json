@@ -26,7 +26,11 @@
         "--_thread": "var(--tx-thread-width)",
         "border-radius": "var(--_radius)",
         "background-color": "var(--tx-field)",
-        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)"
+        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)",
+        "transition": "background-color 150ms ease-out,\n      box-shadow 150ms ease-out"
+      },
+      ".tx-checkbox > [data-slot=\"stitch\"] rect": {
+        "transition": "stroke 150ms ease-out"
       },
       ".tx-checkbox:is([data-checked], [data-indeterminate])": {
         "--_stitch": "var(--tx-leather-foreground)",
@@ -39,7 +43,12 @@
         "margin-top": "-3px",
         "border-right": "2.5px solid var(--tx-leather-foreground)",
         "border-bottom": "2.5px solid var(--tx-leather-foreground)",
-        "transform": "rotate(45deg)"
+        "transform": "rotate(45deg)",
+        "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+      },
+      ".tx-checkbox-indicator:is([data-starting-style], [data-ending-style])": {
+        "opacity": "0",
+        "scale": "0.4"
       },
       ".tx-checkbox[data-indeterminate] .tx-checkbox-indicator": {
         "width": "10px",
@@ -59,6 +68,11 @@
       ".tx-checkbox[data-disabled]": {
         "opacity": "0.5",
         "cursor": "not-allowed"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-checkbox, :root .tx-checkbox > [data-slot=\"stitch\"] rect, :root .tx-checkbox-indicator": {
+          "transition": "none"
+        }
       },
       "@media (forced-colors: active)": {
         ":root .tx-checkbox": {

@@ -106,23 +106,20 @@ function SelectLabel({ className, ...props }: WithClassName<SelectPrimitive.Grou
   )
 }
 
-/** One option. The picked one gets a cross-stitch mark on the left. */
+/** One option. The picked one gets a thread tick on the left. Items are whole pixels tall, so dividers stay crisp. */
 function SelectItem({ className, children, ...props }: WithClassName<SelectPrimitive.Item.Props>) {
   return (
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "tx-select-item relative flex w-full cursor-default items-center rounded-lg py-2 pr-2.5 pl-8 text-sm leading-[1.35] outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50",
+        "tx-select-item relative flex w-full cursor-default items-center rounded-lg py-2 pr-2.5 pl-8 text-sm leading-5 outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}
       {...props}
     >
       <Stitch />
-      {/* Empty on purpose: the cross-stitch is drawn in CSS, and Base UI would add a "✔️". */}
-      <SelectPrimitive.ItemIndicator
-        data-slot="select-item-indicator"
-        className="tx-select-item-indicator absolute top-1/2 left-[11px] size-[11px] -translate-y-1/2"
-      >
+      {/* Empty on purpose: the tick is drawn in CSS, and Base UI would add a "✔️". */}
+      <SelectPrimitive.ItemIndicator data-slot="select-item-indicator" className="tx-select-item-indicator absolute">
         {null}
       </SelectPrimitive.ItemIndicator>
       <SelectPrimitive.ItemText className="tx-select-item-text min-w-0">{children}</SelectPrimitive.ItemText>
@@ -131,7 +128,7 @@ function SelectItem({ className, children, ...props }: WithClassName<SelectPrimi
 }
 
 function SelectSeparator({ className, ...props }: WithClassName<SelectPrimitive.Separator.Props>) {
-  return <SelectPrimitive.Separator data-slot="select-separator" className={cn("tx-select-separator mx-2 my-1.5", className)} {...props} />
+  return <SelectPrimitive.Separator data-slot="select-separator" className={cn("tx-select-separator mx-2 my-1.5 h-px", className)} {...props} />
 }
 
 function SelectScrollUpButton({ className, ...props }: WithClassName<React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>>) {

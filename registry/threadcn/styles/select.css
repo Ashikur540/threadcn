@@ -5,7 +5,7 @@
  *
  * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-card-shadow,
  *   --tx-field*, --tx-thread, --tx-radius
- * Knobs: --_mark   color of the cross-stitch on the picked item
+ * Knobs: --_mark   color of the tick on the picked item
  *        --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
  * Base UI sets data-popup-open on the trigger, and data-highlighted /
  * data-selected on items.
@@ -49,12 +49,20 @@
     --_radius: 8px;
     --_thread: 1.2px;
   }
-  /* A faint stitched line between neighbouring items. */
+  /* One line style for every divider: between items and SelectSeparator.
+     Items are whole pixels tall (see select.tsx), so each 1px line lands on a
+     pixel and looks the same. The 5px stitch, 4px gap matches --tx-stitch-dash. */
+  .tx-select-item + .tx-select-item,
+  .tx-select-separator {
+    background-image: repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px);
+    background-repeat: no-repeat;
+  }
   .tx-select-item + .tx-select-item {
-    background-image: repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 50%, transparent) 0 5px, transparent 5px 9px);
     background-position: 8px 0;
     background-size: calc(100% - 16px) 1px;
-    background-repeat: no-repeat;
+  }
+  .tx-select-separator {
+    background-size: 100% 1px;
   }
   /* Highlighted (hover or arrow keys): a cream label sewn on. */
   .tx-select-item[data-highlighted] {
@@ -67,17 +75,20 @@
   .tx-select-item[data-selected] {
     font-weight: 700;
   }
-  /* The picked item's mark: one cross stitch. */
+  /* The picked item's mark: a tick in thread, the same shape as the Checkbox
+     tick (two borders of a small box, turned 45 degrees). */
   .tx-select-item-indicator {
-    background:
-      linear-gradient(45deg, transparent 40%, var(--_mark) 40% 60%, transparent 60%),
-      linear-gradient(-45deg, transparent 40%, var(--_mark) 40% 60%, transparent 60%);
+    top: 50%;
+    left: 13px;
+    width: 5px;
+    height: 10px;
+    margin-top: -6px;
+    border-right: 2px solid var(--_mark);
+    border-bottom: 2px solid var(--_mark);
+    rotate: 45deg;
   }
   .tx-select-label {
     color: var(--tx-muted-foreground);
-  }
-  .tx-select-separator {
-    border-top: var(--tx-thread-width) dashed var(--tx-thread);
   }
   /* Scroll arrows: a small chevron, up or down. */
   .tx-select-scroll::before {
@@ -109,7 +120,7 @@
       outline: 2px solid Highlight;
     }
     :root .tx-select-item-indicator {
-      background: CanvasText;
+      border-color: CanvasText;
     }
   }
 }
