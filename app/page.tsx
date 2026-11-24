@@ -11,6 +11,7 @@ import { Textarea } from "@/registry/threadcn/ui/textarea"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 
 import { DialogDemo } from "./dialog-demo"
+import { PopupsDemo } from "./popups-demo"
 import { ThemeToggle } from "./theme-toggle"
 
 const variants = ["default", "secondary", "destructive", "leather", "outline", "ghost", "link"] as const
@@ -180,6 +181,10 @@ export default function Home() {
             <Label><Switch disabled /> Same-day (not in your area)</Label>
           </div>
         </div>
+      </Section>
+
+      <Section title="Select and Tooltip">
+        <PopupsDemo />
       </Section>
 
       <Section title="Patch">

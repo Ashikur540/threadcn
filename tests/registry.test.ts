@@ -91,6 +91,8 @@ test("each item installs exactly the packages and threadcn parts its file import
     checkbox: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     "radio-group": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     switch: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
+    select: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/field", "@threadcn/stitch"], css: true },
+    tooltip: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
   })
 })
 

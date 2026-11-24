@@ -887,6 +887,176 @@
           }
         }
       }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A field that opens a stitched denim pocket of options.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/field",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-select-icon": {
+            "border-right": "2px solid currentColor",
+            "border-bottom": "2px solid currentColor",
+            "transform": "translateY(-2px) rotate(45deg)",
+            "transition": "transform 150ms"
+          },
+          ".tx-select-trigger[data-popup-open] .tx-select-icon": {
+            "transform": "translateY(2px) rotate(225deg)"
+          },
+          ".tx-select-trigger[data-placeholder]": {
+            "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
+          },
+          ".tx-select-content": {
+            "--_mark": "var(--tx-thread)",
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "6px",
+            "--_radius": "var(--tx-radius)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-surface)",
+            "background-image": "var(--tx-card-sheen)",
+            "color": "var(--tx-surface-foreground)",
+            "box-shadow": "var(--tx-card-shadow),\n      0 12px 28px rgb(0 0 0 / 0.35)"
+          },
+          ".tx-select-item": {
+            "--_stitch": "transparent",
+            "--_inset": "3px",
+            "--_radius": "8px",
+            "--_thread": "1.2px"
+          },
+          ".tx-select-item + .tx-select-item": {
+            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 50%, transparent) 0 5px, transparent 5px 9px)",
+            "background-position": "8px 0",
+            "background-size": "calc(100% - 16px) 1px",
+            "background-repeat": "no-repeat"
+          },
+          ".tx-select-item[data-highlighted]": {
+            "--_mark": "var(--tx-field-border)",
+            "--_stitch": "var(--tx-field-border)",
+            "background-color": "var(--tx-field)",
+            "background-image": "none",
+            "color": "var(--tx-field-foreground)"
+          },
+          ".tx-select-item[data-selected]": {
+            "font-weight": "700"
+          },
+          ".tx-select-item-indicator": {
+            "background": "linear-gradient(45deg, transparent 40%, var(--_mark) 40% 60%, transparent 60%),\n      linear-gradient(-45deg, transparent 40%, var(--_mark) 40% 60%, transparent 60%)"
+          },
+          ".tx-select-label": {
+            "color": "var(--tx-muted-foreground)"
+          },
+          ".tx-select-separator": {
+            "border-top": "var(--tx-thread-width) dashed var(--tx-thread)"
+          },
+          ".tx-select-scroll::before": {
+            "content": "\"\"",
+            "width": "7px",
+            "height": "7px",
+            "border-right": "2px solid currentColor",
+            "border-bottom": "2px solid currentColor",
+            "transform": "translateY(-2px) rotate(45deg)"
+          },
+          ".tx-select-scroll-up::before": {
+            "transform": "translateY(2px) rotate(225deg)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-select-icon": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-select-content": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-select-item[data-highlighted]": {
+              "outline": "2px solid Highlight"
+            },
+            ":root .tx-select-item-indicator": {
+              "background": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A small stitched leather tag with a pointer.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-tooltip": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "4px",
+            "--_radius": "10px",
+            "--_thread": "1.2px",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-leather)",
+            "color": "var(--tx-leather-foreground)",
+            "box-shadow": "0 6px 14px rgb(0 0 0 / 0.35)",
+            "transition": "opacity 120ms ease-out,\n      scale 120ms ease-out"
+          },
+          ".tx-tooltip:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0.96"
+          },
+          ".tx-tooltip-arrow": {
+            "background-color": "var(--tx-leather)",
+            "rotate": "45deg"
+          },
+          ".tx-tooltip-arrow[data-side=\"top\"]": {
+            "bottom": "-5px"
+          },
+          ".tx-tooltip-arrow[data-side=\"bottom\"]": {
+            "top": "-5px"
+          },
+          ".tx-tooltip-arrow[data-side=\"left\"]": {
+            "right": "-5px"
+          },
+          ".tx-tooltip-arrow[data-side=\"right\"]": {
+            "left": "-5px"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-tooltip": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-tooltip": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
     }
   ]
 }

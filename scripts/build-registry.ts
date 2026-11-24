@@ -149,6 +149,8 @@ export function buildRegistry() {
       component("checkbox", "Checkbox", "A stitched cream box that turns to leather when checked."),
       component("radio-group", "Radio Group", "Stitched round options, leather with a cream dot when picked."),
       component("switch", "Switch", "A fabric strap with a sewing-button thumb that rolls as it slides."),
+      component("select", "Select", "A field that opens a stitched denim pocket of options.", { needs: ["@threadcn/field"] }),
+      component("tooltip", "Tooltip", "A small stitched leather tag with a pointer."),
     ],
   }
 
