@@ -392,6 +392,184 @@
           }
         }
       }
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A small woven label.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-badge": {
+            "--_bg": "var(--tx-patch)",
+            "--_fg": "var(--tx-patch-foreground)",
+            "--_stitch": "color-mix(in srgb, #fff 85%, var(--_bg))",
+            "--_inset": "3px",
+            "--_radius": "13px",
+            "--_thread": "1.2px",
+            "background-color": "var(--_bg)",
+            "color": "var(--_fg)",
+            "font-family": "var(--tx-font-patch)",
+            "box-shadow": "0 2px 0 rgb(0 0 0 / 0.25)"
+          },
+          ".tx-badge-secondary": {
+            "--_bg": "var(--tx-patch-secondary)",
+            "--_fg": "var(--tx-patch-secondary-foreground)",
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-badge-destructive": {
+            "--_bg": "var(--tx-patch-destructive)",
+            "--_fg": "var(--tx-patch-destructive-foreground)"
+          },
+          ".tx-badge-outline, .tx-badge-ghost, .tx-badge-link": {
+            "--_bg": "transparent",
+            "--_fg": "var(--tx-surface-foreground)",
+            "box-shadow": "none"
+          },
+          ".tx-badge-outline": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "1px"
+          },
+          ".tx-badge-ghost, .tx-badge-link": {
+            "--_stitch": "transparent"
+          },
+          ".tx-badge-link": {
+            "text-decoration": "underline dashed var(--tx-thread)",
+            "text-underline-offset": "4px"
+          },
+          ".tx-badge:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-badge": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "A field label in the fabric's text color.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "A line of thread between two blocks.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-separator": {
+            "border": "0 dashed var(--tx-thread)"
+          },
+          ".tx-separator[data-orientation=\"horizontal\"]": {
+            "border-top-width": "var(--tx-thread-width)"
+          },
+          ".tx-separator[data-orientation=\"vertical\"]": {
+            "border-left-width": "var(--tx-thread-width)"
+          }
+        }
+      }
+    },
+    {
+      "name": "patch",
+      "type": "registry:ui",
+      "title": "Patch",
+      "description": "A sewn-on brand patch: leather label or round denim patch.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/patch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-patch": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "5px",
+            "--_radius": "7px",
+            "--_thread": "1.5px",
+            "background-color": "var(--tx-leather)",
+            "background-image": "radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px),\n      radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1px)",
+            "background-size": "3px 3px, 5px 5px",
+            "color": "var(--tx-leather-foreground)",
+            "font-family": "var(--tx-font-heading)",
+            "text-shadow": "0 1px 0 rgb(255 255 255 / 0.16),\n      0 -1px 0 rgb(0 0 0 / 0.5)",
+            "box-shadow": "0 3px 6px rgb(0 0 0 / 0.4)"
+          },
+          ".tx-patch-round": {
+            "background-color": "var(--tx-patch-secondary)",
+            "background-image": "none",
+            "color": "var(--tx-patch-secondary-foreground)",
+            "font-family": "var(--tx-font-patch)",
+            "text-shadow": "none",
+            "outline": "1.5px dashed var(--tx-thread)",
+            "outline-offset": "-5px"
+          },
+          ".tx-patch-round > [data-slot=\"stitch\"]": {
+            "display": "none"
+          },
+          ".tx-patch:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-patch": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
     }
   ]
 }

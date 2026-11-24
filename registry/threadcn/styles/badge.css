@@ -1,0 +1,72 @@
+/* Badge: a small woven label.
+ *
+ * Public tokens it reads: --tx-patch*, --tx-thread, --tx-surface-foreground,
+ *   --tx-font-patch
+ * Knobs: --_bg, --_fg   label color, text color
+ *        --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ */
+@layer components {
+  .tx-badge {
+    --_bg: var(--tx-patch);
+    --_fg: var(--tx-patch-foreground);
+    --_stitch: color-mix(in srgb, #fff 85%, var(--_bg));
+    --_inset: 3px;
+    --_radius: 13px;
+    --_thread: 1.2px;
+
+    background-color: var(--_bg);
+    color: var(--_fg);
+    font-family: var(--tx-font-patch);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 0.25);
+  }
+
+  /* ---- Variants: each one only swaps knobs ---- */
+
+  .tx-badge-secondary {
+    --_bg: var(--tx-patch-secondary);
+    --_fg: var(--tx-patch-secondary-foreground);
+    --_stitch: var(--tx-thread);
+  }
+  .tx-badge-destructive {
+    --_bg: var(--tx-patch-destructive);
+    --_fg: var(--tx-patch-destructive-foreground);
+  }
+  /* Flat badges sit on the fabric: no fill, no shadow. */
+  .tx-badge-outline,
+  .tx-badge-ghost,
+  .tx-badge-link {
+    --_bg: transparent;
+    --_fg: var(--tx-surface-foreground);
+    box-shadow: none;
+  }
+  .tx-badge-outline {
+    --_stitch: var(--tx-thread);
+    --_inset: 1px;
+  }
+  .tx-badge-ghost,
+  .tx-badge-link {
+    --_stitch: transparent;
+  }
+  .tx-badge-link {
+    text-decoration: underline dashed var(--tx-thread);
+    text-underline-offset: 4px;
+  }
+
+  /* ---- States ---- */
+
+  /* An outline, not a shadow: shadow-* classes can't erase it. */
+  .tx-badge:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-badge {
+      border: 1px solid CanvasText;
+    }
+  }
+}

@@ -4,6 +4,9 @@
 @import "../registry/threadcn/styles/button.css";
 @import "../registry/threadcn/styles/card.css";
 @import "../registry/threadcn/styles/dialog.css";
+@import "../registry/threadcn/styles/badge.css";
+@import "../registry/threadcn/styles/separator.css";
+@import "../registry/threadcn/styles/patch.css";
 
 /* dark mode follows the .dark class on <html>, like shadcn */
 @custom-variant dark (&:where(.dark, .dark *));

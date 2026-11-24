@@ -1,0 +1,60 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "patch",
+  "title": "Patch",
+  "description": "A sewn-on brand patch: leather label or round denim patch.",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/patch.tsx",
+      "content": "import type * as React from \"react\"\nimport { mergeProps } from \"@base-ui/react/merge-props\"\nimport { useRender } from \"@base-ui/react/use-render\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n/**\n * Patch classes. Layout is Tailwind here; the look (leather, stitch) is in\n * styles/patch.css, keyed on the tx-patch-* classes.\n */\nconst patchVariants = cva(\"tx-patch relative inline-flex max-w-full items-center gap-2.5 no-underline\", {\n  variants: {\n    variant: {\n      default: \"rounded-[7px] px-4 py-2 text-[15px] font-bold tracking-[.07em] uppercase\",\n      round: \"tx-patch-round rounded-[50px_14px_14px_50px] py-[7px] pr-[18px] pl-[7px] text-sm font-semibold\",\n    },\n  },\n  defaultVariants: {\n    variant: \"default\",\n  },\n})\n\n/**\n * A sewn-on brand patch. threadcn only, not part of shadcn.\n *\n * `default` is a leather label for a logo or brand name. `round` is a denim\n * patch with a <PatchDot> on the left, for a number or an icon.\n * Use `render` to make it a link.\n *\n * @example\n * <Patch render={<a href=\"/\" />}>Indigo Supply</Patch>\n * <Patch variant=\"round\"><PatchDot>42</PatchDot>Orders this week</Patch>\n */\nfunction Patch({\n  className,\n  variant = \"default\",\n  render,\n  children,\n  ...props\n}: useRender.ComponentProps<\"span\"> & VariantProps<typeof patchVariants>) {\n  return useRender({\n    defaultTagName: \"span\",\n    props: mergeProps<\"span\">(\n      {\n        className: cn(patchVariants({ variant }), className),\n        children: (\n          <>\n            <Stitch />\n            {children}\n          </>\n        ),\n      },\n      props,\n    ),\n    render,\n    state: {\n      slot: \"patch\",\n      variant,\n    },\n  })\n}\n\n/** The cream circle at the start of a round Patch. Holds a short number or an icon. */\nfunction PatchDot({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"patch-dot\"\n      className={cn(\n        \"grid size-10 shrink-0 place-items-center rounded-full bg-(--tx-field) text-base font-bold text-(--tx-field-foreground) tabular-nums\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nexport { Patch, PatchDot, patchVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-patch": {
+        "--_stitch": "var(--tx-thread)",
+        "--_inset": "5px",
+        "--_radius": "7px",
+        "--_thread": "1.5px",
+        "background-color": "var(--tx-leather)",
+        "background-image": "radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px),\n      radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1px)",
+        "background-size": "3px 3px, 5px 5px",
+        "color": "var(--tx-leather-foreground)",
+        "font-family": "var(--tx-font-heading)",
+        "text-shadow": "0 1px 0 rgb(255 255 255 / 0.16),\n      0 -1px 0 rgb(0 0 0 / 0.5)",
+        "box-shadow": "0 3px 6px rgb(0 0 0 / 0.4)"
+      },
+      ".tx-patch-round": {
+        "background-color": "var(--tx-patch-secondary)",
+        "background-image": "none",
+        "color": "var(--tx-patch-secondary-foreground)",
+        "font-family": "var(--tx-font-patch)",
+        "text-shadow": "none",
+        "outline": "1.5px dashed var(--tx-thread)",
+        "outline-offset": "-5px"
+      },
+      ".tx-patch-round > [data-slot=\"stitch\"]": {
+        "display": "none"
+      },
+      ".tx-patch:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-patch": {
+          "border": "1px solid CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

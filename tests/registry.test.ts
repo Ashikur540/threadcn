@@ -81,5 +81,9 @@ test("each item installs exactly the packages and threadcn parts its file import
     button: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     card: { deps: ["cn"], parts: ["@threadcn/stitch"], css: true },
     dialog: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/button", "@threadcn/stitch"], css: true },
+    badge: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
+    label: { deps: ["cn"], parts: ["@threadcn/base"], css: false },
+    separator: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
+    patch: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
   })
 })

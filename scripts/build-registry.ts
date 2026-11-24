@@ -133,6 +133,11 @@ export function buildRegistry() {
       component("button", "Button", "A sewn-on patch that sinks when pressed."),
       component("card", "Card", "A stitched piece of fabric. Puffy and quilted in dark mode."),
       component("dialog", "Dialog", "A stitched card that floats over a dimmed page."),
+      component("badge", "Badge", "A small woven label."),
+      // Label and Separator draw no stitch, but they read the fabric tokens from base.
+      component("label", "Label", "A field label in the fabric's text color.", { needs: ["@threadcn/base"] }),
+      component("separator", "Separator", "A line of thread between two blocks.", { needs: ["@threadcn/base"] }),
+      component("patch", "Patch", "A sewn-on brand patch: leather label or round denim patch."),
     ],
   }
 

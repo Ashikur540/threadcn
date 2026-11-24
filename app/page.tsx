@@ -1,4 +1,8 @@
+import { Badge } from "@/registry/threadcn/ui/badge"
 import { Button } from "@/registry/threadcn/ui/button"
+import { Label } from "@/registry/threadcn/ui/label"
+import { Patch, PatchDot } from "@/registry/threadcn/ui/patch"
+import { Separator } from "@/registry/threadcn/ui/separator"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 
 import { DialogDemo } from "./dialog-demo"
@@ -95,6 +99,45 @@ export default function Home() {
             </CardHeader>
             <CardContent className="font-(family-name:--tx-font-heading) text-4xl font-bold tabular-nums">36</CardContent>
           </Card>
+        </div>
+      </Section>
+
+      <Section title="Badge">
+        <div className={row}>
+          <Badge>New</Badge>
+          <Badge variant="secondary">Raw denim</Badge>
+          <Badge variant="outline">14 oz</Badge>
+          <Badge variant="destructive">Sold out</Badge>
+          <Badge variant="ghost">Ghost</Badge>
+          <Badge variant="link" render={<a href="#" />}>Care guide</Badge>
+        </div>
+      </Section>
+
+      <Section title="Label and Separator">
+        <div className="grid max-w-sm gap-4">
+          <div className="grid gap-1.5">
+            <Label htmlFor="demo-email">Email</Label>
+            <input id="demo-email" placeholder="you@studio.dev" className="rounded-md bg-(--tx-field) px-3 py-2 text-(--tx-field-foreground)" />
+          </div>
+          <Separator />
+          <div className="flex h-12 items-center gap-4 text-sm">
+            <span>Fit</span>
+            <Separator orientation="vertical" />
+            <span>Wash</span>
+            <Separator orientation="vertical" />
+            <span>Repairs</span>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Patch">
+        <div className={row}>
+          <Patch>Indigo Supply</Patch>
+          <Patch render={<a href="#" />}>Indigo Supply (link)</Patch>
+          <Patch variant="round">
+            <PatchDot>42</PatchDot>
+            Orders this week
+          </Patch>
         </div>
       </Section>
 
