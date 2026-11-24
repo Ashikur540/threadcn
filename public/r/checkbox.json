@@ -1,0 +1,74 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "checkbox",
+  "title": "Checkbox",
+  "description": "A stitched cream box that turns to leather when checked.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/checkbox.tsx",
+      "content": "\"use client\"\n\nimport { Checkbox as CheckboxPrimitive } from \"@base-ui/react/checkbox\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n/**\n * A stitched cream box that turns to leather when checked.\n * Same API as shadcn's Checkbox. Mark an error with aria-invalid=\"true\".\n * The look is in styles/checkbox.css.\n *\n * @example\n * <Checkbox id=\"gift\" /> <Label htmlFor=\"gift\">Gift wrap</Label>\n */\nfunction Checkbox({ className, ...props }: Omit<CheckboxPrimitive.Root.Props, \"className\"> & { className?: string }) {\n  return (\n    <CheckboxPrimitive.Root\n      data-slot=\"checkbox\"\n      className={cn(\"tx-checkbox peer relative grid size-[26px] shrink-0 cursor-pointer place-items-center\", className)}\n      {...props}\n    >\n      <Stitch />\n      <CheckboxPrimitive.Indicator data-slot=\"checkbox-indicator\" className=\"tx-checkbox-indicator\" />\n    </CheckboxPrimitive.Root>\n  )\n}\n\nexport { Checkbox }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-checkbox": {
+        "--_stitch": "var(--tx-field-border)",
+        "--_inset": "4px",
+        "--_radius": "7px",
+        "--_thread": "var(--tx-thread-width)",
+        "border-radius": "var(--_radius)",
+        "background-color": "var(--tx-field)",
+        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)"
+      },
+      ".tx-checkbox:is([data-checked], [data-indeterminate])": {
+        "--_stitch": "var(--tx-leather-foreground)",
+        "background-color": "var(--tx-leather)",
+        "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+      },
+      ".tx-checkbox-indicator": {
+        "width": "7px",
+        "height": "12px",
+        "margin-top": "-3px",
+        "border-right": "2.5px solid var(--tx-leather-foreground)",
+        "border-bottom": "2.5px solid var(--tx-leather-foreground)",
+        "transform": "rotate(45deg)"
+      },
+      ".tx-checkbox[data-indeterminate] .tx-checkbox-indicator": {
+        "width": "10px",
+        "height": "0",
+        "margin-top": "0",
+        "border-right": "0",
+        "transform": "none"
+      },
+      ".tx-checkbox:is([aria-invalid=\"true\"], [data-invalid])": {
+        "outline": "2px solid var(--tx-invalid)",
+        "outline-offset": "2px"
+      },
+      ".tx-checkbox:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      ".tx-checkbox[data-disabled]": {
+        "opacity": "0.5",
+        "cursor": "not-allowed"
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-checkbox": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-checkbox-indicator": {
+          "border-color": "CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

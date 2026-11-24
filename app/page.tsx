@@ -1,9 +1,12 @@
 import { Badge } from "@/registry/threadcn/ui/badge"
 import { Button } from "@/registry/threadcn/ui/button"
+import { Checkbox } from "@/registry/threadcn/ui/checkbox"
 import { Input } from "@/registry/threadcn/ui/input"
 import { Label } from "@/registry/threadcn/ui/label"
 import { Patch, PatchDot } from "@/registry/threadcn/ui/patch"
+import { RadioGroup, RadioGroupItem } from "@/registry/threadcn/ui/radio-group"
 import { Separator } from "@/registry/threadcn/ui/separator"
+import { Switch } from "@/registry/threadcn/ui/switch"
 import { Textarea } from "@/registry/threadcn/ui/textarea"
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 
@@ -150,6 +153,31 @@ export default function Home() {
           <div className="grid gap-1.5 sm:col-span-2">
             <Label htmlFor="f-notes">Repair notes</Label>
             <Textarea id="f-notes" placeholder="Where is the tear?" />
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Checkbox, Radio and Switch">
+        <div className="grid gap-6 sm:grid-cols-3">
+          <div className="grid content-start gap-3">
+            <Label><Checkbox defaultChecked /> Gift wrap</Label>
+            <Label><Checkbox /> Add a care card</Label>
+            <Label><Checkbox indeterminate /> Some items</Label>
+            <Label><Checkbox disabled defaultChecked /> Hemming (sold out)</Label>
+            <Label><Checkbox aria-invalid="true" /> Accept the repair terms</Label>
+          </div>
+          <RadioGroup defaultValue="regular" aria-label="Fit" className="grid content-start gap-3">
+            <Label><RadioGroupItem value="slim" /> Slim</Label>
+            <Label><RadioGroupItem value="regular" /> Regular</Label>
+            <Label><RadioGroupItem value="loose" /> Loose</Label>
+            <Label><RadioGroupItem value="tapered" disabled /> Tapered (soon)</Label>
+          </RadioGroup>
+          <div className="grid content-start gap-3">
+            <Label><Switch defaultChecked /> Express shipping</Label>
+            <Label><Switch /> Gift receipt</Label>
+            <Label><Switch size="sm" defaultChecked /> Small, on</Label>
+            <Label><Switch size="sm" /> Small, off</Label>
+            <Label><Switch disabled /> Same-day (not in your area)</Label>
           </div>
         </div>
       </Section>

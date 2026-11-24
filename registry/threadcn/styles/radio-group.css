@@ -1,0 +1,54 @@
+/* Radio group: stitched round options, leather with a cream dot when picked.
+ *
+ * Public tokens it reads: --tx-field*, --tx-leather*, --tx-invalid, --tx-ring
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * Base UI sets data-checked and data-disabled on each item.
+ */
+@layer components {
+  .tx-radio-group-item {
+    --_stitch: var(--tx-field-border);
+    --_inset: 4px;
+    --_radius: 13px;
+    --_thread: var(--tx-thread-width);
+
+    background-color: var(--tx-field);
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.18);
+  }
+  .tx-radio-group-item[data-checked] {
+    --_stitch: var(--tx-leather-foreground);
+    background-color: var(--tx-leather);
+    box-shadow: 0 2px 0 var(--tx-leather-edge);
+  }
+  .tx-radio-group-indicator {
+    background-color: var(--tx-leather-foreground);
+  }
+
+  /* ---- States ---- */
+
+  .tx-radio-group-item:is([aria-invalid="true"], [data-invalid]) {
+    outline: 2px solid var(--tx-invalid);
+    outline-offset: 2px;
+  }
+  /* An outline, not a shadow: shadow-* classes can't erase it. */
+  .tx-radio-group-item:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-radio-group-item[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-radio-group-item {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-radio-group-indicator {
+      background-color: CanvasText;
+    }
+  }
+}

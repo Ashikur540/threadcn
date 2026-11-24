@@ -146,6 +146,9 @@ export function buildRegistry() {
       styleOnly("field", "Field look", "The cream canvas look shared by Input, Textarea and the Select trigger."),
       component("input", "Input", "A text field on cream canvas.", { needs: ["@threadcn/field"] }),
       component("textarea", "Textarea", "A multi-line text field on cream canvas.", { needs: ["@threadcn/field"] }),
+      component("checkbox", "Checkbox", "A stitched cream box that turns to leather when checked."),
+      component("radio-group", "Radio Group", "Stitched round options, leather with a cream dot when picked."),
+      component("switch", "Switch", "A fabric strap with a sewing-button thumb that rolls as it slides."),
     ],
   }
 

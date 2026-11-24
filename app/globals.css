@@ -8,6 +8,9 @@
 @import "../registry/threadcn/styles/separator.css";
 @import "../registry/threadcn/styles/patch.css";
 @import "../registry/threadcn/styles/field.css";
+@import "../registry/threadcn/styles/checkbox.css";
+@import "../registry/threadcn/styles/radio-group.css";
+@import "../registry/threadcn/styles/switch.css";
 
 /* dark mode follows the .dark class on <html>, like shadcn */
 @custom-variant dark (&:where(.dark, .dark *));

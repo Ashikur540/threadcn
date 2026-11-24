@@ -658,6 +658,235 @@
           "type": "registry:ui"
         }
       ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A stitched cream box that turns to leather when checked.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-checkbox": {
+            "--_stitch": "var(--tx-field-border)",
+            "--_inset": "4px",
+            "--_radius": "7px",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-field)",
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)"
+          },
+          ".tx-checkbox:is([data-checked], [data-indeterminate])": {
+            "--_stitch": "var(--tx-leather-foreground)",
+            "background-color": "var(--tx-leather)",
+            "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+          },
+          ".tx-checkbox-indicator": {
+            "width": "7px",
+            "height": "12px",
+            "margin-top": "-3px",
+            "border-right": "2.5px solid var(--tx-leather-foreground)",
+            "border-bottom": "2.5px solid var(--tx-leather-foreground)",
+            "transform": "rotate(45deg)"
+          },
+          ".tx-checkbox[data-indeterminate] .tx-checkbox-indicator": {
+            "width": "10px",
+            "height": "0",
+            "margin-top": "0",
+            "border-right": "0",
+            "transform": "none"
+          },
+          ".tx-checkbox:is([aria-invalid=\"true\"], [data-invalid])": {
+            "outline": "2px solid var(--tx-invalid)",
+            "outline-offset": "2px"
+          },
+          ".tx-checkbox:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-checkbox[data-disabled]": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-checkbox": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-checkbox-indicator": {
+              "border-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Stitched round options, leather with a cream dot when picked.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-radio-group-item": {
+            "--_stitch": "var(--tx-field-border)",
+            "--_inset": "4px",
+            "--_radius": "13px",
+            "--_thread": "var(--tx-thread-width)",
+            "background-color": "var(--tx-field)",
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)"
+          },
+          ".tx-radio-group-item[data-checked]": {
+            "--_stitch": "var(--tx-leather-foreground)",
+            "background-color": "var(--tx-leather)",
+            "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+          },
+          ".tx-radio-group-indicator": {
+            "background-color": "var(--tx-leather-foreground)"
+          },
+          ".tx-radio-group-item:is([aria-invalid=\"true\"], [data-invalid])": {
+            "outline": "2px solid var(--tx-invalid)",
+            "outline-offset": "2px"
+          },
+          ".tx-radio-group-item:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-radio-group-item[data-disabled]": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-radio-group-item": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-radio-group-indicator": {
+              "background-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A fabric strap with a sewing-button thumb that rolls as it slides.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-switch": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "5px",
+            "--_radius": "16px",
+            "--_thread": "var(--tx-thread-width)",
+            "--_travel": "26px",
+            "--_roll": "125deg",
+            "width": "58px",
+            "height": "32px",
+            "background-color": "var(--tx-patch-secondary)",
+            "background-image": "repeating-linear-gradient(90deg, rgb(255 255 255 / 0.07) 0 3px, transparent 3px 6px)",
+            "box-shadow": "inset 0 2px 5px rgb(0 0 0 / 0.45)",
+            "transition": "background-color 260ms ease"
+          },
+          ".tx-switch[data-checked]": {
+            "--_stitch": "var(--tx-patch-edge)",
+            "background-color": "var(--tx-patch)"
+          },
+          ".tx-switch-thumb": {
+            "top": "4px",
+            "left": "4px",
+            "width": "24px",
+            "height": "24px",
+            "background": "radial-gradient(circle at 38% 38%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 62% 38%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 38% 62%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 62% 62%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle, var(--tx-rivet-light) 55%, color-mix(in srgb, var(--tx-rivet-light) 70%, var(--tx-rivet)) 100%)",
+            "box-shadow": "0 2px 3px rgb(0 0 0 / 0.45)",
+            "transition": "transform 420ms cubic-bezier(0.34, 1.45, 0.64, 1),\n      scale 140ms ease-out"
+          },
+          ".tx-switch[data-checked] .tx-switch-thumb": {
+            "transform": "translateX(var(--_travel)) rotate(var(--_roll))"
+          },
+          ".tx-switch[data-size=\"sm\"]": {
+            "--_inset": "4px",
+            "--_radius": "13px",
+            "--_travel": "20px",
+            "--_roll": "115deg",
+            "width": "46px",
+            "height": "26px"
+          },
+          ".tx-switch[data-size=\"sm\"] .tx-switch-thumb": {
+            "top": "3px",
+            "left": "3px",
+            "width": "20px",
+            "height": "20px"
+          },
+          ".tx-switch:active:not([data-disabled]) .tx-switch-thumb": {
+            "scale": "0.88"
+          },
+          ".tx-switch:is([aria-invalid=\"true\"], [data-invalid])": {
+            "outline": "2px solid var(--tx-invalid)",
+            "outline-offset": "2px"
+          },
+          ".tx-switch:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-switch[data-disabled]": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-switch, :root .tx-switch-thumb": {
+              "transition": "none"
+            },
+            ":root .tx-switch[data-checked] .tx-switch-thumb": {
+              "transform": "translateX(var(--_travel))"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-switch": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-switch-thumb": {
+              "background": "CanvasText"
+            }
+          }
+        }
+      }
     }
   ]
 }

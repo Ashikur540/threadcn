@@ -1,0 +1,69 @@
+/* Checkbox: a stitched cream box that turns to leather when checked.
+ *
+ * Public tokens it reads: --tx-field*, --tx-leather*, --tx-invalid, --tx-ring
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * Base UI sets data-checked, data-indeterminate and data-disabled.
+ */
+@layer components {
+  .tx-checkbox {
+    --_stitch: var(--tx-field-border);
+    --_inset: 4px;
+    --_radius: 7px;
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    background-color: var(--tx-field);
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.18);
+  }
+  .tx-checkbox:is([data-checked], [data-indeterminate]) {
+    --_stitch: var(--tx-leather-foreground);
+    background-color: var(--tx-leather);
+    box-shadow: 0 2px 0 var(--tx-leather-edge);
+  }
+  /* The tick: two borders of a small box, turned 45 degrees. */
+  .tx-checkbox-indicator {
+    width: 7px;
+    height: 12px;
+    margin-top: -3px;
+    border-right: 2.5px solid var(--tx-leather-foreground);
+    border-bottom: 2.5px solid var(--tx-leather-foreground);
+    transform: rotate(45deg);
+  }
+  /* Indeterminate shows a dash instead of a tick. */
+  .tx-checkbox[data-indeterminate] .tx-checkbox-indicator {
+    width: 10px;
+    height: 0;
+    margin-top: 0;
+    border-right: 0;
+    transform: none;
+  }
+
+  /* ---- States ---- */
+
+  .tx-checkbox:is([aria-invalid="true"], [data-invalid]) {
+    outline: 2px solid var(--tx-invalid);
+    outline-offset: 2px;
+  }
+  /* An outline, not a shadow: shadow-* classes can't erase it. */
+  .tx-checkbox:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-checkbox[data-disabled] {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-checkbox {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-checkbox-indicator {
+      border-color: CanvasText;
+    }
+  }
+}
