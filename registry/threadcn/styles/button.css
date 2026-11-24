@@ -1,0 +1,151 @@
+/* Button: a sewn-on patch that sinks when pressed.
+ *
+ * Public tokens it reads (change them on :root for every button):
+ *   --tx-patch*, --tx-leather*, --tx-thread, --tx-press-depth,
+ *   --tx-patch-shadow, --tx-ring, --tx-radius, --tx-stitch-inset
+ *
+ * Knobs (change them on one button, e.g. className="[--_lift:2px]"):
+ *   --_bg, --_fg, --_edge   patch color, text color, edge under the patch
+ *   --_lift                 how high the patch sits above the fabric
+ *   --_shadow               soft shadow under the patch
+ *   --_stitch               thread color
+ *   --_inset, --_radius     where the stitch is drawn (read by <Stitch />)
+ */
+@layer components {
+  .tx-button {
+    --_bg: var(--tx-patch);
+    --_fg: var(--tx-patch-foreground);
+    --_edge: var(--tx-patch-edge);
+    --_stitch: color-mix(in srgb, #fff 88%, var(--_bg));
+    --_lift: var(--tx-press-depth);
+    --_shadow: var(--tx-patch-shadow);
+    --_inset: var(--tx-stitch-inset);
+    --_radius: var(--tx-radius);
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    background-color: var(--_bg);
+    background-image: radial-gradient(rgb(0 0 0 / 0.05) 0.7px, transparent 1px);
+    background-size: 4px 4px;
+    color: var(--_fg);
+    font-family: var(--tx-font-patch);
+    box-shadow:
+      0 var(--_lift) 0 var(--_edge),
+      0 calc(var(--_lift) + 3px) 10px var(--_shadow);
+    outline: none;
+    transition:
+      transform var(--tx-press-duration) ease-out,
+      box-shadow var(--tx-press-duration) ease-out,
+      background-color 120ms;
+  }
+
+  /* ---- Variants: each one only swaps knobs ---- */
+
+  .tx-button-secondary {
+    --_bg: var(--tx-patch-secondary);
+    --_fg: var(--tx-patch-secondary-foreground);
+    --_edge: var(--tx-patch-secondary-edge);
+    --_stitch: var(--tx-thread);
+  }
+  .tx-button-destructive {
+    --_bg: var(--tx-patch-destructive);
+    --_fg: var(--tx-patch-destructive-foreground);
+    --_edge: var(--tx-patch-destructive-edge);
+  }
+  .tx-button-leather {
+    --_bg: var(--tx-leather);
+    --_fg: var(--tx-leather-foreground);
+    --_edge: var(--tx-leather-edge);
+    --_stitch: var(--tx-thread);
+    background-image:
+      radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px),
+      radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1px);
+    background-size: 3px 3px, 5px 5px;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 0.45);
+  }
+  /* Flat buttons sit on the fabric: no patch, no lift, no shadow. */
+  .tx-button-outline,
+  .tx-button-ghost,
+  .tx-button-link {
+    --_bg: transparent;
+    --_fg: var(--tx-surface-foreground);
+    --_edge: transparent;
+    --_lift: 0px;
+    --_shadow: transparent;
+    background-image: none;
+  }
+  .tx-button-outline {
+    --_stitch: var(--tx-thread);
+  }
+  .tx-button-ghost,
+  .tx-button-link {
+    --_stitch: transparent;
+  }
+  .tx-button-link {
+    text-decoration: underline dashed var(--tx-thread);
+    text-decoration-thickness: var(--tx-thread-width);
+    text-underline-offset: 5px;
+  }
+
+  /* ---- Sizes and shapes ---- */
+
+  /* Small buttons pull the stitch closer to the edge. */
+  .tx-button-sm {
+    --_inset: calc(var(--tx-stitch-inset) - 2px);
+    --_radius: calc(var(--tx-radius) - 4px);
+  }
+  .tx-button-round {
+    --_radius: 22px;
+    border-radius: 50%;
+  }
+
+  /* ---- States: hover, press, focus, disabled ---- */
+
+  /* Hover darkens the patch toward its edge. The contrast test checks this blend. */
+  .tx-button:hover:not(:disabled, [data-disabled]) {
+    background-color: color-mix(in srgb, var(--_bg) 85%, var(--_edge));
+  }
+  .tx-button:is(.tx-button-outline, .tx-button-ghost):hover:not(:disabled, [data-disabled]) {
+    background-color: color-mix(in srgb, var(--tx-surface-foreground) 10%, transparent);
+    --_stitch: var(--tx-thread);
+  }
+  .tx-button-link:hover:not(:disabled, [data-disabled]) {
+    background-color: transparent;
+    text-decoration-style: solid;
+  }
+  .tx-button:active:not(:disabled, [data-disabled]) {
+    transform: translateY(max(0px, calc(var(--_lift) - 1px)));
+    box-shadow:
+      0 1px 0 var(--_edge),
+      0 2px 4px rgb(0 0 0 / 0.25);
+  }
+  /* An outline, not a shadow: a user's shadow-* class can't erase it,
+     and high-contrast mode still shows it. */
+  .tx-button:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-button:is(:disabled, [data-disabled]) {
+    opacity: 0.5;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-button {
+      transition: none;
+    }
+    /* Pressed buttons change color instead of moving. */
+    :root .tx-button:active:not(:disabled, [data-disabled]) {
+      transform: none;
+      background-color: color-mix(in srgb, var(--_bg) 75%, var(--_edge));
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-button {
+      border: 1px solid CanvasText;
+    }
+  }
+}

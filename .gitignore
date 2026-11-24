@@ -2,8 +2,12 @@
 node_modules/
 .superpowers/
 *.log
+.next/
+coverage/
+*.tsbuildinfo
 
 # Private working files: kept on this computer, never published
 docs/
 spec-sheet/
 .impeccable/
+next-env.d.ts

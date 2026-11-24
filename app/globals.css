@@ -1,0 +1,19 @@
+@import "tailwindcss";
+@import "./fabric.generated.css";
+@import "../registry/threadcn/styles/base.css";
+@import "../registry/threadcn/styles/button.css";
+@import "../registry/threadcn/styles/card.css";
+@import "../registry/threadcn/styles/dialog.css";
+
+/* dark mode follows the .dark class on <html>, like shadcn */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* This site uses the recommended fonts. Installed components use the app's own font. */
+:root {
+  --tx-font-patch: var(--font-patch), ui-rounded, system-ui, sans-serif;
+  --tx-font-heading: var(--font-heading), Georgia, serif;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}

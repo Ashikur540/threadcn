@@ -1,0 +1,69 @@
+/* threadcn base: the shared stitch and the fabric background.
+ *
+ * Everything sits in @layer components, so a Tailwind class you add to a
+ * component always wins (Tailwind classes live in the later utilities layer).
+ */
+@layer components {
+  /* ---- Stitch ----
+   * The dashed thread line every stitched part draws with <Stitch />.
+   * The parent part sets these knobs:
+   *   --_stitch   thread color
+   *   --_inset    distance from the edge
+   *   --_radius   the parent's corner radius
+   *   --_thread   thread width
+   */
+  [data-slot="stitch"] {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    overflow: visible;
+  }
+  [data-slot="stitch"] rect {
+    x: var(--_inset);
+    y: var(--_inset);
+    width: calc(100% - var(--_inset) * 2);
+    height: calc(100% - var(--_inset) * 2);
+    rx: max(0px, calc(var(--_radius) - var(--_inset)));
+    ry: max(0px, calc(var(--_radius) - var(--_inset)));
+    fill: none;
+    stroke: var(--_stitch, var(--tx-thread));
+    stroke-width: var(--_thread, var(--tx-thread-width));
+    stroke-dasharray: var(--tx-stitch-dash);
+  }
+
+  /* ---- Fabric ----
+   * The denim (light) or quilted (dark) background. Add class="tx-fabric"
+   * to <body> or to any section.
+   */
+  .tx-fabric {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--tx-fabric);
+    color: var(--tx-surface-foreground);
+  }
+  .tx-fabric::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: var(--tx-texture-opacity);
+    background-image: var(--tx-texture);
+    background-size: var(--tx-texture-size);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning.
+     Reduced motion is handled in each component's own file. */
+
+  /* High-contrast mode: no texture or stitches. Components draw real borders. */
+  @media (forced-colors: active) {
+    :root [data-slot="stitch"],
+    :root .tx-fabric::before {
+      display: none;
+    }
+  }
+}
