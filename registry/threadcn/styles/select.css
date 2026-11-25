@@ -3,10 +3,8 @@
  * The trigger wears the shared field look (styles/canvas.css); only its
  * chevron lives here.
  *
- * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-card-shadow,
- *   --tx-field*, --tx-thread, --tx-radius
- * Knobs: --_mark   color of the tick on the picked item
- *        --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * The list wears the shared pocket look (styles/pocket.css).
+ * Public tokens it reads: --tx-surface, --tx-surface-foreground, --tx-field*
  * Base UI sets data-popup-open on the trigger, and data-highlighted /
  * data-selected on items.
  */
@@ -26,69 +24,20 @@
     color: color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field));
   }
 
-  /* ---- The list ---- */
+  /* ---- The list ----
+     The pocket look (panel, highlighted item, tick, label, separator) comes
+     from styles/pocket.css. Only Select's extras live here. */
 
-  .tx-select-content {
-    --_mark: var(--tx-thread);
-    --_stitch: var(--tx-thread);
-    --_inset: 6px;
-    --_radius: var(--tx-radius);
-    --_thread: var(--tx-thread-width);
-
-    border-radius: var(--_radius);
-    background-color: var(--tx-surface);
-    background-image: var(--tx-card-sheen);
-    color: var(--tx-surface-foreground);
-    box-shadow:
-      var(--tx-card-shadow),
-      0 12px 28px rgb(0 0 0 / 0.35);
-  }
-  .tx-select-item {
-    --_stitch: transparent;
-    --_inset: 3px;
-    --_radius: 8px;
-    --_thread: 1.2px;
-  }
-  /* One line style for every divider: between items and SelectSeparator.
-     Items are whole pixels tall (see select.tsx), so each 1px line lands on a
-     pixel and looks the same. The 5px stitch, 4px gap matches --tx-stitch-dash. */
-  .tx-select-item + .tx-select-item,
-  .tx-select-separator {
-    background-image: repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px);
-    background-repeat: no-repeat;
-  }
+  /* A faint dashed line between neighbouring options, using the pocket's one
+     divider line. Items are whole pixels tall (see select.tsx). */
   .tx-select-item + .tx-select-item {
+    background-image: var(--_divider);
     background-position: 8px 0;
     background-size: calc(100% - 16px) 1px;
-  }
-  .tx-select-separator {
-    background-size: 100% 1px;
-  }
-  /* Highlighted (hover or arrow keys): a cream label sewn on. */
-  .tx-select-item[data-highlighted] {
-    --_mark: var(--tx-field-border);
-    --_stitch: var(--tx-field-border);
-    background-color: var(--tx-field);
-    background-image: none;
-    color: var(--tx-field-foreground);
+    background-repeat: no-repeat;
   }
   .tx-select-item[data-selected] {
     font-weight: 700;
-  }
-  /* The picked item's mark: a tick in thread, the same shape as the Checkbox
-     tick (two borders of a small box, turned 45 degrees). */
-  .tx-select-item-indicator {
-    top: 50%;
-    left: 13px;
-    width: 5px;
-    height: 10px;
-    margin-top: -6px;
-    border-right: 2px solid var(--_mark);
-    border-bottom: 2px solid var(--_mark);
-    rotate: 45deg;
-  }
-  .tx-select-label {
-    color: var(--tx-muted-foreground);
   }
   /* Scroll arrows: a small chevron, up or down, on the pocket's own color so
      they cover the items scrolling underneath. */
@@ -115,20 +64,6 @@
   @media (prefers-reduced-motion: reduce) {
     :root .tx-select-icon {
       transition: none;
-    }
-  }
-  @media (forced-colors: active) {
-    :root .tx-select-content {
-      border: 1px solid CanvasText;
-    }
-    /* The system highlight colors, kept as-is so the active option stands out. */
-    :root .tx-select-item[data-highlighted] {
-      forced-color-adjust: none;
-      background-color: Highlight;
-      color: HighlightText;
-    }
-    :root .tx-select-item-indicator {
-      border-color: CanvasText;
     }
   }
 }

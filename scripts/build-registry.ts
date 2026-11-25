@@ -159,7 +159,8 @@ export function buildRegistry() {
       component("checkbox", "Checkbox", "A stitched cream box that turns to leather when checked."),
       component("radio-group", "Radio Group", "Stitched round options, leather with a cream dot when picked."),
       component("switch", "Switch", "A fabric strap with a sewing-button thumb that rolls as it slides."),
-      component("select", "Select", "A field that opens a stitched denim pocket of options.", { needs: ["@threadcn/canvas"] }),
+      styleOnly("pocket", "Pocket look", "The floating stitched denim pocket shared by Select, Popover, Hover Card and the menus."),
+      component("select", "Select", "A field that opens a stitched denim pocket of options.", { needs: ["@threadcn/canvas", "@threadcn/pocket"] }),
       component("tooltip", "Tooltip", "A small stitched leather tag with a pointer."),
       component("tabs", "Tabs", "Sewn-on label tabs; the active tab is stitched onto its panel."),
       // Pocket card draws its own double stitch, so it needs only the tokens from base.
@@ -182,6 +183,12 @@ export function buildRegistry() {
       component("table", "Table", "A data table with dashed thread lines between rows.", { needs: ["@threadcn/base"] }),
       component("kbd", "Kbd", "A keyboard key as a small cream key cap.", { needs: ["@threadcn/base"] }),
       component("scroll-area", "Scroll Area", "A box that scrolls with a thin thread-colored scrollbar.", { needs: ["@threadcn/base"] }),
+      component("popover", "Popover", "A small stitched pocket that opens next to its trigger.", { needs: ["@threadcn/pocket"] }),
+      component("hover-card", "Hover Card", "A stitched pocket that previews a link on hover.", { needs: ["@threadcn/pocket"] }),
+      component("dropdown-menu", "Dropdown Menu", "A menu in a stitched pocket, with ticks, dots and submenus.", { needs: ["@threadcn/pocket"] }),
+      component("context-menu", "Context Menu", "A right-click menu in a stitched pocket.", { needs: ["@threadcn/pocket"] }),
+      component("sheet", "Sheet", "The stitched modal card, sliding in from a side.", { needs: ["@threadcn/modal"] }),
+      component("drawer", "Drawer", "The stitched modal card as a panel you can swipe away.", { needs: ["@threadcn/modal"] }),
     ],
   }
 

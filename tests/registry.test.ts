@@ -92,7 +92,8 @@ test("each item installs exactly the packages and threadcn parts its file import
     checkbox: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     "radio-group": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     switch: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
-    select: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/canvas", "@threadcn/stitch"], css: true },
+    pocket: { deps: [], parts: ["@threadcn/base"], css: true },
+    select: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/canvas", "@threadcn/pocket", "@threadcn/stitch"], css: true },
     tooltip: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/stitch"], css: true },
     tabs: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     "pocket-card": { deps: ["cn"], parts: ["@threadcn/base"], css: true },
@@ -113,6 +114,12 @@ test("each item installs exactly the packages and threadcn parts its file import
     table: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
     kbd: { deps: ["cn"], parts: ["@threadcn/base"], css: true },
     "scroll-area": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
+    popover: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/pocket", "@threadcn/stitch"], css: false },
+    "hover-card": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/pocket", "@threadcn/stitch"], css: false },
+    "dropdown-menu": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/pocket", "@threadcn/stitch"], css: false },
+    "context-menu": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/pocket", "@threadcn/stitch"], css: false },
+    sheet: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/modal", "@threadcn/button", "@threadcn/stitch"], css: true },
+    drawer: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/modal", "@threadcn/stitch"], css: true },
   })
 })
 
@@ -137,12 +144,14 @@ test("checkbox and radio fade their marks in and out", () => {
   }
 })
 
-test("the select marks the pick with a tick, and every divider uses one line style", () => {
-  const css = readFileSync("registry/threadcn/styles/select.css", "utf8")
-  const indicator = css.slice(css.indexOf(".tx-select-item-indicator {"), css.indexOf("}", css.indexOf(".tx-select-item-indicator {")))
-  expect(indicator).toContain("border-right: 2px solid var(--_mark)")
-  expect(indicator).toContain("rotate: 45deg")
-  expect(css).toContain(".tx-select-item + .tx-select-item,\n  .tx-select-separator {")
+test("pockets mark picks with a thread tick, and every divider uses the pocket's one line", () => {
+  const pocket = styles("pocket")
+  const tick = pocket.slice(pocket.indexOf(".tx-pocket-tick {"), pocket.indexOf("}", pocket.indexOf(".tx-pocket-tick {")))
+  expect(tick).toContain("border-right: 2px solid var(--_mark)")
+  expect(tick).toContain("rotate: 45deg")
+  expect(pocket).toMatch(/--_divider: repeating-linear-gradient/)
+  expect(pocket).toMatch(/\.tx-pocket-separator \{[^}]*background-image: var\(--_divider\)/)
+  expect(styles("select")).toMatch(/\.tx-select-item \+ \.tx-select-item \{[^}]*background-image: var\(--_divider\)/)
 })
 
 const ui = (name: string) => readFileSync(`registry/threadcn/ui/${name}.tsx`, "utf8")
@@ -166,7 +175,7 @@ test("text on flat parts inherits its color, so it reads on denim and on cream",
 })
 
 test("high-contrast mode keeps highlight, focus and error apart", () => {
-  expect(styles("select")).toMatch(/:root \.tx-select-item\[data-highlighted\] \{\s*forced-color-adjust: none;\s*background-color: Highlight;/)
+  expect(styles("pocket")).toMatch(/:root \.tx-pocket-item\[data-highlighted\] \{\s*forced-color-adjust: none;\s*background-color: Highlight;/)
   expect(styles("canvas")).toMatch(/outline: 3px double/)
   expect(styles("canvas")).toMatch(/outline-color: Highlight/)
 })

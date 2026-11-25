@@ -939,6 +939,112 @@
       }
     },
     {
+      "name": "pocket",
+      "type": "registry:item",
+      "title": "Pocket look",
+      "description": "The floating stitched denim pocket shared by Select, Popover, Hover Card and the menus.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-pocket": {
+            "--_mark": "var(--tx-thread)",
+            "--_divider": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px)",
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "6px",
+            "--_radius": "var(--tx-radius)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-surface)",
+            "background-image": "var(--tx-card-sheen)",
+            "color": "var(--tx-surface-foreground)",
+            "outline": "none",
+            "box-shadow": "var(--tx-card-shadow),\n      0 12px 28px rgb(0 0 0 / 0.35)",
+            "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+          },
+          ".tx-pocket:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0.97"
+          },
+          ".tx-pocket-item": {
+            "--_stitch": "transparent",
+            "--_inset": "3px",
+            "--_radius": "8px",
+            "--_thread": "1.2px"
+          },
+          ".tx-pocket-item:is([data-highlighted], [data-popup-open])": {
+            "--_mark": "var(--tx-field-border)",
+            "--_stitch": "var(--tx-field-border)",
+            "background-color": "var(--tx-field)",
+            "background-image": "none",
+            "color": "var(--tx-field-foreground)"
+          },
+          ".tx-pocket-item[data-variant=\"destructive\"]": {
+            "color": "var(--tx-invalid)"
+          },
+          ".tx-pocket-item[data-variant=\"destructive\"][data-highlighted]": {
+            "--_stitch": "color-mix(in srgb, #fff 80%, var(--tx-patch-destructive))",
+            "background-color": "var(--tx-patch-destructive)",
+            "color": "var(--tx-patch-destructive-foreground)"
+          },
+          ".tx-pocket-tick": {
+            "top": "50%",
+            "left": "13px",
+            "width": "5px",
+            "height": "10px",
+            "margin-top": "-6px",
+            "border-right": "2px solid var(--_mark)",
+            "border-bottom": "2px solid var(--_mark)",
+            "rotate": "45deg"
+          },
+          ".tx-pocket-dot": {
+            "top": "50%",
+            "left": "12px",
+            "width": "8px",
+            "height": "8px",
+            "margin-top": "-4px",
+            "border-radius": "50%",
+            "background-color": "var(--_mark)"
+          },
+          ".tx-pocket-label": {
+            "color": "var(--tx-muted-foreground)"
+          },
+          ".tx-pocket-separator": {
+            "background-image": "var(--_divider)",
+            "background-size": "100% 1px",
+            "background-repeat": "no-repeat"
+          },
+          ".tx-pocket-shortcut": {
+            "color": "color-mix(in srgb, currentColor 70%, transparent)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-pocket": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-pocket": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-pocket-item[data-highlighted]": {
+              "forced-color-adjust": "none",
+              "background-color": "Highlight",
+              "color": "HighlightText"
+            },
+            ":root .tx-pocket-tick": {
+              "border-color": "CanvasText"
+            },
+            ":root .tx-pocket-dot": {
+              "forced-color-adjust": "none",
+              "background-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
@@ -949,6 +1055,7 @@
       ],
       "registryDependencies": [
         "@threadcn/canvas",
+        "@threadcn/pocket",
         "@threadcn/stitch"
       ],
       "files": [
@@ -971,57 +1078,14 @@
           ".tx-select-trigger[data-placeholder]": {
             "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
           },
-          ".tx-select-content": {
-            "--_mark": "var(--tx-thread)",
-            "--_stitch": "var(--tx-thread)",
-            "--_inset": "6px",
-            "--_radius": "var(--tx-radius)",
-            "--_thread": "var(--tx-thread-width)",
-            "border-radius": "var(--_radius)",
-            "background-color": "var(--tx-surface)",
-            "background-image": "var(--tx-card-sheen)",
-            "color": "var(--tx-surface-foreground)",
-            "box-shadow": "var(--tx-card-shadow),\n      0 12px 28px rgb(0 0 0 / 0.35)"
-          },
-          ".tx-select-item": {
-            "--_stitch": "transparent",
-            "--_inset": "3px",
-            "--_radius": "8px",
-            "--_thread": "1.2px"
-          },
-          ".tx-select-item + .tx-select-item, .tx-select-separator": {
-            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px)",
-            "background-repeat": "no-repeat"
-          },
           ".tx-select-item + .tx-select-item": {
+            "background-image": "var(--_divider)",
             "background-position": "8px 0",
-            "background-size": "calc(100% - 16px) 1px"
-          },
-          ".tx-select-separator": {
-            "background-size": "100% 1px"
-          },
-          ".tx-select-item[data-highlighted]": {
-            "--_mark": "var(--tx-field-border)",
-            "--_stitch": "var(--tx-field-border)",
-            "background-color": "var(--tx-field)",
-            "background-image": "none",
-            "color": "var(--tx-field-foreground)"
+            "background-size": "calc(100% - 16px) 1px",
+            "background-repeat": "no-repeat"
           },
           ".tx-select-item[data-selected]": {
             "font-weight": "700"
-          },
-          ".tx-select-item-indicator": {
-            "top": "50%",
-            "left": "13px",
-            "width": "5px",
-            "height": "10px",
-            "margin-top": "-6px",
-            "border-right": "2px solid var(--_mark)",
-            "border-bottom": "2px solid var(--_mark)",
-            "rotate": "45deg"
-          },
-          ".tx-select-label": {
-            "color": "var(--tx-muted-foreground)"
           },
           ".tx-select-scroll": {
             "background-color": "var(--tx-surface)",
@@ -1041,19 +1105,6 @@
           "@media (prefers-reduced-motion: reduce)": {
             ":root .tx-select-icon": {
               "transition": "none"
-            }
-          },
-          "@media (forced-colors: active)": {
-            ":root .tx-select-content": {
-              "border": "1px solid CanvasText"
-            },
-            ":root .tx-select-item[data-highlighted]": {
-              "forced-color-adjust": "none",
-              "background-color": "Highlight",
-              "color": "HighlightText"
-            },
-            ":root .tx-select-item-indicator": {
-              "border-color": "CanvasText"
             }
           }
         }
@@ -2071,6 +2122,190 @@
             ":root .tx-scroll-area-thumb": {
               "forced-color-adjust": "none",
               "background-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A small stitched pocket that opens next to its trigger.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "A stitched pocket that previews a link on hover.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "A menu in a stitched pocket, with ticks, dots and submenus.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "A right-click menu in a stitched pocket.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "The stitched modal card, sliding in from a side.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/modal",
+        "@threadcn/button",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-modal.tx-sheet": {
+            "transition": "opacity 220ms ease-out,\n      translate 220ms ease-out"
+          },
+          ".tx-modal.tx-sheet:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "1"
+          },
+          ".tx-sheet[data-side=\"right\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "2.5rem 0"
+          },
+          ".tx-sheet[data-side=\"left\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "-2.5rem 0"
+          },
+          ".tx-sheet[data-side=\"top\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "0 -2.5rem"
+          },
+          ".tx-sheet[data-side=\"bottom\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "0 2.5rem"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-modal.tx-sheet": {
+              "transition": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "The stitched modal card as a panel you can swipe away.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/modal",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-modal.tx-drawer:is([data-starting-style], [data-ending-style])": {
+            "scale": "1"
+          },
+          ".tx-drawer[data-swipe-direction=\"down\"]": {
+            "border-bottom-left-radius": "0",
+            "border-bottom-right-radius": "0"
+          },
+          ".tx-drawer[data-swipe-direction=\"up\"]": {
+            "border-top-left-radius": "0",
+            "border-top-right-radius": "0"
+          },
+          ".tx-drawer[data-swipe-direction=\"left\"]": {
+            "border-top-left-radius": "0",
+            "border-bottom-left-radius": "0"
+          },
+          ".tx-drawer[data-swipe-direction=\"right\"]": {
+            "border-top-right-radius": "0",
+            "border-bottom-right-radius": "0"
+          },
+          ".tx-drawer-handle": {
+            "border-top": "3px dashed var(--tx-thread)"
+          },
+          ".tx-drawer-handle:where(.group\\/drawer-popup[data-swipe-axis=\"x\"] *)": {
+            "border-top": "0",
+            "border-left": "3px dashed var(--tx-thread)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-modal.tx-drawer": {
+              "transition-duration": "0s"
             }
           }
         }

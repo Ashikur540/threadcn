@@ -1,0 +1,127 @@
+/* Pocket: the floating stitched denim pocket shared by the Select list,
+ * Popover, Hover Card, Dropdown Menu and Context Menu.
+ *
+ * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-card-shadow,
+ *   --tx-field*, --tx-thread, --tx-patch-destructive*, --tx-radius,
+ *   --tx-muted-foreground
+ * Knobs: --_mark      color of a tick or dot on a picked item
+ *        --_divider   the dashed 1px line used for every divider inside
+ *        --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * Base UI sets data-highlighted, data-checked and data-disabled on items.
+ */
+@layer components {
+  .tx-pocket {
+    --_mark: var(--tx-thread);
+    /* 5px stitch, 4px gap, like --tx-stitch-dash. Lines sit on whole pixels. */
+    --_divider: repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px);
+    --_stitch: var(--tx-thread);
+    --_inset: 6px;
+    --_radius: var(--tx-radius);
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    background-color: var(--tx-surface);
+    background-image: var(--tx-card-sheen);
+    color: var(--tx-surface-foreground);
+    outline: none;
+    box-shadow:
+      var(--tx-card-shadow),
+      0 12px 28px rgb(0 0 0 / 0.35);
+    transition:
+      opacity 150ms ease-out,
+      scale 150ms ease-out;
+  }
+  .tx-pocket:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 0.97;
+  }
+
+  /* ---- Items ---- */
+
+  .tx-pocket-item {
+    --_stitch: transparent;
+    --_inset: 3px;
+    --_radius: 8px;
+    --_thread: 1.2px;
+  }
+  /* Highlighted (hover or arrow keys): a cream label sewn on. */
+  .tx-pocket-item:is([data-highlighted], [data-popup-open]) {
+    --_mark: var(--tx-field-border);
+    --_stitch: var(--tx-field-border);
+    background-color: var(--tx-field);
+    background-image: none;
+    color: var(--tx-field-foreground);
+  }
+  /* A destructive item turns into a rust patch when highlighted. */
+  .tx-pocket-item[data-variant="destructive"] {
+    color: var(--tx-invalid);
+  }
+  .tx-pocket-item[data-variant="destructive"][data-highlighted] {
+    --_stitch: color-mix(in srgb, #fff 80%, var(--tx-patch-destructive));
+    background-color: var(--tx-patch-destructive);
+    color: var(--tx-patch-destructive-foreground);
+  }
+
+  /* ---- Marks ---- */
+
+  /* A tick in thread, the same shape as the Checkbox tick. */
+  .tx-pocket-tick {
+    top: 50%;
+    left: 13px;
+    width: 5px;
+    height: 10px;
+    margin-top: -6px;
+    border-right: 2px solid var(--_mark);
+    border-bottom: 2px solid var(--_mark);
+    rotate: 45deg;
+  }
+  /* A small dot, like a picked Radio. */
+  .tx-pocket-dot {
+    top: 50%;
+    left: 12px;
+    width: 8px;
+    height: 8px;
+    margin-top: -4px;
+    border-radius: 50%;
+    background-color: var(--_mark);
+  }
+  .tx-pocket-label {
+    color: var(--tx-muted-foreground);
+  }
+  .tx-pocket-separator {
+    background-image: var(--_divider);
+    background-size: 100% 1px;
+    background-repeat: no-repeat;
+  }
+  .tx-pocket-shortcut {
+    color: color-mix(in srgb, currentColor 70%, transparent);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-pocket {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-pocket {
+      border: 1px solid CanvasText;
+    }
+    /* The system highlight colors, kept as-is so the active item stands out. */
+    :root .tx-pocket-item[data-highlighted] {
+      forced-color-adjust: none;
+      background-color: Highlight;
+      color: HighlightText;
+    }
+    :root .tx-pocket-tick {
+      border-color: CanvasText;
+    }
+    :root .tx-pocket-dot {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+  }
+}

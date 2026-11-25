@@ -11,6 +11,7 @@
 @import "../registry/threadcn/styles/checkbox.css";
 @import "../registry/threadcn/styles/radio-group.css";
 @import "../registry/threadcn/styles/switch.css";
+@import "../registry/threadcn/styles/pocket.css";
 @import "../registry/threadcn/styles/select.css";
 @import "../registry/threadcn/styles/tooltip.css";
 @import "../registry/threadcn/styles/tabs.css";
@@ -28,6 +29,8 @@
 @import "../registry/threadcn/styles/table.css";
 @import "../registry/threadcn/styles/kbd.css";
 @import "../registry/threadcn/styles/scroll-area.css";
+@import "../registry/threadcn/styles/sheet.css";
+@import "../registry/threadcn/styles/drawer.css";
 
 /* dark mode follows the .dark class on <html>, like shadcn */
 @custom-variant dark (&:where(.dark, .dark *));

@@ -15,6 +15,7 @@ import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader,
 import { DialogDemo } from "./dialog-demo"
 import { PopupsDemo } from "./popups-demo"
 import { FeedbackDemo, ToggleDemo } from "./wave1-demo"
+import { Wave2Demo } from "./wave2-demo"
 import { Wave3Demo } from "./wave3-demo"
 import { ThemeToggle } from "./theme-toggle"
 
@@ -254,6 +255,10 @@ export default function Home() {
 
       <Section title="Feedback: Alert, Toast, Alert Dialog, Progress, Slider, Skeleton, Spinner">
         <FeedbackDemo />
+      </Section>
+
+      <Section title="Overlays and menus">
+        <Wave2Demo />
       </Section>
 
       <Section title="Layout and navigation">

@@ -7,8 +7,9 @@ import { cn } from "cn"
 import { Stitch } from "@/registry/threadcn/ui/stitch"
 
 // Same parts and API as shadcn's Base UI Select. Base UI handles the keyboard,
-// typeahead and screen-reader roles. The trigger wears the shared field look
-// (styles/canvas.css); the list is in styles/select.css.
+// typeahead and screen-reader roles. The trigger wears the shared canvas look
+// (styles/canvas.css), the list the shared pocket look (styles/pocket.css);
+// Select's own extras are in styles/select.css.
 
 type WithClassName<T> = Omit<T, "className"> & { className?: string }
 
@@ -81,7 +82,7 @@ function SelectContent({
         <SelectPrimitive.Popup
           data-slot="select-content"
           className={cn(
-            "tx-select-content relative flex max-h-(--available-height) w-(--anchor-width) min-w-40 origin-(--transform-origin) flex-col overflow-hidden p-2.5",
+            "tx-pocket tx-select-content relative flex max-h-(--available-height) w-(--anchor-width) min-w-40 origin-(--transform-origin) flex-col overflow-hidden p-2.5",
             className,
           )}
           {...props}
@@ -100,7 +101,7 @@ function SelectLabel({ className, ...props }: WithClassName<SelectPrimitive.Grou
   return (
     <SelectPrimitive.GroupLabel
       data-slot="select-label"
-      className={cn("tx-select-label px-2.5 pt-2 pb-1 text-xs font-semibold tracking-[.04em] uppercase", className)}
+      className={cn("tx-pocket-label tx-select-label px-2.5 pt-2 pb-1 text-xs font-semibold tracking-[.04em] uppercase", className)}
       {...props}
     />
   )
@@ -112,14 +113,14 @@ function SelectItem({ className, children, ...props }: WithClassName<SelectPrimi
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "tx-select-item relative flex w-full cursor-default items-center rounded-lg py-2 pr-2.5 pl-8 text-sm leading-5 outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50",
+        "tx-pocket-item tx-select-item relative flex w-full cursor-default items-center rounded-lg py-2 pr-2.5 pl-8 text-sm leading-5 outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}
       {...props}
     >
       <Stitch />
       {/* Empty on purpose: the tick is drawn in CSS, and Base UI would add a "✔️". */}
-      <SelectPrimitive.ItemIndicator data-slot="select-item-indicator" className="tx-select-item-indicator absolute">
+      <SelectPrimitive.ItemIndicator data-slot="select-item-indicator" className="tx-pocket-tick tx-select-item-indicator absolute">
         {null}
       </SelectPrimitive.ItemIndicator>
       <SelectPrimitive.ItemText className="tx-select-item-text min-w-0">{children}</SelectPrimitive.ItemText>
@@ -128,7 +129,7 @@ function SelectItem({ className, children, ...props }: WithClassName<SelectPrimi
 }
 
 function SelectSeparator({ className, ...props }: WithClassName<SelectPrimitive.Separator.Props>) {
-  return <SelectPrimitive.Separator data-slot="select-separator" className={cn("tx-select-separator mx-2 my-1.5 h-px", className)} {...props} />
+  return <SelectPrimitive.Separator data-slot="select-separator" className={cn("tx-pocket-separator tx-select-separator mx-2 my-1.5 h-px", className)} {...props} />
 }
 
 function SelectScrollUpButton({ className, ...props }: WithClassName<React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>>) {

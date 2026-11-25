@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hover-card",
+  "title": "Hover Card",
+  "description": "A stitched pocket that previews a link on hover.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/pocket",
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/hover-card.tsx",
+      "content": "\"use client\"\n\nimport { PreviewCard as PreviewCardPrimitive } from \"@base-ui/react/preview-card\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// Same parts and API as shadcn's Base UI HoverCard (Base UI calls it\n// PreviewCard). It opens on hover or focus of a link. The look is the shared\n// pocket (styles/pocket.css).\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\nfunction HoverCard({ ...props }: PreviewCardPrimitive.Root.Props) {\n  return <PreviewCardPrimitive.Root data-slot=\"hover-card\" {...props} />\n}\n\nfunction HoverCardTrigger({ ...props }: PreviewCardPrimitive.Trigger.Props) {\n  return <PreviewCardPrimitive.Trigger data-slot=\"hover-card-trigger\" {...props} />\n}\n\n/**\n * A stitched pocket that previews a link while you hover it.\n *\n * @example\n * <HoverCard>\n *   <HoverCardTrigger href=\"/makers/indigo\">@indigo</HoverCardTrigger>\n *   <HoverCardContent>Small-batch denim since 2019.</HoverCardContent>\n * </HoverCard>\n */\nfunction HoverCardContent({\n  className,\n  children,\n  side = \"bottom\",\n  sideOffset = 6,\n  align = \"center\",\n  alignOffset = 4,\n  ...props\n}: WithClassName<PreviewCardPrimitive.Popup.Props> & Pick<PreviewCardPrimitive.Positioner.Props, \"align\" | \"alignOffset\" | \"side\" | \"sideOffset\">) {\n  return (\n    <PreviewCardPrimitive.Portal data-slot=\"hover-card-portal\">\n      <PreviewCardPrimitive.Positioner align={align} alignOffset={alignOffset} side={side} sideOffset={sideOffset} className=\"isolate z-50\">\n        <PreviewCardPrimitive.Popup\n          data-slot=\"hover-card-content\"\n          className={cn(\"tx-pocket relative z-50 w-64 origin-(--transform-origin) p-[18px] text-sm\", className)}\n          {...props}\n        >\n          <Stitch />\n          {children}\n        </PreviewCardPrimitive.Popup>\n      </PreviewCardPrimitive.Positioner>\n    </PreviewCardPrimitive.Portal>\n  )\n}\n\nexport { HoverCard, HoverCardTrigger, HoverCardContent }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}
