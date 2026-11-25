@@ -9,7 +9,6 @@
   --tx-texture-opacity: 1;
   --tx-font-patch: inherit;
   --tx-font-heading: inherit;
-  --tx-focus-ring: 0 0 0 2px var(--tx-fabric), 0 0 0 5px var(--tx-ring);
   --tx-fabric: #2b4a74;
   --tx-fabric-highlight: #3a5a86;
   --tx-surface: #335687;

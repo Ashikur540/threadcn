@@ -32,8 +32,6 @@ export const denim = {
     'texture-opacity': '1',
     'font-patch': 'inherit',
     'font-heading': 'inherit',
-    // a gap in the fabric color, then the ring color
-    'focus-ring': '0 0 0 2px var(--tx-fabric), 0 0 0 5px var(--tx-ring)',
   },
 
   light: {
