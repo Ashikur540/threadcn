@@ -11,3 +11,7 @@ docs/
 spec-sheet/
 .impeccable/
 next-env.d.ts
+
+# Local env files (secrets). .env.example stays tracked.
+.env
+.env*.local

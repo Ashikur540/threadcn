@@ -84,7 +84,7 @@ export function importsOf(source: string) {
   return { dependencies: [...dependencies], registryDependencies: [...registryDependencies] }
 }
 
-/** A CSS-only item shared by several components, like the field look. */
+/** A CSS-only item shared by several components, like the canvas look. */
 function styleOnly(name: string, title: string, description: string): RegistryItem {
   return { name, type: "registry:item", title, description, dependencies: [], registryDependencies: ["@threadcn/base"], css: style(name) }
 }
@@ -147,7 +147,7 @@ export function buildRegistry() {
       component("stitch", "Stitch", "The stitch line drawn inside a part's edge.", { needs: ["@threadcn/base"] }),
       component("button", "Button", "A sewn-on patch that sinks when pressed.", { files: ["button-client"] }),
       component("card", "Card", "A stitched piece of fabric. Puffy and quilted in dark mode."),
-      styleOnly("modal", "Modal look", "The shared look of Dialog and Alert Dialog: a stitched card over a dimmed page."),
+      styleOnly("modal", "Modal look", "The shared look of Dialog, Alert Dialog, Sheet and Drawer: a stitched card over a dimmed page."),
       component("dialog", "Dialog", "A stitched card that floats over a dimmed page.", { needs: ["@threadcn/modal"] }),
       component("badge", "Badge", "A small woven label."),
       // Label and Separator draw no stitch, but they read the fabric tokens from base.
@@ -166,7 +166,7 @@ export function buildRegistry() {
       component("tabs", "Tabs", "Sewn-on label tabs; the active tab is stitched onto its panel."),
       // Pocket card draws its own double stitch, so it needs only the tokens from base.
       component("pocket-card", "Pocket Card", "A jeans back pocket with double stitching, rivets and a hang tag.", { needs: ["@threadcn/base"] }),
-      component("toggle", "Toggle", "Plain fabric when off, a cream canvas patch sewn on when on."),
+      component("toggle", "Toggle", "Plain fabric when off, a leather patch sewn on when on."),
       component("toggle-group", "Toggle Group", "A row of toggles that share a variant, size and spacing."),
       component("alert", "Alert", "A notice sewn on like a garment care label."),
       component("alert-dialog", "Alert Dialog", "A dialog that must be answered, in the stitched modal look.", { needs: ["@threadcn/modal"] }),

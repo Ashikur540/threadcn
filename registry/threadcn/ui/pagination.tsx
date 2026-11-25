@@ -84,8 +84,8 @@ function PaginationNext({ className, text = "Next", ...props }: React.ComponentP
 
 function PaginationEllipsis({ className, ...props }: React.ComponentProps<"span">) {
   return (
-    <span aria-hidden data-slot="pagination-ellipsis" className={cn("flex size-11 items-center justify-center", className)} {...props}>
-      <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
+    <span data-slot="pagination-ellipsis" className={cn("flex size-11 items-center justify-center", className)} {...props}>
+      <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
         <circle cx="5" cy="12" r="1.8" />
         <circle cx="12" cy="12" r="1.8" />
         <circle cx="19" cy="12" r="1.8" />

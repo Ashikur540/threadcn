@@ -2,10 +2,10 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/registry/threadcn/ui/accordion"
 import { Avatar, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarImage } from "@/registry/threadcn/ui/avatar"
-import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/registry/threadcn/ui/breadcrumb"
+import { Breadcrumb, BreadcrumbEllipsis, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/registry/threadcn/ui/breadcrumb"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/registry/threadcn/ui/collapsible"
 import { Kbd, KbdGroup } from "@/registry/threadcn/ui/kbd"
-import { Pagination, PaginationContent, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/registry/threadcn/ui/pagination"
+import { Pagination, PaginationContent, PaginationEllipsis, PaginationItem, PaginationLink, PaginationNext, PaginationPrevious } from "@/registry/threadcn/ui/pagination"
 import { ScrollArea } from "@/registry/threadcn/ui/scroll-area"
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from "@/registry/threadcn/ui/table"
 
@@ -55,6 +55,14 @@ test("Breadcrumb is a labelled nav that marks the current page", () => {
   expect(screen.getByRole("navigation", { name: "breadcrumb" })).toBeInTheDocument()
   expect(screen.getByRole("link", { name: "Shop" })).toHaveAttribute("data-slot", "breadcrumb-link")
   expect(screen.getByText("Model 08")).toHaveAttribute("aria-current", "page")
+})
+
+test("ellipses hide the dots but still tell screen readers pages are skipped", () => {
+  render(<><PaginationEllipsis /><BreadcrumbEllipsis /></>)
+  expect(screen.getByText("More pages")).not.toHaveAttribute("aria-hidden")
+  expect(screen.getByText("More pages").closest("[aria-hidden]")).toBeNull()
+  expect(screen.getByText("More").closest("[aria-hidden]")).toBeNull()
+  for (const svg of document.querySelectorAll("svg")) expect(svg).toHaveAttribute("aria-hidden", "true")
 })
 
 test("Pagination marks the current page with the leather patch", () => {

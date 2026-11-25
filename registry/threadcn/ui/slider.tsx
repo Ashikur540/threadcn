@@ -6,6 +6,9 @@ import { cn } from "cn"
 /**
  * A denim strap with sewing-button thumbs. Same API as shadcn's Slider:
  * pass an array as value or defaultValue for a range with two thumbs.
+ *
+ * Differs from shadcn: a plain number (or no value) gives one thumb, as in
+ * Base UI. shadcn's draws two thumbs then.
  * The look is in styles/slider.css.
  *
  * Differs from shadcn: `aria-label` is passed on to each thumb's input, the
@@ -23,7 +26,9 @@ function Slider({
   "aria-label": label,
   ...props
 }: Omit<SliderPrimitive.Root.Props, "className"> & { className?: string }) {
-  const values = Array.isArray(value) ? value : Array.isArray(defaultValue) ? defaultValue : [min, max]
+  // Same thumbs Base UI keeps: a number is one value, and no value means one at `min`.
+  const asList = (v: number | readonly number[] | undefined) => (typeof v === "number" ? [v] : v)
+  const values = asList(value) ?? asList(defaultValue) ?? [min]
   const nameThumb = (index: number) => (values.length === 2 ? `${label}, ${index === 0 ? "minimum" : "maximum"}` : `${label}`)
 
   return (

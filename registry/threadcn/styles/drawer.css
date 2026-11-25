@@ -1,6 +1,7 @@
 /* Drawer: the shared modal card (styles/modal.css) as a swipeable panel.
  *
- * The swipe and stack motion are Tailwind classes in drawer.tsx (shadcn's).
+ * The swipe and stack motion are Tailwind classes in drawer.tsx (shadcn's),
+ * and so is turning them off under reduced motion.
  * .tx-modal.tx-drawer (two classes) switches off the modal's own grow-in, so
  * only the slide runs. The edge against the screen is square.
  * Base UI sets data-swipe-direction on the popup.
@@ -34,13 +35,6 @@
     border-left: 3px dashed var(--tx-thread);
   }
 
-  /* ---- Accessibility ----
-     Selectors start with :root because the shadcn CLI moves @media blocks
-     above the normal rules on install. :root keeps them winning. */
-
-  @media (prefers-reduced-motion: reduce) {
-    :root .tx-modal.tx-drawer {
-      transition-duration: 0s;
-    }
-  }
+  /* Reduced motion lives in drawer.tsx (motion-reduce:transition-none): the
+     slide is Tailwind utilities, and utilities beat any rule in this layer. */
 }

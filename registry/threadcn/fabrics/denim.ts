@@ -121,7 +121,7 @@ export const denim = {
     { fg: 'surface-foreground', bg: 'fabric-highlight', min: 4.5 },
     { fg: 'muted-foreground', bg: 'fabric-highlight', min: 4.5 },
     { fg: 'field-foreground', bg: 'field', min: 4.5 },
-    // placeholder text in a field (field.css uses the same 70% blend)
+    // placeholder text in a field (canvas.css uses the same 70% blend)
     { fg: { mix: ['field-foreground', 'field', 0.7] }, bg: 'field', min: 4.5 },
     // error text on the fabric, its texture lines, and inside cards
     { fg: 'invalid', bg: 'fabric', min: 4.5 },

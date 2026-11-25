@@ -1,5 +1,5 @@
-/* Modal: the shared look of Dialog and Alert Dialog (and later Sheet and
- * Drawer). A stitched card that floats over a dimmed page.
+/* Modal: the shared look of Dialog, Alert Dialog, Sheet and Drawer.
+ * A stitched card that floats over a dimmed page.
  *
  * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-thread,
  *   --tx-radius, --tx-muted-foreground, --tx-font-heading

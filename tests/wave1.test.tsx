@@ -104,6 +104,16 @@ test("Progress reports its value and draws a track with a fill", () => {
   expect(bar.querySelector('[data-slot="progress-track"] [data-slot="progress-indicator"]')).not.toBeNull()
 })
 
+test("Toggle Group keeps its gap when you pass your own style", () => {
+  const { container, rerender } = render(<ToggleGroup spacing={3} style={{ maxWidth: 320 }}><ToggleGroupItem value="a">A</ToggleGroupItem></ToggleGroup>)
+  const group = container.querySelector('[data-slot="toggle-group"]') as HTMLElement
+  expect(group.style.getPropertyValue("--gap")).toBe("3")
+  expect(group.style.maxWidth).toBe("320px")
+  rerender(<ToggleGroup spacing={3} style={() => ({ maxWidth: 200 })}><ToggleGroupItem value="a">A</ToggleGroupItem></ToggleGroup>)
+  expect(group.style.getPropertyValue("--gap")).toBe("3")
+  expect(group.style.maxWidth).toBe("200px")
+})
+
 test("Slider gives each sewing-button thumb a spoken name", () => {
   const { container } = render(<Slider defaultValue={[20, 80]} aria-label="Price" />)
   expect(container.querySelectorAll('[data-slot="slider-thumb"].tx-slider-thumb')).toHaveLength(2)
@@ -115,6 +125,16 @@ test("Slider gives each sewing-button thumb a spoken name", () => {
 test("a single-value Slider uses the label as is", () => {
   const { container } = render(<Slider defaultValue={[30]} aria-label="Rise" />)
   expect(container.querySelector('input[type="range"]')).toHaveAttribute("aria-label", "Rise")
+})
+
+test("a Slider given a plain number, or no value, gets one thumb", () => {
+  for (const props of [{ defaultValue: 30 }, { value: 30 }, {}]) {
+    const { container, unmount } = render(<Slider {...props} aria-label="Rise" />)
+    const inputs = container.querySelectorAll('input[type="range"]')
+    expect(inputs, JSON.stringify(props)).toHaveLength(1)
+    expect(inputs[0]).toHaveAttribute("aria-label", "Rise")
+    unmount()
+  }
 })
 
 test("Skeleton and Spinner only move when motion is allowed", () => {

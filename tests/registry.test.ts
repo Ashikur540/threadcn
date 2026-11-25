@@ -146,6 +146,15 @@ test("every item that animates also turns it off under reduced motion", () => {
   }
 })
 
+test("Tailwind transition classes in components also switch off under reduced motion", () => {
+  // Utilities beat @layer components, so a CSS reduced-motion rule can't stop them.
+  const usesTransition = /(?<!motion-reduce:)\btransition(?:-|\b)/
+  for (const file of readdirSync("registry/threadcn/ui")) {
+    const literals = readFileSync(`registry/threadcn/ui/${file}`, "utf8").match(/"[^"\n]*"/g) ?? []
+    for (const classes of literals.filter((l) => usesTransition.test(l))) expect(classes, file).toContain("motion-reduce:transition-none")
+  }
+})
+
 test("checkbox and radio fade their marks in and out", () => {
   for (const name of ["checkbox", "radio-group"]) {
     const css = readFileSync(`registry/threadcn/styles/${name}.css`, "utf8")

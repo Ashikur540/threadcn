@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "modal",
   "title": "Modal look",
-  "description": "The shared look of Dialog and Alert Dialog: a stitched card over a dimmed page.",
+  "description": "The shared look of Dialog, Alert Dialog, Sheet and Drawer: a stitched card over a dimmed page.",
   "dependencies": [],
   "registryDependencies": [
     "@threadcn/base"

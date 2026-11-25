@@ -69,8 +69,8 @@ function BreadcrumbSeparator({ children, className, ...props }: React.ComponentP
 /** Stands in for hidden middle items. */
 function BreadcrumbEllipsis({ className, ...props }: React.ComponentProps<"span">) {
   return (
-    <span data-slot="breadcrumb-ellipsis" role="presentation" aria-hidden="true" className={cn("flex size-6 items-center justify-center", className)} {...props}>
-      <svg viewBox="0 0 24 24" fill="currentColor" className="size-4">
+    <span data-slot="breadcrumb-ellipsis" role="presentation" className={cn("flex size-6 items-center justify-center", className)} {...props}>
+      <svg viewBox="0 0 24 24" fill="currentColor" className="size-4" aria-hidden="true">
         <circle cx="5" cy="12" r="1.8" />
         <circle cx="12" cy="12" r="1.8" />
         <circle cx="19" cy="12" r="1.8" />

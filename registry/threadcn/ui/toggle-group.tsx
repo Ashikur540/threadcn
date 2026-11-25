@@ -40,6 +40,7 @@ function ToggleGroup({
   size,
   spacing = 2,
   orientation = "horizontal",
+  style,
   children,
   ...props
 }: Omit<ToggleGroupPrimitive.Props, "className"> & GroupOptions & { className?: string }) {
@@ -51,7 +52,8 @@ function ToggleGroup({
       data-spacing={spacing}
       data-orientation={orientation}
       orientation={orientation}
-      style={{ "--gap": spacing } as React.CSSProperties}
+      // Merged, so your own style (an object or Base UI's state function) keeps the gap.
+      style={(state) => ({ "--gap": spacing, ...(typeof style === "function" ? style(state) : style) }) as React.CSSProperties}
       className={cn(
         "tx-toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch",
         className,
