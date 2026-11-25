@@ -130,6 +130,6 @@
       }
     }
   },
-  "docs": "threadcn components need two things:\n1. The registry in components.json: \"registries\": { \"@threadcn\": \"https://<threadcn-host>/r/{name}.json\" }\n2. A fabric background: add class=\"tx-fabric\" to <body> (or any section). Outline, ghost and link buttons and plain text expect it.",
+  "docs": "threadcn components need two things:\n1. The registry in components.json: \"registries\": { \"@threadcn\": \"https://threadcn.vercel.app/r/{name}.json\" }\n2. A fabric background: add class=\"tx-fabric\" to <body> (or any section). Outline, ghost and link buttons and plain text expect it.",
   "type": "registry:theme"
 }

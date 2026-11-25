@@ -11,6 +11,7 @@ import { pathToFileURL } from "node:url"
 import postcss, { type ChildNode } from "postcss"
 
 import { denim } from "../registry/threadcn/fabrics/denim"
+import { siteUrl } from "../site"
 
 type CssObject = { [selectorOrAtRule: string]: CssObject | string }
 
@@ -54,7 +55,7 @@ export function cssToObject(css: string): CssObject {
 // Printed by the shadcn CLI after install.
 const BASE_DOCS = [
   "threadcn components need two things:",
-  '1. The registry in components.json: "registries": { "@threadcn": "https://<threadcn-host>/r/{name}.json" }',
+  `1. The registry in components.json: "registries": { "@threadcn": "${siteUrl}/r/{name}.json" }`,
   '2. A fabric background: add class="tx-fabric" to <body> (or any section). Outline, ghost and link buttons and plain text expect it.',
 ].join("\n")
 

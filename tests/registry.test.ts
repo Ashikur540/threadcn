@@ -65,6 +65,15 @@ test("the base item tells users how to set up the registry and the fabric backgr
   expect(base.docs).toMatch(/tx-fabric/)
 })
 
+test("the site address comes from NEXT_PUBLIC_SITE_URL, without a trailing slash", async () => {
+  vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://threadcn.example/")
+  vi.resetModules()
+  const { buildRegistry: rebuild } = await import("@/scripts/build-registry")
+  const base = rebuild().registry.items.find((i) => i.name === "base")!
+  expect(base.docs).toContain('"@threadcn": "https://threadcn.example/r/{name}.json"')
+  vi.unstubAllEnvs()
+})
+
 test("the button's soft shadow is a public token, so users can change every button at once", () => {
   expect(denim.shared["patch-shadow"]).toBeDefined()
   const button = built.registry.items.find((i) => i.name === "button")!.css!["@layer components"] as Record<string, Record<string, string>>
