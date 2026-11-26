@@ -1,0 +1,76 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "radio-group",
+  "title": "Radio Group",
+  "description": "Stitched round options, leather with a cream dot when picked.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/radio-group.tsx",
+      "content": "\"use client\"\n\nimport { Radio as RadioPrimitive } from \"@base-ui/react/radio\"\nimport { RadioGroup as RadioGroupPrimitive } from \"@base-ui/react/radio-group\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n/**\n * A set of options where only one can be picked. Same API as shadcn's RadioGroup.\n * Arrow keys move between items (Base UI). The look is in styles/radio-group.css.\n *\n * @example\n * <RadioGroup defaultValue=\"regular\">\n *   <RadioGroupItem value=\"slim\" id=\"slim\" /> <Label htmlFor=\"slim\">Slim</Label>\n * </RadioGroup>\n */\nfunction RadioGroup({ className, ...props }: Omit<RadioGroupPrimitive.Props, \"className\"> & { className?: string }) {\n  return <RadioGroupPrimitive data-slot=\"radio-group\" className={cn(\"tx-radio-group grid gap-3\", className)} {...props} />\n}\n\n/** One stitched round option. Turns to leather with a cream dot when picked. */\nfunction RadioGroupItem({ className, ...props }: Omit<RadioPrimitive.Root.Props, \"className\"> & { className?: string }) {\n  return (\n    <RadioPrimitive.Root\n      data-slot=\"radio-group-item\"\n      className={cn(\"tx-radio-group-item peer relative grid size-[26px] shrink-0 cursor-pointer place-items-center rounded-full data-disabled:cursor-not-allowed\", className)}\n      {...props}\n    >\n      <Stitch />\n      <RadioPrimitive.Indicator data-slot=\"radio-group-indicator\" className=\"tx-radio-group-indicator size-2 rounded-full\" />\n    </RadioPrimitive.Root>\n  )\n}\n\nexport { RadioGroup, RadioGroupItem }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-radio-group-item": {
+        "--_stitch": "var(--tx-field-border)",
+        "--_inset": "4px",
+        "--_radius": "13px",
+        "--_thread": "var(--tx-thread-width)",
+        "background-color": "var(--tx-field)",
+        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)",
+        "transition": "background-color 150ms ease-out,\n      box-shadow 150ms ease-out"
+      },
+      ".tx-radio-group-item > [data-slot=\"stitch\"] rect": {
+        "transition": "stroke 150ms ease-out"
+      },
+      ".tx-radio-group-item[data-checked]": {
+        "--_stitch": "var(--tx-leather-foreground)",
+        "background-color": "var(--tx-leather)",
+        "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+      },
+      ".tx-radio-group-indicator": {
+        "background-color": "var(--tx-leather-foreground)",
+        "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+      },
+      ".tx-radio-group-indicator:is([data-starting-style], [data-ending-style])": {
+        "opacity": "0",
+        "scale": "0"
+      },
+      ".tx-radio-group-item:is([aria-invalid=\"true\"], [data-invalid])": {
+        "outline": "2px solid var(--tx-invalid)",
+        "outline-offset": "2px"
+      },
+      ".tx-radio-group-item:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      ".tx-radio-group-item[data-disabled]": {
+        "opacity": "0.5",
+        "cursor": "not-allowed"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-radio-group-item, :root .tx-radio-group-item > [data-slot=\"stitch\"] rect, :root .tx-radio-group-indicator": {
+          "transition": "none"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-radio-group-item": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-radio-group-indicator": {
+          "forced-color-adjust": "none",
+          "background-color": "CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

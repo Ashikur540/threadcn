@@ -1,0 +1,72 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "badge",
+  "title": "Badge",
+  "description": "A small woven label.",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/badge.tsx",
+      "content": "import { mergeProps } from \"@base-ui/react/merge-props\"\nimport { useRender } from \"@base-ui/react/use-render\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n/**\n * Badge classes. Layout is Tailwind here; the look (colors, stitch) is in\n * styles/badge.css, keyed on the tx-badge-* classes.\n */\nconst badgeVariants = cva(\n  \"tx-badge relative inline-flex w-fit max-w-full shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full px-[13px] py-[5px] text-[13px] leading-[1.3] font-semibold whitespace-nowrap [&>svg:not([data-slot=stitch])]:pointer-events-none [&>svg:not([data-slot=stitch]):not([class*='size-'])]:size-3.5\",\n  {\n    variants: {\n      variant: {\n        default: \"\",\n        secondary: \"tx-badge-secondary\",\n        destructive: \"tx-badge-destructive\",\n        outline: \"tx-badge-outline\",\n        ghost: \"tx-badge-ghost\",\n        link: \"tx-badge-link\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n    },\n  },\n)\n\n/**\n * A small woven label. Same API as shadcn's Badge, including `render` to\n * turn it into a link.\n *\n * @example\n * <Badge variant=\"secondary\">Raw denim</Badge>\n * <Badge render={<a href=\"/sale\" />}>Sale</Badge>\n */\nfunction Badge({\n  className,\n  variant = \"default\",\n  render,\n  children,\n  ...props\n}: useRender.ComponentProps<\"span\"> & VariantProps<typeof badgeVariants>) {\n  return useRender({\n    defaultTagName: \"span\",\n    props: mergeProps<\"span\">(\n      {\n        className: cn(badgeVariants({ variant }), className),\n        children: (\n          <>\n            <Stitch />\n            {children}\n          </>\n        ),\n      },\n      props,\n    ),\n    render,\n    state: {\n      slot: \"badge\",\n      variant,\n    },\n  })\n}\n\nexport { Badge, badgeVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-badge": {
+        "--_bg": "var(--tx-patch)",
+        "--_fg": "var(--tx-patch-foreground)",
+        "--_stitch": "color-mix(in srgb, #fff 85%, var(--_bg))",
+        "--_inset": "3px",
+        "--_radius": "13px",
+        "--_thread": "1.2px",
+        "background-color": "var(--_bg)",
+        "color": "var(--_fg)",
+        "font-family": "var(--tx-font-patch)",
+        "box-shadow": "0 2px 0 rgb(0 0 0 / 0.25)"
+      },
+      ".tx-badge-secondary": {
+        "--_bg": "var(--tx-patch-secondary)",
+        "--_fg": "var(--tx-patch-secondary-foreground)",
+        "--_stitch": "var(--tx-thread)"
+      },
+      ".tx-badge-destructive": {
+        "--_bg": "var(--tx-patch-destructive)",
+        "--_fg": "var(--tx-patch-destructive-foreground)"
+      },
+      ".tx-badge-outline, .tx-badge-ghost, .tx-badge-link": {
+        "--_bg": "transparent",
+        "--_fg": "currentColor",
+        "box-shadow": "none"
+      },
+      ".tx-badge-outline": {
+        "--_stitch": "var(--tx-thread)",
+        "--_inset": "1px"
+      },
+      ".tx-badge-ghost, .tx-badge-link": {
+        "--_stitch": "transparent"
+      },
+      ".tx-badge-link": {
+        "text-decoration": "underline dashed var(--tx-thread)",
+        "text-underline-offset": "4px"
+      },
+      ".tx-badge:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-badge": {
+          "border": "1px solid CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

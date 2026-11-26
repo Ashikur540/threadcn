@@ -1,0 +1,69 @@
+/* Select: the open list is a stitched denim pocket.
+ *
+ * The trigger wears the shared field look (styles/canvas.css); only its
+ * chevron lives here.
+ *
+ * The list wears the shared pocket look (styles/pocket.css).
+ * Public tokens it reads: --tx-surface, --tx-surface-foreground, --tx-field*
+ * Base UI sets data-popup-open on the trigger, and data-highlighted /
+ * data-selected on items.
+ */
+@layer components {
+  /* ---- Trigger chevron: two borders of a small box, turned ---- */
+
+  .tx-select-icon {
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform 150ms;
+  }
+  .tx-select-trigger[data-popup-open] .tx-select-icon {
+    transform: translateY(2px) rotate(225deg);
+  }
+  .tx-select-trigger[data-placeholder] {
+    color: color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field));
+  }
+
+  /* ---- The list ----
+     The pocket look (panel, highlighted item, tick, label, separator) comes
+     from styles/pocket.css. Only Select's extras live here. */
+
+  /* A faint dashed line between neighbouring options, using the pocket's one
+     divider line. Items are whole pixels tall (see select.tsx). */
+  .tx-select-item + .tx-select-item {
+    background-image: var(--_divider);
+    background-position: 8px 0;
+    background-size: calc(100% - 16px) 1px;
+    background-repeat: no-repeat;
+  }
+  .tx-select-item[data-selected] {
+    font-weight: 700;
+  }
+  /* Scroll arrows: a small chevron, up or down, on the pocket's own color so
+     they cover the items scrolling underneath. */
+  .tx-select-scroll {
+    background-color: var(--tx-surface);
+    color: var(--tx-surface-foreground);
+  }
+  .tx-select-scroll::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    border-right: 2px solid currentColor;
+    border-bottom: 2px solid currentColor;
+    transform: translateY(-2px) rotate(45deg);
+  }
+  .tx-select-scroll-up::before {
+    transform: translateY(2px) rotate(225deg);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-select-icon {
+      transition: none;
+    }
+  }
+}

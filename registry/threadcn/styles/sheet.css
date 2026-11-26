@@ -1,0 +1,39 @@
+/* Sheet: the shared modal card (styles/modal.css), sliding in from a side.
+ *
+ * .tx-modal.tx-sheet (two classes) outranks the modal's own grow-in, so a
+ * sheet slides instead. Base UI sets data-starting-style / data-ending-style.
+ */
+@layer components {
+  .tx-modal.tx-sheet {
+    transition:
+      opacity 220ms ease-out,
+      translate 220ms ease-out;
+  }
+  .tx-modal.tx-sheet:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 1;
+  }
+  .tx-sheet[data-side="right"]:is([data-starting-style], [data-ending-style]) {
+    translate: 2.5rem 0;
+  }
+  .tx-sheet[data-side="left"]:is([data-starting-style], [data-ending-style]) {
+    translate: -2.5rem 0;
+  }
+  .tx-sheet[data-side="top"]:is([data-starting-style], [data-ending-style]) {
+    translate: 0 -2.5rem;
+  }
+  .tx-sheet[data-side="bottom"]:is([data-starting-style], [data-ending-style]) {
+    translate: 0 2.5rem;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  /* Reduced motion: the sheet fades in place, without sliding. */
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-modal.tx-sheet {
+      transition: none;
+    }
+  }
+}

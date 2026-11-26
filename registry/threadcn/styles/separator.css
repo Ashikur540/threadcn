@@ -1,0 +1,16 @@
+/* Separator: a line of thread between two blocks.
+ *
+ * Public tokens it reads: --tx-thread, --tx-thread-width
+ * A dashed border, not the SVG <Stitch />: a straight line needs no rectangle.
+ */
+@layer components {
+  .tx-separator {
+    border: 0 dashed var(--tx-thread);
+  }
+  .tx-separator[data-orientation="horizontal"] {
+    border-top-width: var(--tx-thread-width);
+  }
+  .tx-separator[data-orientation="vertical"] {
+    border-left-width: var(--tx-thread-width);
+  }
+}

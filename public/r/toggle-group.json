@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle-group",
+  "title": "Toggle Group",
+  "description": "A row of toggles that share a variant, size and spacing.",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch",
+    "@threadcn/toggle"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/toggle-group.tsx",
+      "content": "\"use client\"\n\nimport * as React from \"react\"\nimport { Toggle as TogglePrimitive } from \"@base-ui/react/toggle\"\nimport { ToggleGroup as ToggleGroupPrimitive } from \"@base-ui/react/toggle-group\"\nimport { type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\nimport { toggleVariants } from \"@/registry/threadcn/ui/toggle\"\n\n// Same parts and API as shadcn's Base UI ToggleGroup. Items wear the Toggle\n// look (styles/toggle.css); the group only shares variant, size and spacing.\n\ntype GroupOptions = VariantProps<typeof toggleVariants> & {\n  spacing?: number\n  orientation?: \"horizontal\" | \"vertical\"\n}\n\nconst ToggleGroupContext = React.createContext<GroupOptions>({\n  size: \"default\",\n  variant: \"default\",\n  spacing: 2,\n  orientation: \"horizontal\",\n})\n\n/**\n * A row of toggles. Pass `multiple` to allow more than one on.\n * `spacing` is the gap in Tailwind units (0 joins the items).\n *\n * @example\n * <ToggleGroup variant=\"outline\" defaultValue={[\"regular\"]}>\n *   <ToggleGroupItem value=\"slim\">Slim</ToggleGroupItem>\n *   <ToggleGroupItem value=\"regular\">Regular</ToggleGroupItem>\n * </ToggleGroup>\n */\nfunction ToggleGroup({\n  className,\n  variant,\n  size,\n  spacing = 2,\n  orientation = \"horizontal\",\n  style,\n  children,\n  ...props\n}: Omit<ToggleGroupPrimitive.Props, \"className\"> & GroupOptions & { className?: string }) {\n  return (\n    <ToggleGroupPrimitive\n      data-slot=\"toggle-group\"\n      data-variant={variant}\n      data-size={size}\n      data-spacing={spacing}\n      data-orientation={orientation}\n      orientation={orientation}\n      // Merged, so your own style (an object or Base UI's state function) keeps the gap.\n      style={(state) => ({ \"--gap\": spacing, ...(typeof style === \"function\" ? style(state) : style) }) as React.CSSProperties}\n      className={cn(\n        \"tx-toggle-group flex w-fit flex-row items-center gap-[--spacing(var(--gap))] data-[orientation=vertical]:flex-col data-[orientation=vertical]:items-stretch\",\n        className,\n      )}\n      {...props}\n    >\n      <ToggleGroupContext.Provider value={{ variant, size, spacing, orientation }}>{children}</ToggleGroupContext.Provider>\n    </ToggleGroupPrimitive>\n  )\n}\n\nfunction ToggleGroupItem({\n  className,\n  children,\n  variant = \"default\",\n  size = \"default\",\n  ...props\n}: Omit<TogglePrimitive.Props, \"className\"> & VariantProps<typeof toggleVariants> & { className?: string }) {\n  const context = React.useContext(ToggleGroupContext)\n  return (\n    <TogglePrimitive\n      data-slot=\"toggle-group-item\"\n      data-variant={context.variant || variant}\n      data-size={context.size || size}\n      data-spacing={context.spacing}\n      className={cn(\n        \"focus-visible:z-10\",\n        toggleVariants({ variant: context.variant || variant, size: context.size || size }),\n        className,\n      )}\n      {...props}\n    >\n      <Stitch />\n      {children}\n    </TogglePrimitive>\n  )\n}\n\nexport { ToggleGroup, ToggleGroupItem }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

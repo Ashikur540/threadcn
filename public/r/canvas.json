@@ -1,0 +1,57 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "canvas",
+  "title": "Canvas look",
+  "description": "The cream canvas look shared by Input, Textarea and the Select trigger.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@threadcn/base"
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-canvas": {
+        "border": "0",
+        "border-radius": "calc(var(--tx-radius) - 4px)",
+        "background-color": "var(--tx-field)",
+        "color": "var(--tx-field-foreground)",
+        "outline": "var(--tx-thread-width) dashed var(--tx-field-border)",
+        "outline-offset": "-5px",
+        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.14)",
+        "transition": "outline-color 120ms,\n      box-shadow 120ms"
+      },
+      ".tx-canvas::placeholder": {
+        "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
+      },
+      ".tx-canvas:hover:where(:not(:disabled, [data-disabled]))": {
+        "outline-color": "var(--tx-field-foreground)"
+      },
+      ".tx-canvas:is(:focus-visible, [data-popup-open])": {
+        "outline-color": "var(--tx-field-foreground)",
+        "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.14),\n      0 0 0 3px var(--tx-ring)"
+      },
+      ".tx-canvas:is([aria-invalid=\"true\"], [data-invalid])": {
+        "outline": "2px solid var(--tx-invalid-edge)"
+      },
+      ".tx-canvas:is(:disabled, [data-disabled])": {
+        "opacity": "0.55",
+        "cursor": "not-allowed"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-canvas": {
+          "transition": "none"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-canvas:is([aria-invalid=\"true\"], [data-invalid])": {
+          "outline": "3px double CanvasText"
+        },
+        ":root .tx-canvas:is(:focus-visible, [data-popup-open])": {
+          "outline-width": "3px",
+          "outline-style": "solid",
+          "outline-color": "Highlight"
+        }
+      }
+    }
+  },
+  "type": "registry:item"
+}

@@ -1,0 +1,52 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "progress",
+  "title": "Progress",
+  "description": "A recessed denim strap filled by a gold patch with a running thread.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/base"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/progress.tsx",
+      "content": "\"use client\"\n\nimport { Progress as ProgressPrimitive } from \"@base-ui/react/progress\"\nimport { cn } from \"cn\"\n\n// Same parts and API as shadcn's Base UI Progress. Base UI sets the fill\n// width and the screen-reader values. The look is in styles/progress.css.\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\n/**\n * A recessed denim strap filled by a gold patch with a running thread.\n *\n * @example\n * <Progress value={60}>\n *   <ProgressLabel>Repair</ProgressLabel>\n *   <ProgressValue />\n * </Progress>\n */\nfunction Progress({ className, children, value, ...props }: WithClassName<ProgressPrimitive.Root.Props>) {\n  return (\n    <ProgressPrimitive.Root value={value} data-slot=\"progress\" className={cn(\"tx-progress flex flex-wrap items-center gap-x-3 gap-y-2\", className)} {...props}>\n      {children}\n      <ProgressTrack>\n        <ProgressIndicator />\n      </ProgressTrack>\n    </ProgressPrimitive.Root>\n  )\n}\n\nfunction ProgressTrack({ className, ...props }: WithClassName<ProgressPrimitive.Track.Props>) {\n  return (\n    <ProgressPrimitive.Track\n      data-slot=\"progress-track\"\n      className={cn(\"tx-progress-track relative flex h-3 w-full items-center overflow-hidden rounded-full\", className)}\n      {...props}\n    />\n  )\n}\n\nfunction ProgressIndicator({ className, ...props }: WithClassName<ProgressPrimitive.Indicator.Props>) {\n  return <ProgressPrimitive.Indicator data-slot=\"progress-indicator\" className={cn(\"tx-progress-indicator h-full rounded-full\", className)} {...props} />\n}\n\nfunction ProgressLabel({ className, ...props }: WithClassName<ProgressPrimitive.Label.Props>) {\n  return <ProgressPrimitive.Label data-slot=\"progress-label\" className={cn(\"text-sm font-semibold\", className)} {...props} />\n}\n\nfunction ProgressValue({ className, ...props }: WithClassName<ProgressPrimitive.Value.Props>) {\n  return <ProgressPrimitive.Value data-slot=\"progress-value\" className={cn(\"ml-auto text-sm tabular-nums\", className)} {...props} />\n}\n\nexport { Progress, ProgressTrack, ProgressIndicator, ProgressLabel, ProgressValue }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-progress-track": {
+        "background-color": "var(--tx-patch-secondary)",
+        "box-shadow": "inset 0 2px 4px rgb(0 0 0 / 0.45)"
+      },
+      ".tx-progress-indicator": {
+        "background-color": "var(--tx-patch)",
+        "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, #fff 80%, var(--tx-patch)) 0 5px, transparent 5px 9px)",
+        "background-position": "0 50%",
+        "background-size": "100% 1.5px",
+        "background-repeat": "no-repeat",
+        "box-shadow": "inset 0 -2px 0 var(--tx-patch-edge)",
+        "transition": "width 300ms ease-out"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-progress-indicator": {
+          "transition": "none"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-progress-track": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-progress-indicator": {
+          "forced-color-adjust": "none",
+          "background": "Highlight"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

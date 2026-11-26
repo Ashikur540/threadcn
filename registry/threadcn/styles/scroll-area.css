@@ -1,0 +1,31 @@
+/* Scroll Area: a thin strip of thread for a scrollbar.
+ *
+ * Public tokens it reads: --tx-thread, --tx-ring
+ * Base UI sets data-hovering and data-scrolling on the scrollbar.
+ */
+@layer components {
+  .tx-scroll-area-thumb {
+    background-color: color-mix(in srgb, var(--tx-thread) 55%, transparent);
+    transition: background-color 120ms;
+  }
+  .tx-scroll-area-scrollbar:is([data-hovering], [data-scrolling]) .tx-scroll-area-thumb {
+    background-color: var(--tx-thread);
+  }
+  /* Keyboard users can focus the scrolling box itself. */
+  .tx-scroll-area-viewport:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: -3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-scroll-area-thumb {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-scroll-area-thumb {
+      forced-color-adjust: none;
+      background-color: CanvasText;
+    }
+  }
+}

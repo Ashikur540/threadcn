@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "popover",
+  "title": "Popover",
+  "description": "A small stitched pocket that opens next to its trigger.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/pocket",
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/popover.tsx",
+      "content": "\"use client\"\n\nimport type * as React from \"react\"\nimport { Popover as PopoverPrimitive } from \"@base-ui/react/popover\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// Same parts and API as shadcn's Base UI Popover. Base UI handles opening,\n// focus and screen-reader wiring. The look is the shared pocket (styles/pocket.css).\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\nfunction Popover({ ...props }: PopoverPrimitive.Root.Props) {\n  return <PopoverPrimitive.Root data-slot=\"popover\" {...props} />\n}\n\nfunction PopoverTrigger({ ...props }: PopoverPrimitive.Trigger.Props) {\n  return <PopoverPrimitive.Trigger data-slot=\"popover-trigger\" {...props} />\n}\n\n/**\n * A small stitched pocket that opens next to its trigger.\n *\n * @example\n * <Popover>\n *   <PopoverTrigger render={<Button variant=\"outline\" />}>Size help</PopoverTrigger>\n *   <PopoverContent>Measure a pair you love, flat, across the waist.</PopoverContent>\n * </Popover>\n */\nfunction PopoverContent({\n  className,\n  children,\n  align = \"center\",\n  alignOffset = 0,\n  side = \"bottom\",\n  sideOffset = 6,\n  ...props\n}: WithClassName<PopoverPrimitive.Popup.Props> & Pick<PopoverPrimitive.Positioner.Props, \"align\" | \"alignOffset\" | \"side\" | \"sideOffset\">) {\n  return (\n    <PopoverPrimitive.Portal>\n      <PopoverPrimitive.Positioner align={align} alignOffset={alignOffset} side={side} sideOffset={sideOffset} className=\"isolate z-50\">\n        <PopoverPrimitive.Popup\n          data-slot=\"popover-content\"\n          className={cn(\"tx-pocket relative z-50 grid w-72 origin-(--transform-origin) gap-2.5 p-[18px] text-sm\", className)}\n          {...props}\n        >\n          <Stitch />\n          {children}\n        </PopoverPrimitive.Popup>\n      </PopoverPrimitive.Positioner>\n    </PopoverPrimitive.Portal>\n  )\n}\n\nfunction PopoverHeader({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"popover-header\" className={cn(\"flex flex-col gap-1\", className)} {...props} />\n}\n\nfunction PopoverTitle({ className, ...props }: WithClassName<PopoverPrimitive.Title.Props>) {\n  return <PopoverPrimitive.Title data-slot=\"popover-title\" className={cn(\"font-(family-name:--tx-font-heading) text-base font-bold\", className)} {...props} />\n}\n\nfunction PopoverDescription({ className, ...props }: WithClassName<PopoverPrimitive.Description.Props>) {\n  return <PopoverPrimitive.Description data-slot=\"popover-description\" className={cn(\"text-(--tx-muted-foreground)\", className)} {...props} />\n}\n\nexport { Popover, PopoverContent, PopoverDescription, PopoverHeader, PopoverTitle, PopoverTrigger }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "type": "registry:ui"
+}

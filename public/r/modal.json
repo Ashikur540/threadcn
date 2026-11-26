@@ -1,0 +1,55 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "modal",
+  "title": "Modal look",
+  "description": "The shared look of Dialog, Alert Dialog, Sheet and Drawer: a stitched card over a dimmed page.",
+  "dependencies": [],
+  "registryDependencies": [
+    "@threadcn/base"
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-modal-overlay": {
+        "background-color": "rgb(0 0 0 / 0.55)",
+        "transition": "opacity 180ms ease-out"
+      },
+      ".tx-modal-overlay:is([data-starting-style], [data-ending-style])": {
+        "opacity": "0"
+      },
+      ".tx-modal": {
+        "--_stitch": "var(--tx-thread)",
+        "--_inset": "8px",
+        "--_radius": "calc(var(--tx-radius) + 4px)",
+        "--_thread": "var(--tx-thread-width)",
+        "border-radius": "var(--_radius)",
+        "background-color": "var(--tx-surface)",
+        "background-image": "var(--tx-card-sheen)",
+        "color": "var(--tx-surface-foreground)",
+        "box-shadow": "0 24px 48px rgb(0 0 0 / 0.5)",
+        "outline": "none",
+        "transition": "opacity 180ms ease-out,\n      scale 180ms ease-out"
+      },
+      ".tx-modal:is([data-starting-style], [data-ending-style])": {
+        "opacity": "0",
+        "scale": "0.96"
+      },
+      ".tx-modal-title": {
+        "font-family": "var(--tx-font-heading)"
+      },
+      ".tx-modal-description": {
+        "color": "var(--tx-muted-foreground)"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-modal-overlay, :root .tx-modal": {
+          "transition": "none"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-modal": {
+          "border": "1px solid CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:item"
+}

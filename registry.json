@@ -1,0 +1,2309 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "threadcn",
+  "homepage": "https://github.com/Ashikur540/threadcn",
+  "items": [
+    {
+      "name": "base",
+      "type": "registry:theme",
+      "title": "threadcn base",
+      "description": "The Denim fabric (light) and Quilted night (dark) tokens, the shared stitch, and accessibility fallbacks.",
+      "docs": "threadcn components need two things:\n1. The registry in components.json: \"registries\": { \"@threadcn\": \"https://threadcn.vercel.app/r/{name}.json\" }\n2. A fabric background: add class=\"tx-fabric\" to <body> (or any section). Outline, ghost and link buttons and plain text expect it.",
+      "cssVars": {
+        "light": {
+          "tx-radius": "14px",
+          "tx-stitch-inset": "6px",
+          "tx-stitch-dash": "5 4",
+          "tx-press-depth": "4px",
+          "tx-press-duration": "80ms",
+          "tx-patch-shadow": "rgb(0 0 0 / .28)",
+          "tx-texture-opacity": "1",
+          "tx-font-patch": "inherit",
+          "tx-font-heading": "inherit",
+          "tx-fabric": "#2b4a74",
+          "tx-fabric-highlight": "#3a5a86",
+          "tx-surface": "#335687",
+          "tx-surface-highlight": "#335687",
+          "tx-surface-foreground": "#eef3fb",
+          "tx-muted-foreground": "#cfdbee",
+          "tx-thread": "#f7b866",
+          "tx-thread-width": "1.8px",
+          "tx-patch": "#e1a73e",
+          "tx-patch-foreground": "#3a2a1a",
+          "tx-patch-edge": "#a8741f",
+          "tx-patch-secondary": "#1f3a5e",
+          "tx-patch-secondary-foreground": "#eef3fb",
+          "tx-patch-secondary-edge": "#13263f",
+          "tx-patch-destructive": "#a9462a",
+          "tx-patch-destructive-foreground": "#fff3e6",
+          "tx-patch-destructive-edge": "#6e2a14",
+          "tx-leather": "#7b4a28",
+          "tx-leather-foreground": "#f1d7b8",
+          "tx-leather-edge": "#442916",
+          "tx-field": "#efe3c6",
+          "tx-field-foreground": "#3a2a1a",
+          "tx-field-border": "#8a6d3b",
+          "tx-ring": "#ffd27a",
+          "tx-invalid": "#ffc9bb",
+          "tx-invalid-edge": "#a9462a",
+          "tx-rivet": "#c9853a",
+          "tx-rivet-light": "#ffe2b0",
+          "tx-rivet-dark": "#6b3d12",
+          "tx-texture": "repeating-linear-gradient(135deg, var(--tx-fabric-highlight) 0 1px, transparent 1px 4px), repeating-linear-gradient(45deg, rgb(0 0 0 / .14) 0 1px, transparent 1px 3px)",
+          "tx-texture-size": "auto",
+          "tx-card-shadow": "0 10px 24px rgb(0 0 0 / .32), inset 0 1px 0 rgb(255 255 255 / .12)",
+          "tx-card-sheen": "none"
+        },
+        "dark": {
+          "tx-fabric": "#151a2c",
+          "tx-fabric-highlight": "#262d47",
+          "tx-surface": "#232a44",
+          "tx-surface-highlight": "#2f3754",
+          "tx-surface-foreground": "#e7eaf3",
+          "tx-muted-foreground": "#aab2c9",
+          "tx-thread": "#9aa3bd",
+          "tx-thread-width": "1.6px",
+          "tx-patch": "#e1a73e",
+          "tx-patch-foreground": "#3a2a1a",
+          "tx-patch-edge": "#8a5e18",
+          "tx-patch-secondary": "#2a3150",
+          "tx-patch-secondary-foreground": "#e7eaf3",
+          "tx-patch-secondary-edge": "#10142a",
+          "tx-patch-destructive": "#a9462a",
+          "tx-patch-destructive-foreground": "#fff3e6",
+          "tx-patch-destructive-edge": "#6e2a14",
+          "tx-leather": "#5a3519",
+          "tx-leather-foreground": "#f1d7b8",
+          "tx-leather-edge": "#321d0e",
+          "tx-field": "#1b2036",
+          "tx-field-foreground": "#e7eaf3",
+          "tx-field-border": "#7d86a3",
+          "tx-ring": "#ffd27a",
+          "tx-invalid": "#ff9b85",
+          "tx-invalid-edge": "#ff9b85",
+          "tx-rivet": "#c9853a",
+          "tx-rivet-light": "#ffe2b0",
+          "tx-rivet-dark": "#6b3d12",
+          "tx-texture": "url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44'%3E%3Cpath d='M0 22 L22 0 L44 22 L22 44Z' fill='none' stroke='%23262d47' stroke-width='1.2' stroke-dasharray='3 3'/%3E%3C/svg%3E\")",
+          "tx-texture-size": "44px 44px",
+          "tx-card-shadow": "inset 0 -6px 12px rgb(0 0 0 / .35), inset 0 2px 0 rgb(255 255 255 / .08), 0 8px 18px rgb(0 0 0 / .35)",
+          "tx-card-sheen": "radial-gradient(ellipse at 40% 25%, var(--tx-surface-highlight), transparent 65%)"
+        }
+      },
+      "css": {
+        "@layer components": {
+          "[data-slot=\"stitch\"]": {
+            "position": "absolute",
+            "inset": "0",
+            "width": "100%",
+            "height": "100%",
+            "pointer-events": "none",
+            "overflow": "visible"
+          },
+          "[data-slot=\"stitch\"] rect": {
+            "x": "var(--_inset)",
+            "y": "var(--_inset)",
+            "width": "calc(100% - var(--_inset) * 2)",
+            "height": "calc(100% - var(--_inset) * 2)",
+            "rx": "max(0px, calc(var(--_radius) - var(--_inset)))",
+            "ry": "max(0px, calc(var(--_radius) - var(--_inset)))",
+            "fill": "none",
+            "stroke": "var(--_stitch, var(--tx-thread))",
+            "stroke-width": "var(--_thread, var(--tx-thread-width))",
+            "stroke-dasharray": "var(--tx-stitch-dash)"
+          },
+          ".tx-fabric": {
+            "position": "relative",
+            "isolation": "isolate",
+            "background-color": "var(--tx-fabric)",
+            "color": "var(--tx-surface-foreground)"
+          },
+          ".tx-fabric::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "0",
+            "z-index": "-1",
+            "pointer-events": "none",
+            "opacity": "var(--tx-texture-opacity)",
+            "background-image": "var(--tx-texture)",
+            "background-size": "var(--tx-texture-size)"
+          },
+          "@media (forced-colors: active)": {
+            ":root [data-slot=\"stitch\"], :root .tx-fabric::before": {
+              "display": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "stitch",
+      "type": "registry:ui",
+      "title": "Stitch",
+      "description": "The stitch line drawn inside a part's edge.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/stitch.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "button",
+      "type": "registry:ui",
+      "title": "Button",
+      "description": "A sewn-on patch that sinks when pressed.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/button.tsx",
+          "type": "registry:ui"
+        },
+        {
+          "path": "registry/threadcn/ui/button-client.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-button": {
+            "--_bg": "var(--tx-patch)",
+            "--_fg": "var(--tx-patch-foreground)",
+            "--_edge": "var(--tx-patch-edge)",
+            "--_stitch": "color-mix(in srgb, #fff 88%, var(--_bg))",
+            "--_lift": "var(--tx-press-depth)",
+            "--_shadow": "var(--tx-patch-shadow)",
+            "--_inset": "var(--tx-stitch-inset)",
+            "--_radius": "var(--tx-radius)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--_bg)",
+            "background-image": "radial-gradient(rgb(0 0 0 / 0.05) 0.7px, transparent 1px)",
+            "background-size": "4px 4px",
+            "color": "var(--_fg)",
+            "font-family": "var(--tx-font-patch)",
+            "box-shadow": "0 var(--_lift) 0 var(--_edge),\n      0 calc(var(--_lift) + 3px) 10px var(--_shadow)",
+            "outline": "none",
+            "transition": "transform var(--tx-press-duration) ease-out,\n      box-shadow var(--tx-press-duration) ease-out,\n      background-color 120ms"
+          },
+          ".tx-button-secondary": {
+            "--_bg": "var(--tx-patch-secondary)",
+            "--_fg": "var(--tx-patch-secondary-foreground)",
+            "--_edge": "var(--tx-patch-secondary-edge)",
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-button-destructive": {
+            "--_bg": "var(--tx-patch-destructive)",
+            "--_fg": "var(--tx-patch-destructive-foreground)",
+            "--_edge": "var(--tx-patch-destructive-edge)"
+          },
+          ".tx-button-leather": {
+            "--_bg": "var(--tx-leather)",
+            "--_fg": "var(--tx-leather-foreground)",
+            "--_edge": "var(--tx-leather-edge)",
+            "--_stitch": "var(--tx-thread)",
+            "background-image": "radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px),\n      radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1px)",
+            "background-size": "3px 3px, 5px 5px",
+            "text-shadow": "0 -1px 0 rgb(0 0 0 / 0.45)"
+          },
+          ".tx-button-outline, .tx-button-ghost, .tx-button-link": {
+            "--_bg": "transparent",
+            "--_fg": "currentColor",
+            "--_edge": "transparent",
+            "--_lift": "0px",
+            "--_shadow": "transparent",
+            "background-image": "none"
+          },
+          ".tx-button-outline": {
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-button-ghost, .tx-button-link": {
+            "--_stitch": "transparent"
+          },
+          ".tx-button-link": {
+            "text-decoration": "underline dashed var(--tx-thread)",
+            "text-decoration-thickness": "var(--tx-thread-width)",
+            "text-underline-offset": "5px"
+          },
+          ".tx-button-sm": {
+            "--_inset": "calc(var(--tx-stitch-inset) - 2px)",
+            "--_radius": "calc(var(--tx-radius) - 4px)"
+          },
+          ".tx-button-round": {
+            "--_radius": "22px",
+            "border-radius": "50%"
+          },
+          ".tx-button:hover:not(:disabled, [data-disabled])": {
+            "background-color": "color-mix(in srgb, var(--_bg) 85%, var(--_edge))"
+          },
+          ".tx-button:is(.tx-button-outline, .tx-button-ghost):hover:not(:disabled, [data-disabled])": {
+            "background-color": "color-mix(in srgb, currentColor 10%, transparent)",
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-button-link:hover:not(:disabled, [data-disabled])": {
+            "background-color": "transparent",
+            "text-decoration-style": "solid"
+          },
+          ".tx-button:active:not(:disabled, [data-disabled])": {
+            "transform": "translateY(max(0px, calc(var(--_lift) - 1px)))",
+            "box-shadow": "0 1px 0 var(--_edge),\n      0 2px 4px rgb(0 0 0 / 0.25)"
+          },
+          ".tx-button:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-button:is(:disabled, [data-disabled])": {
+            "opacity": "0.5"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-button": {
+              "transition": "none"
+            },
+            ":root .tx-button:active:not(:disabled, [data-disabled])": {
+              "transform": "none",
+              "background-color": "color-mix(in srgb, var(--_bg) 75%, var(--_edge))"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-button": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "card",
+      "type": "registry:ui",
+      "title": "Card",
+      "description": "A stitched piece of fabric. Puffy and quilted in dark mode.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-card": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "8px",
+            "--_radius": "calc(var(--tx-radius) + 4px)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-surface)",
+            "background-image": "var(--tx-card-sheen)",
+            "color": "var(--tx-surface-foreground)",
+            "box-shadow": "var(--tx-card-shadow)"
+          },
+          ".tx-card[data-size=\"sm\"]": {
+            "--_inset": "6px"
+          },
+          ".tx-card-title": {
+            "font-family": "var(--tx-font-heading)"
+          },
+          ".tx-card-description": {
+            "color": "var(--tx-muted-foreground)"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-card": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "modal",
+      "type": "registry:item",
+      "title": "Modal look",
+      "description": "The shared look of Dialog, Alert Dialog, Sheet and Drawer: a stitched card over a dimmed page.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-modal-overlay": {
+            "background-color": "rgb(0 0 0 / 0.55)",
+            "transition": "opacity 180ms ease-out"
+          },
+          ".tx-modal-overlay:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0"
+          },
+          ".tx-modal": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "8px",
+            "--_radius": "calc(var(--tx-radius) + 4px)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-surface)",
+            "background-image": "var(--tx-card-sheen)",
+            "color": "var(--tx-surface-foreground)",
+            "box-shadow": "0 24px 48px rgb(0 0 0 / 0.5)",
+            "outline": "none",
+            "transition": "opacity 180ms ease-out,\n      scale 180ms ease-out"
+          },
+          ".tx-modal:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0.96"
+          },
+          ".tx-modal-title": {
+            "font-family": "var(--tx-font-heading)"
+          },
+          ".tx-modal-description": {
+            "color": "var(--tx-muted-foreground)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-modal-overlay, :root .tx-modal": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-modal": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "dialog",
+      "type": "registry:ui",
+      "title": "Dialog",
+      "description": "A stitched card that floats over a dimmed page.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/modal",
+        "@threadcn/button",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "badge",
+      "type": "registry:ui",
+      "title": "Badge",
+      "description": "A small woven label.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/badge.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-badge": {
+            "--_bg": "var(--tx-patch)",
+            "--_fg": "var(--tx-patch-foreground)",
+            "--_stitch": "color-mix(in srgb, #fff 85%, var(--_bg))",
+            "--_inset": "3px",
+            "--_radius": "13px",
+            "--_thread": "1.2px",
+            "background-color": "var(--_bg)",
+            "color": "var(--_fg)",
+            "font-family": "var(--tx-font-patch)",
+            "box-shadow": "0 2px 0 rgb(0 0 0 / 0.25)"
+          },
+          ".tx-badge-secondary": {
+            "--_bg": "var(--tx-patch-secondary)",
+            "--_fg": "var(--tx-patch-secondary-foreground)",
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-badge-destructive": {
+            "--_bg": "var(--tx-patch-destructive)",
+            "--_fg": "var(--tx-patch-destructive-foreground)"
+          },
+          ".tx-badge-outline, .tx-badge-ghost, .tx-badge-link": {
+            "--_bg": "transparent",
+            "--_fg": "currentColor",
+            "box-shadow": "none"
+          },
+          ".tx-badge-outline": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "1px"
+          },
+          ".tx-badge-ghost, .tx-badge-link": {
+            "--_stitch": "transparent"
+          },
+          ".tx-badge-link": {
+            "text-decoration": "underline dashed var(--tx-thread)",
+            "text-underline-offset": "4px"
+          },
+          ".tx-badge:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-badge": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "label",
+      "type": "registry:ui",
+      "title": "Label",
+      "description": "A field label in the fabric's text color.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/label.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "separator",
+      "type": "registry:ui",
+      "title": "Separator",
+      "description": "A line of thread between two blocks.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/separator.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-separator": {
+            "border": "0 dashed var(--tx-thread)"
+          },
+          ".tx-separator[data-orientation=\"horizontal\"]": {
+            "border-top-width": "var(--tx-thread-width)"
+          },
+          ".tx-separator[data-orientation=\"vertical\"]": {
+            "border-left-width": "var(--tx-thread-width)"
+          }
+        }
+      }
+    },
+    {
+      "name": "patch",
+      "type": "registry:ui",
+      "title": "Patch",
+      "description": "A sewn-on brand patch: leather label or round denim patch.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/patch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-patch": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "5px",
+            "--_radius": "7px",
+            "--_thread": "1.5px",
+            "background-color": "var(--tx-leather)",
+            "background-image": "radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px),\n      radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1px)",
+            "background-size": "3px 3px, 5px 5px",
+            "color": "var(--tx-leather-foreground)",
+            "font-family": "var(--tx-font-heading)",
+            "text-shadow": "0 1px 0 rgb(255 255 255 / 0.16),\n      0 -1px 0 rgb(0 0 0 / 0.5)",
+            "box-shadow": "0 3px 6px rgb(0 0 0 / 0.4)"
+          },
+          ".tx-patch-round": {
+            "background-color": "var(--tx-patch-secondary)",
+            "background-image": "none",
+            "color": "var(--tx-patch-secondary-foreground)",
+            "font-family": "var(--tx-font-patch)",
+            "text-shadow": "none",
+            "outline": "1.5px dashed var(--tx-thread)",
+            "outline-offset": "-5px"
+          },
+          ".tx-patch-round > [data-slot=\"stitch\"]": {
+            "display": "none"
+          },
+          ".tx-patch:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-patch": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "canvas",
+      "type": "registry:item",
+      "title": "Canvas look",
+      "description": "The cream canvas look shared by Input, Textarea and the Select trigger.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-canvas": {
+            "border": "0",
+            "border-radius": "calc(var(--tx-radius) - 4px)",
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)",
+            "outline": "var(--tx-thread-width) dashed var(--tx-field-border)",
+            "outline-offset": "-5px",
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.14)",
+            "transition": "outline-color 120ms,\n      box-shadow 120ms"
+          },
+          ".tx-canvas::placeholder": {
+            "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
+          },
+          ".tx-canvas:hover:where(:not(:disabled, [data-disabled]))": {
+            "outline-color": "var(--tx-field-foreground)"
+          },
+          ".tx-canvas:is(:focus-visible, [data-popup-open])": {
+            "outline-color": "var(--tx-field-foreground)",
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.14),\n      0 0 0 3px var(--tx-ring)"
+          },
+          ".tx-canvas:is([aria-invalid=\"true\"], [data-invalid])": {
+            "outline": "2px solid var(--tx-invalid-edge)"
+          },
+          ".tx-canvas:is(:disabled, [data-disabled])": {
+            "opacity": "0.55",
+            "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-canvas": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-canvas:is([aria-invalid=\"true\"], [data-invalid])": {
+              "outline": "3px double CanvasText"
+            },
+            ":root .tx-canvas:is(:focus-visible, [data-popup-open])": {
+              "outline-width": "3px",
+              "outline-style": "solid",
+              "outline-color": "Highlight"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "input",
+      "type": "registry:ui",
+      "title": "Input",
+      "description": "A text field on cream canvas.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/canvas"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/input.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "textarea",
+      "type": "registry:ui",
+      "title": "Textarea",
+      "description": "A multi-line text field on cream canvas.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/canvas"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/textarea.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "checkbox",
+      "type": "registry:ui",
+      "title": "Checkbox",
+      "description": "A stitched cream box that turns to leather when checked.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/checkbox.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-checkbox": {
+            "--_stitch": "var(--tx-field-border)",
+            "--_inset": "4px",
+            "--_radius": "7px",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-field)",
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)",
+            "transition": "background-color 150ms ease-out,\n      box-shadow 150ms ease-out"
+          },
+          ".tx-checkbox > [data-slot=\"stitch\"] rect": {
+            "transition": "stroke 150ms ease-out"
+          },
+          ".tx-checkbox:is([data-checked], [data-indeterminate])": {
+            "--_stitch": "var(--tx-leather-foreground)",
+            "background-color": "var(--tx-leather)",
+            "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+          },
+          ".tx-checkbox-indicator": {
+            "width": "7px",
+            "height": "12px",
+            "margin-top": "-3px",
+            "border-right": "2.5px solid var(--tx-leather-foreground)",
+            "border-bottom": "2.5px solid var(--tx-leather-foreground)",
+            "transform": "rotate(45deg)",
+            "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+          },
+          ".tx-checkbox-indicator:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0.4"
+          },
+          ".tx-checkbox[data-indeterminate] .tx-checkbox-indicator": {
+            "width": "10px",
+            "height": "0",
+            "margin-top": "0",
+            "border-right": "0",
+            "transform": "none"
+          },
+          ".tx-checkbox:is([aria-invalid=\"true\"], [data-invalid])": {
+            "outline": "2px solid var(--tx-invalid)",
+            "outline-offset": "2px"
+          },
+          ".tx-checkbox:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-checkbox[data-disabled]": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-checkbox, :root .tx-checkbox > [data-slot=\"stitch\"] rect, :root .tx-checkbox-indicator": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-checkbox": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-checkbox-indicator": {
+              "border-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "radio-group",
+      "type": "registry:ui",
+      "title": "Radio Group",
+      "description": "Stitched round options, leather with a cream dot when picked.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/radio-group.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-radio-group-item": {
+            "--_stitch": "var(--tx-field-border)",
+            "--_inset": "4px",
+            "--_radius": "13px",
+            "--_thread": "var(--tx-thread-width)",
+            "background-color": "var(--tx-field)",
+            "box-shadow": "inset 0 2px 3px rgb(0 0 0 / 0.18)",
+            "transition": "background-color 150ms ease-out,\n      box-shadow 150ms ease-out"
+          },
+          ".tx-radio-group-item > [data-slot=\"stitch\"] rect": {
+            "transition": "stroke 150ms ease-out"
+          },
+          ".tx-radio-group-item[data-checked]": {
+            "--_stitch": "var(--tx-leather-foreground)",
+            "background-color": "var(--tx-leather)",
+            "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+          },
+          ".tx-radio-group-indicator": {
+            "background-color": "var(--tx-leather-foreground)",
+            "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+          },
+          ".tx-radio-group-indicator:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0"
+          },
+          ".tx-radio-group-item:is([aria-invalid=\"true\"], [data-invalid])": {
+            "outline": "2px solid var(--tx-invalid)",
+            "outline-offset": "2px"
+          },
+          ".tx-radio-group-item:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-radio-group-item[data-disabled]": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-radio-group-item, :root .tx-radio-group-item > [data-slot=\"stitch\"] rect, :root .tx-radio-group-indicator": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-radio-group-item": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-radio-group-indicator": {
+              "forced-color-adjust": "none",
+              "background-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "switch",
+      "type": "registry:ui",
+      "title": "Switch",
+      "description": "A fabric strap with a sewing-button thumb that rolls as it slides.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/switch.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-switch": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "5px",
+            "--_radius": "16px",
+            "--_thread": "var(--tx-thread-width)",
+            "--_travel": "26px",
+            "--_roll": "125deg",
+            "width": "58px",
+            "height": "32px",
+            "background-color": "var(--tx-patch-secondary)",
+            "background-image": "repeating-linear-gradient(90deg, rgb(255 255 255 / 0.07) 0 3px, transparent 3px 6px)",
+            "box-shadow": "inset 0 2px 5px rgb(0 0 0 / 0.45)",
+            "transition": "background-color 260ms ease"
+          },
+          ".tx-switch[data-checked]": {
+            "--_stitch": "var(--tx-patch-edge)",
+            "background-color": "var(--tx-patch)"
+          },
+          ".tx-switch-thumb": {
+            "top": "4px",
+            "left": "4px",
+            "width": "24px",
+            "height": "24px",
+            "background": "radial-gradient(circle at 38% 38%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 62% 38%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 38% 62%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 62% 62%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle, var(--tx-rivet-light) 55%, color-mix(in srgb, var(--tx-rivet-light) 70%, var(--tx-rivet)) 100%)",
+            "box-shadow": "0 2px 3px rgb(0 0 0 / 0.45)",
+            "transition": "transform 420ms cubic-bezier(0.34, 1.45, 0.64, 1),\n      scale 140ms ease-out"
+          },
+          ".tx-switch[data-checked] .tx-switch-thumb": {
+            "transform": "translateX(var(--_travel)) rotate(var(--_roll))"
+          },
+          ".tx-switch[data-size=\"sm\"]": {
+            "--_inset": "4px",
+            "--_radius": "13px",
+            "--_travel": "20px",
+            "--_roll": "115deg",
+            "width": "46px",
+            "height": "26px"
+          },
+          ".tx-switch[data-size=\"sm\"] .tx-switch-thumb": {
+            "top": "3px",
+            "left": "3px",
+            "width": "20px",
+            "height": "20px"
+          },
+          ".tx-switch:active:not([data-disabled]) .tx-switch-thumb": {
+            "scale": "0.88"
+          },
+          ".tx-switch:is([aria-invalid=\"true\"], [data-invalid])": {
+            "outline": "2px solid var(--tx-invalid)",
+            "outline-offset": "2px"
+          },
+          ".tx-switch:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-switch[data-disabled]": {
+            "opacity": "0.5",
+            "cursor": "not-allowed"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-switch, :root .tx-switch-thumb": {
+              "transition": "none"
+            },
+            ":root .tx-switch[data-checked] .tx-switch-thumb": {
+              "transform": "translateX(var(--_travel))"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-switch": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-switch-thumb": {
+              "forced-color-adjust": "none",
+              "background": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "pocket",
+      "type": "registry:item",
+      "title": "Pocket look",
+      "description": "The floating stitched denim pocket shared by Select, Popover, Hover Card and the menus.",
+      "dependencies": [],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-pocket": {
+            "--_mark": "var(--tx-thread)",
+            "--_divider": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px)",
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "6px",
+            "--_radius": "var(--tx-radius)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-surface)",
+            "background-image": "var(--tx-card-sheen)",
+            "color": "var(--tx-surface-foreground)",
+            "outline": "none",
+            "box-shadow": "var(--tx-card-shadow),\n      0 12px 28px rgb(0 0 0 / 0.35)",
+            "transition": "opacity 150ms ease-out,\n      scale 150ms ease-out"
+          },
+          ".tx-pocket:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0.97"
+          },
+          ".tx-pocket-item": {
+            "--_stitch": "transparent",
+            "--_inset": "3px",
+            "--_radius": "8px",
+            "--_thread": "1.2px"
+          },
+          ".tx-pocket-item:is([data-highlighted], [data-popup-open])": {
+            "--_mark": "var(--tx-field-border)",
+            "--_stitch": "var(--tx-field-border)",
+            "background-color": "var(--tx-field)",
+            "background-image": "none",
+            "color": "var(--tx-field-foreground)"
+          },
+          ".tx-pocket-item[data-variant=\"destructive\"]": {
+            "color": "var(--tx-invalid)"
+          },
+          ".tx-pocket-item[data-variant=\"destructive\"][data-highlighted]": {
+            "--_stitch": "color-mix(in srgb, #fff 80%, var(--tx-patch-destructive))",
+            "background-color": "var(--tx-patch-destructive)",
+            "color": "var(--tx-patch-destructive-foreground)"
+          },
+          ".tx-pocket-tick": {
+            "top": "50%",
+            "left": "13px",
+            "width": "5px",
+            "height": "10px",
+            "margin-top": "-6px",
+            "border-right": "2px solid var(--_mark)",
+            "border-bottom": "2px solid var(--_mark)",
+            "rotate": "45deg"
+          },
+          ".tx-pocket-dot": {
+            "top": "50%",
+            "left": "12px",
+            "width": "8px",
+            "height": "8px",
+            "margin-top": "-4px",
+            "border-radius": "50%",
+            "background-color": "var(--_mark)"
+          },
+          ".tx-pocket-label": {
+            "color": "var(--tx-muted-foreground)"
+          },
+          ".tx-pocket-separator": {
+            "background-image": "var(--_divider)",
+            "background-size": "100% 1px",
+            "background-repeat": "no-repeat"
+          },
+          ".tx-pocket-shortcut": {
+            "color": "color-mix(in srgb, currentColor 70%, transparent)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-pocket": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-pocket": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-pocket-item[data-highlighted]": {
+              "forced-color-adjust": "none",
+              "background-color": "Highlight",
+              "color": "HighlightText"
+            },
+            ":root .tx-pocket-tick": {
+              "border-color": "CanvasText"
+            },
+            ":root .tx-pocket-dot": {
+              "forced-color-adjust": "none",
+              "background-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "select",
+      "type": "registry:ui",
+      "title": "Select",
+      "description": "A field that opens a stitched denim pocket of options.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/canvas",
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/select.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-select-icon": {
+            "border-right": "2px solid currentColor",
+            "border-bottom": "2px solid currentColor",
+            "transform": "translateY(-2px) rotate(45deg)",
+            "transition": "transform 150ms"
+          },
+          ".tx-select-trigger[data-popup-open] .tx-select-icon": {
+            "transform": "translateY(2px) rotate(225deg)"
+          },
+          ".tx-select-trigger[data-placeholder]": {
+            "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
+          },
+          ".tx-select-item + .tx-select-item": {
+            "background-image": "var(--_divider)",
+            "background-position": "8px 0",
+            "background-size": "calc(100% - 16px) 1px",
+            "background-repeat": "no-repeat"
+          },
+          ".tx-select-item[data-selected]": {
+            "font-weight": "700"
+          },
+          ".tx-select-scroll": {
+            "background-color": "var(--tx-surface)",
+            "color": "var(--tx-surface-foreground)"
+          },
+          ".tx-select-scroll::before": {
+            "content": "\"\"",
+            "width": "7px",
+            "height": "7px",
+            "border-right": "2px solid currentColor",
+            "border-bottom": "2px solid currentColor",
+            "transform": "translateY(-2px) rotate(45deg)"
+          },
+          ".tx-select-scroll-up::before": {
+            "transform": "translateY(2px) rotate(225deg)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-select-icon": {
+              "transition": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "tooltip",
+      "type": "registry:ui",
+      "title": "Tooltip",
+      "description": "A small stitched leather tag with a pointer.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/tooltip.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-tooltip": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "4px",
+            "--_radius": "10px",
+            "--_thread": "1.2px",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-leather)",
+            "color": "var(--tx-leather-foreground)",
+            "box-shadow": "0 6px 14px rgb(0 0 0 / 0.35)",
+            "transition": "opacity 120ms ease-out,\n      scale 120ms ease-out"
+          },
+          ".tx-tooltip:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "0.96"
+          },
+          ".tx-tooltip-arrow": {
+            "background-color": "var(--tx-leather)",
+            "rotate": "45deg"
+          },
+          ".tx-tooltip-arrow[data-side=\"top\"]": {
+            "bottom": "-5px"
+          },
+          ".tx-tooltip-arrow[data-side=\"bottom\"]": {
+            "top": "-5px"
+          },
+          ".tx-tooltip-arrow[data-side=\"left\"]": {
+            "right": "-5px"
+          },
+          ".tx-tooltip-arrow[data-side=\"right\"]": {
+            "left": "-5px"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-tooltip": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-tooltip": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "tabs",
+      "type": "registry:ui",
+      "title": "Tabs",
+      "description": "Sewn-on label tabs; the active tab is stitched onto its panel.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/tabs.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-tabs-trigger": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "5px",
+            "--_radius": "9px",
+            "--_thread": "var(--tx-thread-width)",
+            "padding": "10px 18px",
+            "border-radius": "14px 14px 6px 6px",
+            "background-color": "var(--tx-patch-secondary)",
+            "color": "var(--tx-patch-secondary-foreground)",
+            "font-family": "var(--tx-font-patch)"
+          },
+          ".tx-tabs-trigger:hover:not([data-disabled], [data-active])": {
+            "background-color": "color-mix(in srgb, var(--tx-patch-secondary) 85%, var(--tx-patch-secondary-edge))"
+          },
+          ".tx-tabs-trigger[data-active]": {
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)"
+          },
+          ".tx-tabs-content": {
+            "--_stitch": "var(--tx-field-border)",
+            "--_inset": "7px",
+            "--_radius": "var(--tx-radius)",
+            "padding": "18px",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)"
+          },
+          ".tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]": {
+            "border-radius": "14px 14px 0 0",
+            "padding-bottom": "18px",
+            "margin-bottom": "-8px"
+          },
+          ".tx-tabs-trigger[data-orientation=\"horizontal\"][data-active] > [data-slot=\"stitch\"]": {
+            "display": "none"
+          },
+          ".tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset": "5px 5px 0",
+            "border": "var(--tx-thread-width) dashed var(--tx-field-border)",
+            "border-bottom": "0",
+            "border-radius": "9px 9px 0 0",
+            "pointer-events": "none"
+          },
+          ".tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "right": "8px",
+            "bottom": "8px",
+            "left": "8px",
+            "border-top": "1.6px dashed color-mix(in srgb, var(--tx-field-border) 85%, transparent)",
+            "filter": "blur(0.35px)",
+            "pointer-events": "none"
+          },
+          ".tx-tabs-list-leather .tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]": {
+            "background-color": "var(--tx-leather)",
+            "background-image": "linear-gradient(to bottom, transparent calc(100% - 15px), var(--tx-leather-edge) calc(100% - 13px), transparent calc(100% - 9px)),\n      radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px)",
+            "background-size": "100% 100%, 3px 3px",
+            "color": "var(--tx-leather-foreground)",
+            "text-shadow": "0 -1px 0 rgb(0 0 0 / 0.45)",
+            "padding-bottom": "24px",
+            "margin-bottom": "-12px"
+          },
+          ".tx-tabs-list-leather .tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]::before": {
+            "border-color": "var(--tx-thread)"
+          },
+          ".tx-tabs-list-leather .tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]::after": {
+            "right": "auto",
+            "bottom": "3px",
+            "left": "50%",
+            "width": "7px",
+            "height": "7px",
+            "margin-left": "-3.5px",
+            "border": "0",
+            "border-radius": "50%",
+            "background": "radial-gradient(circle at 40% 35%, color-mix(in srgb, var(--tx-rivet) 45%, var(--tx-leather)), var(--tx-leather-edge) 80%)",
+            "box-shadow": "inset 0 0 0 1px var(--tx-leather-edge),\n      0 1px 0 color-mix(in srgb, var(--tx-leather-foreground) 22%, transparent)",
+            "filter": "none"
+          },
+          ".tx-tabs-list-leather ~ .tx-tabs-content": {
+            "padding-top": "22px"
+          },
+          ".tx-tabs-list-line .tx-tabs-trigger, .tx-tabs-list-line .tx-tabs-trigger[data-active]": {
+            "--_stitch": "transparent",
+            "background-color": "transparent",
+            "color": "var(--tx-surface-foreground)"
+          },
+          ".tx-tabs-list-line .tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]": {
+            "margin-bottom": "0",
+            "padding-bottom": "10px",
+            "border-radius": "14px 14px 6px 6px"
+          },
+          ".tx-tabs-list-line .tx-tabs-trigger[data-active]::before": {
+            "content": "none"
+          },
+          ".tx-tabs-list-line .tx-tabs-trigger[data-orientation=\"horizontal\"][data-active]::after": {
+            "right": "12px",
+            "bottom": "2px",
+            "left": "12px",
+            "border-top": "2px dashed var(--tx-thread)",
+            "filter": "none"
+          },
+          ".tx-tabs-list-line .tx-tabs-trigger:hover": {
+            "background-color": "transparent"
+          },
+          ".tx-tabs-list-line .tx-tabs-trigger[data-orientation=\"vertical\"][data-active]::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "top": "8px",
+            "bottom": "8px",
+            "left": "0",
+            "border-left": "2px dashed var(--tx-thread)",
+            "pointer-events": "none"
+          },
+          ".tx-tabs-list-line ~ .tx-tabs-content": {
+            "margin-top": "10px"
+          },
+          ".tx-tabs-trigger:focus-visible, .tx-tabs-content:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-tabs-trigger[data-disabled]": {
+            "opacity": "0.5"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-tabs-trigger, :root .tx-tabs-content": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-tabs-trigger[data-active]": {
+              "border-width": "3px"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "pocket-card",
+      "type": "registry:ui",
+      "title": "Pocket Card",
+      "description": "A jeans back pocket with double stitching, rivets and a hang tag.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/pocket-card.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-pocket-card": {
+            "border-radius": "18px 18px 40px 40px",
+            "background-color": "var(--tx-surface)",
+            "background-image": "repeating-linear-gradient(135deg, rgb(255 255 255 / 0.06) 0 1px, transparent 1px 4px),\n      repeating-linear-gradient(45deg, rgb(0 0 0 / 0.12) 0 1px, transparent 1px 3px),\n      var(--tx-card-sheen)",
+            "color": "var(--tx-surface-foreground)",
+            "box-shadow": "var(--tx-card-shadow)"
+          },
+          ".tx-pocket-card::before, .tx-pocket-card::after": {
+            "content": "\"\"",
+            "position": "absolute",
+            "border": "var(--tx-thread-width) dashed var(--tx-thread)",
+            "border-radius": "12px 12px 34px 34px",
+            "pointer-events": "none"
+          },
+          ".tx-pocket-card::before": {
+            "inset": "7px"
+          },
+          ".tx-pocket-card::after": {
+            "inset": "12px",
+            "opacity": "0.75"
+          },
+          ".tx-pocket-card-rivet": {
+            "z-index": "1",
+            "background": "radial-gradient(circle at 35% 30%, var(--tx-rivet-light), var(--tx-rivet) 55%, var(--tx-rivet-dark))",
+            "box-shadow": "0 1px 2px rgb(0 0 0 / 0.5)"
+          },
+          ".tx-pocket-card-tag": {
+            "border-radius": "4px 2px 2px 4px",
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)",
+            "font-family": "var(--tx-font-patch)",
+            "transform": "rotate(6deg)",
+            "box-shadow": "0 3px 6px rgb(0 0 0 / 0.35)",
+            "clip-path": "polygon(10px 0, 100% 0, 100% 100%, 10px 100%, 0 50%)"
+          },
+          ".tx-pocket-card-title": {
+            "font-family": "var(--tx-font-heading)"
+          },
+          ".tx-pocket-card-description": {
+            "color": "var(--tx-muted-foreground)"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-pocket-card": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-pocket-card::before, :root .tx-pocket-card::after, :root .tx-pocket-card-rivet": {
+              "display": "none"
+            },
+            ":root .tx-pocket-card-tag": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "toggle",
+      "type": "registry:ui",
+      "title": "Toggle",
+      "description": "Plain fabric when off, a leather patch sewn on when on.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/toggle.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-toggle": {
+            "--_stitch": "transparent",
+            "--_inset": "4px",
+            "--_radius": "calc(var(--tx-radius) - 4px)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "color": "inherit",
+            "font-family": "var(--tx-font-patch)",
+            "transition": "background-color 150ms ease-out,\n      color 150ms ease-out,\n      box-shadow 150ms ease-out"
+          },
+          ".tx-toggle > [data-slot=\"stitch\"] rect": {
+            "transition": "stroke 150ms ease-out"
+          },
+          ".tx-toggle-outline": {
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-toggle-sm": {
+            "--_inset": "3px",
+            "--_radius": "calc(var(--tx-radius) - 6px)"
+          },
+          ".tx-toggle:hover:where(:not([data-pressed], [data-disabled]))": {
+            "background-color": "color-mix(in srgb, currentColor 10%, transparent)"
+          },
+          ".tx-toggle[data-pressed]": {
+            "--_stitch": "var(--tx-thread)",
+            "background-color": "var(--tx-leather)",
+            "color": "var(--tx-leather-foreground)",
+            "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+          },
+          ".tx-toggle:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-toggle[data-disabled]": {
+            "opacity": "0.5"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-toggle, :root .tx-toggle > [data-slot=\"stitch\"] rect": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-toggle": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-toggle[data-pressed]": {
+              "border-width": "3px"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "toggle-group",
+      "type": "registry:ui",
+      "title": "Toggle Group",
+      "description": "A row of toggles that share a variant, size and spacing.",
+      "dependencies": [
+        "@base-ui/react",
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch",
+        "@threadcn/toggle"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/toggle-group.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "alert",
+      "type": "registry:ui",
+      "title": "Alert",
+      "description": "A notice sewn on like a garment care label.",
+      "dependencies": [
+        "class-variance-authority",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/alert.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-alert": {
+            "--_stitch": "var(--tx-field-border)",
+            "--_inset": "5px",
+            "--_radius": "calc(var(--tx-radius) - 4px)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)",
+            "box-shadow": "0 2px 0 rgb(0 0 0 / 0.2)"
+          },
+          ".tx-alert-title": {
+            "font-family": "var(--tx-font-heading)"
+          },
+          ".tx-alert-destructive": {
+            "--_stitch": "color-mix(in srgb, #fff 80%, var(--tx-patch-destructive))",
+            "background-color": "var(--tx-patch-destructive)",
+            "color": "var(--tx-patch-destructive-foreground)",
+            "box-shadow": "0 2px 0 var(--tx-patch-destructive-edge)"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-alert": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-alert-destructive": {
+              "border": "3px double CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "alert-dialog",
+      "type": "registry:ui",
+      "title": "Alert Dialog",
+      "description": "A dialog that must be answered, in the stitched modal look.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/modal",
+        "@threadcn/button",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/alert-dialog.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "progress",
+      "type": "registry:ui",
+      "title": "Progress",
+      "description": "A recessed denim strap filled by a gold patch with a running thread.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/progress.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-progress-track": {
+            "background-color": "var(--tx-patch-secondary)",
+            "box-shadow": "inset 0 2px 4px rgb(0 0 0 / 0.45)"
+          },
+          ".tx-progress-indicator": {
+            "background-color": "var(--tx-patch)",
+            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, #fff 80%, var(--tx-patch)) 0 5px, transparent 5px 9px)",
+            "background-position": "0 50%",
+            "background-size": "100% 1.5px",
+            "background-repeat": "no-repeat",
+            "box-shadow": "inset 0 -2px 0 var(--tx-patch-edge)",
+            "transition": "width 300ms ease-out"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-progress-indicator": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-progress-track": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-progress-indicator": {
+              "forced-color-adjust": "none",
+              "background": "Highlight"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "slider",
+      "type": "registry:ui",
+      "title": "Slider",
+      "description": "A denim strap with sewing-button thumbs.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/slider.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-slider-track": {
+            "background-color": "var(--tx-patch-secondary)",
+            "box-shadow": "inset 0 2px 4px rgb(0 0 0 / 0.45)"
+          },
+          ".tx-slider-range": {
+            "background-color": "var(--tx-patch)",
+            "box-shadow": "inset 0 -2px 0 var(--tx-patch-edge)"
+          },
+          ".tx-slider-thumb": {
+            "background": "radial-gradient(circle at 38% 38%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),\n      radial-gradient(circle at 62% 38%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),\n      radial-gradient(circle at 38% 62%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),\n      radial-gradient(circle at 62% 62%, var(--tx-rivet-dark) 0 1.5px, transparent 1.9px),\n      radial-gradient(circle, var(--tx-rivet-light) 55%, color-mix(in srgb, var(--tx-rivet-light) 70%, var(--tx-rivet)) 100%)",
+            "box-shadow": "0 2px 3px rgb(0 0 0 / 0.45)",
+            "transition": "scale 140ms ease-out"
+          },
+          ".tx-slider-thumb[data-dragging]": {
+            "scale": "0.9"
+          },
+          ".tx-slider-thumb:has(:focus-visible)": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-slider-thumb": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-slider-track": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-slider-range, :root .tx-slider-thumb": {
+              "forced-color-adjust": "none",
+              "background": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "skeleton",
+      "type": "registry:ui",
+      "title": "Skeleton",
+      "description": "A basted fabric placeholder that pulses while content loads.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/skeleton.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-skeleton": {
+            "background-color": "color-mix(in srgb, currentColor 13%, transparent)",
+            "outline": "1px dashed color-mix(in srgb, currentColor 28%, transparent)",
+            "outline-offset": "-4px"
+          }
+        }
+      }
+    },
+    {
+      "name": "spinner",
+      "type": "registry:ui",
+      "title": "Spinner",
+      "description": "A ring of stitches that turns while something loads.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/spinner.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-spinner circle": {
+            "stroke-dasharray": "var(--tx-stitch-dash)"
+          }
+        }
+      }
+    },
+    {
+      "name": "toast",
+      "type": "registry:ui",
+      "title": "Toast",
+      "description": "A small stitched card that slides in from the corner.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/button",
+        "@threadcn/spinner",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/toast.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-toast": {
+            "--_stitch": "var(--tx-thread)",
+            "--_inset": "6px",
+            "--_radius": "var(--tx-radius)",
+            "--_thread": "var(--tx-thread-width)",
+            "border-radius": "var(--_radius)",
+            "background-color": "var(--tx-surface)",
+            "background-image": "var(--tx-card-sheen)",
+            "color": "var(--tx-surface-foreground)",
+            "box-shadow": "var(--tx-card-shadow),\n      0 10px 24px rgb(0 0 0 / 0.35)",
+            "transition": "transform 500ms cubic-bezier(0.22, 1, 0.36, 1),\n      opacity 500ms,\n      height 150ms"
+          },
+          ".tx-toast-content": {
+            "transition": "opacity 250ms cubic-bezier(0.22, 1, 0.36, 1)"
+          },
+          ".tx-toast-description": {
+            "color": "var(--tx-muted-foreground)"
+          },
+          ".tx-toast[data-type=\"error\"]": {
+            "--_stitch": "var(--tx-invalid)"
+          },
+          ".tx-toast[data-type=\"error\"] .tx-toast-icon": {
+            "color": "var(--tx-invalid)"
+          },
+          ".tx-toast:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-toast, :root .tx-toast-content": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-toast": {
+              "border": "1px solid CanvasText"
+            },
+            ":root .tx-toast[data-type=\"error\"]": {
+              "border": "3px double CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "accordion",
+      "type": "registry:ui",
+      "title": "Accordion",
+      "description": "Stacked questions with dashed thread between them.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/accordion.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-accordion-item + .tx-accordion-item": {
+            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 60%, transparent) 0 5px, transparent 5px 9px)",
+            "background-size": "100% 1px",
+            "background-repeat": "no-repeat"
+          },
+          ".tx-accordion-icon": {
+            "border-right": "2px solid currentColor",
+            "border-bottom": "2px solid currentColor",
+            "transform": "translateY(-2px) rotate(45deg)",
+            "transition": "transform 200ms ease-out"
+          },
+          ".tx-accordion-trigger[aria-expanded=\"true\"] .tx-accordion-icon": {
+            "transform": "translateY(2px) rotate(225deg)"
+          },
+          ".tx-accordion-trigger:hover:where(:not([aria-disabled=\"true\"]))": {
+            "text-decoration": "underline dashed var(--tx-thread)",
+            "text-underline-offset": "5px"
+          },
+          ".tx-accordion-trigger:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-accordion-content": {
+            "height": "var(--accordion-panel-height)",
+            "transition": "height 200ms ease-out"
+          },
+          ".tx-accordion-content:is([data-starting-style], [data-ending-style])": {
+            "height": "0"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-accordion-icon, :root .tx-accordion-content": {
+              "transition": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "collapsible",
+      "type": "registry:ui",
+      "title": "Collapsible",
+      "description": "A trigger that shows and hides a panel. No look of its own.",
+      "dependencies": [
+        "@base-ui/react"
+      ],
+      "registryDependencies": [],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/collapsible.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "breadcrumb",
+      "type": "registry:ui",
+      "title": "Breadcrumb",
+      "description": "Muted links with thread chevrons between them.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/breadcrumb.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-breadcrumb-link": {
+            "color": "color-mix(in srgb, currentColor 78%, transparent)",
+            "text-decoration": "none"
+          },
+          ".tx-breadcrumb-link:hover": {
+            "color": "inherit",
+            "text-decoration": "underline dashed var(--tx-thread)",
+            "text-underline-offset": "4px"
+          },
+          ".tx-breadcrumb-link:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "2px"
+          },
+          ".tx-breadcrumb-separator": {
+            "color": "var(--tx-thread)"
+          }
+        }
+      }
+    },
+    {
+      "name": "pagination",
+      "type": "registry:ui",
+      "title": "Pagination",
+      "description": "Page links built from Button; the current page is the leather patch.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/button",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/pagination.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "avatar",
+      "type": "registry:ui",
+      "title": "Avatar",
+      "description": "A round photo with a stitched ring, or initials on cream canvas.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/avatar.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-avatar": {
+            "--_stitch": "color-mix(in srgb, #fff 80%, transparent)",
+            "--_inset": "3px",
+            "--_radius": "999px",
+            "--_thread": "1.2px",
+            "background-color": "var(--tx-field)",
+            "box-shadow": "0 2px 4px rgb(0 0 0 / 0.3)"
+          },
+          ".tx-avatar-fallback": {
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)",
+            "font-family": "var(--tx-font-patch)"
+          },
+          ".tx-avatar:has(.tx-avatar-fallback)": {
+            "--_stitch": "var(--tx-field-border)"
+          },
+          ".tx-avatar-badge": {
+            "background-color": "var(--tx-patch)",
+            "box-shadow": "0 0 0 2px var(--tx-fabric)"
+          },
+          ".tx-avatar-group > :is(.tx-avatar, .tx-avatar-group-count)": {
+            "box-shadow": "0 0 0 2px var(--tx-fabric)"
+          },
+          ".tx-avatar-group-count": {
+            "background-color": "var(--tx-patch-secondary)",
+            "color": "var(--tx-patch-secondary-foreground)",
+            "font-family": "var(--tx-font-patch)"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-avatar, :root .tx-avatar-group-count": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "table",
+      "type": "registry:ui",
+      "title": "Table",
+      "description": "A data table with dashed thread lines between rows.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/table.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-table": {
+            "border-collapse": "collapse"
+          },
+          ".tx-table-row": {
+            "background-image": "repeating-linear-gradient(90deg, color-mix(in srgb, var(--tx-thread) 55%, transparent) 0 5px, transparent 5px 9px)",
+            "background-size": "100% 1px",
+            "background-repeat": "no-repeat",
+            "transition": "background-color 120ms"
+          },
+          ".tx-table-header .tx-table-row, .tx-table-body .tx-table-row:first-child": {
+            "background-image": "none"
+          },
+          ".tx-table-header .tx-table-row": {
+            "box-shadow": "inset 0 -2px 0 color-mix(in srgb, var(--tx-thread) 70%, transparent)"
+          },
+          ".tx-table-head": {
+            "font-family": "var(--tx-font-heading)",
+            "color": "color-mix(in srgb, currentColor 80%, transparent)"
+          },
+          ".tx-table-body .tx-table-row:hover": {
+            "background-color": "color-mix(in srgb, currentColor 6%, transparent)"
+          },
+          ".tx-table-row[data-state=\"selected\"]": {
+            "background-color": "color-mix(in srgb, currentColor 11%, transparent)"
+          },
+          ".tx-table-footer .tx-table-row": {
+            "box-shadow": "inset 0 2px 0 color-mix(in srgb, var(--tx-thread) 70%, transparent)"
+          },
+          ".tx-table-caption": {
+            "color": "color-mix(in srgb, currentColor 75%, transparent)"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-table-row": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-table-row": {
+              "border-top": "1px solid CanvasText"
+            },
+            ":root .tx-table-row[data-state=\"selected\"]": {
+              "forced-color-adjust": "none",
+              "background": "Highlight",
+              "color": "HighlightText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "kbd",
+      "type": "registry:ui",
+      "title": "Kbd",
+      "description": "A keyboard key as a small cream key cap.",
+      "dependencies": [
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/kbd.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-kbd": {
+            "background-color": "var(--tx-field)",
+            "color": "var(--tx-field-foreground)",
+            "font-family": "var(--tx-font-patch)",
+            "box-shadow": "0 2px 0 var(--tx-field-border)"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-kbd": {
+              "border": "1px solid CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "scroll-area",
+      "type": "registry:ui",
+      "title": "Scroll Area",
+      "description": "A box that scrolls with a thin thread-colored scrollbar.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/base"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/scroll-area.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-scroll-area-thumb": {
+            "background-color": "color-mix(in srgb, var(--tx-thread) 55%, transparent)",
+            "transition": "background-color 120ms"
+          },
+          ".tx-scroll-area-scrollbar:is([data-hovering], [data-scrolling]) .tx-scroll-area-thumb": {
+            "background-color": "var(--tx-thread)"
+          },
+          ".tx-scroll-area-viewport:focus-visible": {
+            "outline": "3px solid var(--tx-ring)",
+            "outline-offset": "-3px"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-scroll-area-thumb": {
+              "transition": "none"
+            }
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-scroll-area-thumb": {
+              "forced-color-adjust": "none",
+              "background-color": "CanvasText"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "popover",
+      "type": "registry:ui",
+      "title": "Popover",
+      "description": "A small stitched pocket that opens next to its trigger.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/popover.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "hover-card",
+      "type": "registry:ui",
+      "title": "Hover Card",
+      "description": "A stitched pocket that previews a link on hover.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/hover-card.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "registry:ui",
+      "title": "Dropdown Menu",
+      "description": "A menu in a stitched pocket, with ticks, dots and submenus.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/dropdown-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "context-menu",
+      "type": "registry:ui",
+      "title": "Context Menu",
+      "description": "A right-click menu in a stitched pocket.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/pocket",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/context-menu.tsx",
+          "type": "registry:ui"
+        }
+      ]
+    },
+    {
+      "name": "sheet",
+      "type": "registry:ui",
+      "title": "Sheet",
+      "description": "The stitched modal card, sliding in from a side.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/modal",
+        "@threadcn/button",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/sheet.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-modal.tx-sheet": {
+            "transition": "opacity 220ms ease-out,\n      translate 220ms ease-out"
+          },
+          ".tx-modal.tx-sheet:is([data-starting-style], [data-ending-style])": {
+            "opacity": "0",
+            "scale": "1"
+          },
+          ".tx-sheet[data-side=\"right\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "2.5rem 0"
+          },
+          ".tx-sheet[data-side=\"left\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "-2.5rem 0"
+          },
+          ".tx-sheet[data-side=\"top\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "0 -2.5rem"
+          },
+          ".tx-sheet[data-side=\"bottom\"]:is([data-starting-style], [data-ending-style])": {
+            "translate": "0 2.5rem"
+          },
+          "@media (prefers-reduced-motion: reduce)": {
+            ":root .tx-modal.tx-sheet": {
+              "transition": "none"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "drawer",
+      "type": "registry:ui",
+      "title": "Drawer",
+      "description": "The stitched modal card as a panel you can swipe away.",
+      "dependencies": [
+        "@base-ui/react",
+        "cn"
+      ],
+      "registryDependencies": [
+        "@threadcn/modal",
+        "@threadcn/stitch"
+      ],
+      "files": [
+        {
+          "path": "registry/threadcn/ui/drawer.tsx",
+          "type": "registry:ui"
+        }
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-modal.tx-drawer:is([data-starting-style], [data-ending-style])": {
+            "scale": "1"
+          },
+          ".tx-drawer[data-swipe-direction=\"down\"]": {
+            "border-bottom-left-radius": "0",
+            "border-bottom-right-radius": "0"
+          },
+          ".tx-drawer[data-swipe-direction=\"up\"]": {
+            "border-top-left-radius": "0",
+            "border-top-right-radius": "0"
+          },
+          ".tx-drawer[data-swipe-direction=\"left\"]": {
+            "border-top-left-radius": "0",
+            "border-bottom-left-radius": "0"
+          },
+          ".tx-drawer[data-swipe-direction=\"right\"]": {
+            "border-top-right-radius": "0",
+            "border-bottom-right-radius": "0"
+          },
+          ".tx-drawer-handle": {
+            "border-top": "3px dashed var(--tx-thread)"
+          },
+          ".tx-drawer-handle:where(.group\\/drawer-popup[data-swipe-axis=\"x\"] *)": {
+            "border-top": "0",
+            "border-left": "3px dashed var(--tx-thread)"
+          }
+        }
+      }
+    }
+  ]
+}

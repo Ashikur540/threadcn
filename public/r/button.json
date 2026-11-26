@@ -1,0 +1,134 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "button",
+  "title": "Button",
+  "description": "A sewn-on patch that sinks when pressed.",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/button.tsx",
+      "content": "import { cva, type VariantProps } from \"class-variance-authority\"\n\nimport type { Button as ButtonPrimitive } from \"@base-ui/react/button\"\n\n// This file stays server-safe (no \"use client\"), so buttonVariants() can be\n// called in server components, e.g. <Link className={buttonVariants()} />.\n// The Button component itself lives in button-client.tsx: it must be a client\n// component, or render={<Button />} in a server component would be rendered\n// early and lose the trigger's text. You import both from this file.\n\n/**\n * Button classes. Layout (size, padding) is Tailwind here; the textile look\n * (colors, stitch, press) is in styles/button.css, keyed on the tx-button-* classes.\n */\nconst buttonVariants = cva(\n  \"tx-button relative inline-flex max-w-full shrink-0 cursor-pointer items-center justify-center gap-2 text-center leading-tight font-semibold select-none disabled:cursor-not-allowed [&_svg:not([data-slot=stitch])]:pointer-events-none [&_svg:not([data-slot=stitch])]:shrink-0 [&_svg:not([data-slot=stitch]):not([class*='size-'])]:size-5\",\n  {\n    variants: {\n      variant: {\n        default: \"\",\n        secondary: \"tx-button-secondary\",\n        destructive: \"tx-button-destructive\",\n        leather: \"tx-button-leather\",\n        outline: \"tx-button-outline\",\n        ghost: \"tx-button-ghost\",\n        link: \"tx-button-link\",\n      },\n      size: {\n        default: \"min-h-11 px-[22px] py-2.5 text-[15px]\",\n        xs: \"tx-button-sm min-h-8 px-2.5 py-1 text-xs\",\n        sm: \"tx-button-sm min-h-9 px-3.5 py-1.5 text-[13px]\",\n        lg: \"min-h-13 px-[30px] py-3.5 text-[17px]\",\n        icon: \"size-11 p-0\",\n        \"icon-xs\": \"tx-button-sm size-8 p-0\",\n        \"icon-sm\": \"tx-button-sm size-9 p-0\",\n        \"icon-lg\": \"size-13 p-0\",\n      },\n      shape: {\n        default: \"\",\n        round: \"tx-button-round\",\n      },\n    },\n    // A link is plain text, so it drops the patch padding at every size.\n    compoundVariants: [{ variant: \"link\", class: \"min-h-0 px-0 py-0.5\" }],\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n      shape: \"default\",\n    },\n  },\n)\n\ntype ButtonProps = Omit<ButtonPrimitive.Props, \"className\"> &\n  VariantProps<typeof buttonVariants> & {\n    className?: string\n  }\n\nexport { Button } from \"@/registry/threadcn/ui/button-client\"\nexport { buttonVariants, type ButtonProps }\n",
+      "type": "registry:ui"
+    },
+    {
+      "path": "registry/threadcn/ui/button-client.tsx",
+      "content": "\"use client\"\n\nimport { Button as ButtonPrimitive } from \"@base-ui/react/button\"\nimport { cn } from \"cn\"\n\nimport { buttonVariants, type ButtonProps } from \"@/registry/threadcn/ui/button\"\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// The Button component. Import it from \"button\", not from this file:\n// button.tsx re-exports it next to buttonVariants.\n\n/**\n * A sewn-on patch that sinks when pressed. Same API as shadcn's Button.\n *\n * threadcn extras: the `leather` variant, and `shape=\"round\"` for circular\n * icon buttons.\n *\n * @example\n * <Button variant=\"secondary\">Book a repair</Button>\n * <Button size=\"icon\" shape=\"round\" aria-label=\"Save\"><HeartIcon /></Button>\n */\nfunction Button({ className, variant = \"default\", size = \"default\", shape = \"default\", children, ...props }: ButtonProps) {\n  return (\n    <ButtonPrimitive\n      data-slot=\"button\"\n      data-variant={variant}\n      data-size={size}\n      className={cn(buttonVariants({ variant, size, shape }), className)}\n      {...props}\n    >\n      <Stitch />\n      {children}\n    </ButtonPrimitive>\n  )\n}\n\nexport { Button }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-button": {
+        "--_bg": "var(--tx-patch)",
+        "--_fg": "var(--tx-patch-foreground)",
+        "--_edge": "var(--tx-patch-edge)",
+        "--_stitch": "color-mix(in srgb, #fff 88%, var(--_bg))",
+        "--_lift": "var(--tx-press-depth)",
+        "--_shadow": "var(--tx-patch-shadow)",
+        "--_inset": "var(--tx-stitch-inset)",
+        "--_radius": "var(--tx-radius)",
+        "--_thread": "var(--tx-thread-width)",
+        "border-radius": "var(--_radius)",
+        "background-color": "var(--_bg)",
+        "background-image": "radial-gradient(rgb(0 0 0 / 0.05) 0.7px, transparent 1px)",
+        "background-size": "4px 4px",
+        "color": "var(--_fg)",
+        "font-family": "var(--tx-font-patch)",
+        "box-shadow": "0 var(--_lift) 0 var(--_edge),\n      0 calc(var(--_lift) + 3px) 10px var(--_shadow)",
+        "outline": "none",
+        "transition": "transform var(--tx-press-duration) ease-out,\n      box-shadow var(--tx-press-duration) ease-out,\n      background-color 120ms"
+      },
+      ".tx-button-secondary": {
+        "--_bg": "var(--tx-patch-secondary)",
+        "--_fg": "var(--tx-patch-secondary-foreground)",
+        "--_edge": "var(--tx-patch-secondary-edge)",
+        "--_stitch": "var(--tx-thread)"
+      },
+      ".tx-button-destructive": {
+        "--_bg": "var(--tx-patch-destructive)",
+        "--_fg": "var(--tx-patch-destructive-foreground)",
+        "--_edge": "var(--tx-patch-destructive-edge)"
+      },
+      ".tx-button-leather": {
+        "--_bg": "var(--tx-leather)",
+        "--_fg": "var(--tx-leather-foreground)",
+        "--_edge": "var(--tx-leather-edge)",
+        "--_stitch": "var(--tx-thread)",
+        "background-image": "radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px),\n      radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1px)",
+        "background-size": "3px 3px, 5px 5px",
+        "text-shadow": "0 -1px 0 rgb(0 0 0 / 0.45)"
+      },
+      ".tx-button-outline, .tx-button-ghost, .tx-button-link": {
+        "--_bg": "transparent",
+        "--_fg": "currentColor",
+        "--_edge": "transparent",
+        "--_lift": "0px",
+        "--_shadow": "transparent",
+        "background-image": "none"
+      },
+      ".tx-button-outline": {
+        "--_stitch": "var(--tx-thread)"
+      },
+      ".tx-button-ghost, .tx-button-link": {
+        "--_stitch": "transparent"
+      },
+      ".tx-button-link": {
+        "text-decoration": "underline dashed var(--tx-thread)",
+        "text-decoration-thickness": "var(--tx-thread-width)",
+        "text-underline-offset": "5px"
+      },
+      ".tx-button-sm": {
+        "--_inset": "calc(var(--tx-stitch-inset) - 2px)",
+        "--_radius": "calc(var(--tx-radius) - 4px)"
+      },
+      ".tx-button-round": {
+        "--_radius": "22px",
+        "border-radius": "50%"
+      },
+      ".tx-button:hover:not(:disabled, [data-disabled])": {
+        "background-color": "color-mix(in srgb, var(--_bg) 85%, var(--_edge))"
+      },
+      ".tx-button:is(.tx-button-outline, .tx-button-ghost):hover:not(:disabled, [data-disabled])": {
+        "background-color": "color-mix(in srgb, currentColor 10%, transparent)",
+        "--_stitch": "var(--tx-thread)"
+      },
+      ".tx-button-link:hover:not(:disabled, [data-disabled])": {
+        "background-color": "transparent",
+        "text-decoration-style": "solid"
+      },
+      ".tx-button:active:not(:disabled, [data-disabled])": {
+        "transform": "translateY(max(0px, calc(var(--_lift) - 1px)))",
+        "box-shadow": "0 1px 0 var(--_edge),\n      0 2px 4px rgb(0 0 0 / 0.25)"
+      },
+      ".tx-button:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      ".tx-button:is(:disabled, [data-disabled])": {
+        "opacity": "0.5"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-button": {
+          "transition": "none"
+        },
+        ":root .tx-button:active:not(:disabled, [data-disabled])": {
+          "transform": "none",
+          "background-color": "color-mix(in srgb, var(--_bg) 75%, var(--_edge))"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-button": {
+          "border": "1px solid CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

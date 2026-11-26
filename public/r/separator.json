@@ -1,0 +1,34 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "separator",
+  "title": "Separator",
+  "description": "A line of thread between two blocks.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/base"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/separator.tsx",
+      "content": "\"use client\"\n\nimport { Separator as SeparatorPrimitive } from \"@base-ui/react/separator\"\nimport { cn } from \"cn\"\n\n/**\n * A stitched line between two blocks. Same API as shadcn's Separator.\n * The dashed thread look is in styles/separator.css.\n *\n * @example\n * <Separator />\n * <Separator orientation=\"vertical\" />\n */\nfunction Separator({ className, orientation = \"horizontal\", ...props }: Omit<SeparatorPrimitive.Props, \"className\"> & { className?: string }) {\n  return (\n    <SeparatorPrimitive\n      data-slot=\"separator\"\n      orientation={orientation}\n      className={cn(\"tx-separator shrink-0 data-[orientation=horizontal]:w-full data-[orientation=vertical]:self-stretch\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Separator }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-separator": {
+        "border": "0 dashed var(--tx-thread)"
+      },
+      ".tx-separator[data-orientation=\"horizontal\"]": {
+        "border-top-width": "var(--tx-thread-width)"
+      },
+      ".tx-separator[data-orientation=\"vertical\"]": {
+        "border-left-width": "var(--tx-thread-width)"
+      }
+    }
+  },
+  "type": "registry:ui"
+}

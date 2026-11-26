@@ -1,0 +1,71 @@
+/* Canvas: the cream field look shared by Input, Textarea and the Select trigger.
+ * (Not called "field": shadcn already has a Field component.)
+ *
+ * Public tokens it reads: --tx-field*, --tx-invalid-edge, --tx-ring,
+ *   --tx-radius, --tx-thread-width
+ *
+ * An <input> can't hold <Stitch />, so fields stitch with a dashed outline.
+ */
+@layer components {
+  .tx-canvas {
+    border: 0;
+    border-radius: calc(var(--tx-radius) - 4px);
+    background-color: var(--tx-field);
+    color: var(--tx-field-foreground);
+    outline: var(--tx-thread-width) dashed var(--tx-field-border);
+    outline-offset: -5px;
+    box-shadow: inset 0 2px 3px rgb(0 0 0 / 0.14);
+    transition:
+      outline-color 120ms,
+      box-shadow 120ms;
+  }
+  /* 70% keeps the hint lighter than typed text but readable (the contrast test checks it). */
+  .tx-canvas::placeholder {
+    color: color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field));
+  }
+
+  /* ---- States: hover, focus, error, disabled ---- */
+
+  /* :where() keeps hover weak, so it never hides the error outline below. */
+  .tx-canvas:hover:where(:not(:disabled, [data-disabled])) {
+    outline-color: var(--tx-field-foreground);
+  }
+  /* Focus: the stitch stays dashed but darkens, and a gold ring hugs the edge.
+     If a shadow-* class removes the ring, the darker stitch still shows focus. */
+  .tx-canvas:is(:focus-visible, [data-popup-open]) {
+    outline-color: var(--tx-field-foreground);
+    box-shadow:
+      inset 0 2px 3px rgb(0 0 0 / 0.14),
+      0 0 0 3px var(--tx-ring);
+  }
+  .tx-canvas:is([aria-invalid="true"], [data-invalid]) {
+    outline: 2px solid var(--tx-invalid-edge);
+  }
+  .tx-canvas:is(:disabled, [data-disabled]) {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-canvas {
+      transition: none;
+    }
+  }
+  /* High-contrast mode drops shadows and recolors everything, so focus and
+     errors need different shapes: a highlight-colored outline for focus,
+     a double line for an error. */
+  @media (forced-colors: active) {
+    :root .tx-canvas:is([aria-invalid="true"], [data-invalid]) {
+      outline: 3px double CanvasText;
+    }
+    :root .tx-canvas:is(:focus-visible, [data-popup-open]) {
+      outline-width: 3px;
+      outline-style: solid;
+      outline-color: Highlight;
+    }
+  }
+}

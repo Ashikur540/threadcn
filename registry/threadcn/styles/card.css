@@ -1,0 +1,40 @@
+/* Card: a stitched piece of fabric. Puffy and quilted in dark mode.
+ *
+ * Public tokens it reads: --tx-surface*, --tx-card-shadow, --tx-card-sheen,
+ *   --tx-thread, --tx-radius, --tx-muted-foreground
+ * Knobs: --_stitch, --_inset, --_radius, --_thread (read by <Stitch />)
+ */
+@layer components {
+  .tx-card {
+    --_stitch: var(--tx-thread);
+    --_inset: 8px;
+    --_radius: calc(var(--tx-radius) + 4px);
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    background-color: var(--tx-surface);
+    background-image: var(--tx-card-sheen);
+    color: var(--tx-surface-foreground);
+    box-shadow: var(--tx-card-shadow);
+  }
+  /* Small cards pull the stitch closer to the edge. */
+  .tx-card[data-size="sm"] {
+    --_inset: 6px;
+  }
+  .tx-card-title {
+    font-family: var(--tx-font-heading);
+  }
+  .tx-card-description {
+    color: var(--tx-muted-foreground);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-card {
+      border: 1px solid CanvasText;
+    }
+  }
+}

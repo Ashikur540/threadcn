@@ -1,0 +1,68 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toast",
+  "title": "Toast",
+  "description": "A small stitched card that slides in from the corner.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/button",
+    "@threadcn/spinner",
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/toast.tsx",
+      "content": "\"use client\"\n\nimport type * as React from \"react\"\nimport { Toast as ToastPrimitive } from \"@base-ui/react/toast\"\nimport { cn } from \"cn\"\n\nimport { Button } from \"@/registry/threadcn/ui/button\"\nimport { Spinner } from \"@/registry/threadcn/ui/spinner\"\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// Same parts and API as shadcn's Base UI Toast. Base UI handles the queue,\n// timers, swiping, stacking and screen-reader announcements. The stacking\n// and swipe motion below is shadcn's; the look is in styles/toast.css.\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\n/** Call from anywhere: toast.add({ title, description, type }). */\nconst toast = ToastPrimitive.createToastManager()\n\nfunction ToastProvider({ ...props }: ToastPrimitive.Provider.Props) {\n  return <ToastPrimitive.Provider {...props} />\n}\n\nfunction ToastPortal({ ...props }: ToastPrimitive.Portal.Props) {\n  return <ToastPrimitive.Portal data-slot=\"toast-portal\" {...props} />\n}\n\nfunction ToastViewport({ className, ...props }: WithClassName<ToastPrimitive.Viewport.Props>) {\n  return (\n    <ToastPrimitive.Viewport\n      data-slot=\"toast-viewport\"\n      className={cn(\n        \"pointer-events-none fixed inset-x-4 bottom-4 z-50 mx-auto w-auto max-w-sm outline-none sm:right-4 sm:left-auto sm:mx-0 sm:w-full\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\n/** One stitched toast card. Stacks behind newer toasts and spreads out on hover. */\nfunction Toast({ className, children, ...props }: WithClassName<ToastPrimitive.Root.Props>) {\n  return (\n    <ToastPrimitive.Root\n      data-slot=\"toast\"\n      className={cn(\n        \"tx-toast pointer-events-auto absolute right-0 bottom-0 z-[calc(1000-var(--toast-index))] w-full origin-bottom will-change-transform select-none\",\n        \"[--gap:0.75rem] [--height:var(--toast-frontmost-height,var(--toast-height))] [--offset-y:calc(var(--toast-offset-y)*-1+calc(var(--toast-index)*var(--gap)*-1)+var(--toast-swipe-movement-y))] [--peek:0.75rem] [--scale:calc(max(0,1-(var(--toast-index)*0.1)))] [--shrink:calc(1-var(--scale))]\",\n        \"h-(--height) [transform:translateX(var(--toast-swipe-movement-x))_translateY(calc(var(--toast-swipe-movement-y)-(var(--toast-index)*var(--peek))-(var(--shrink)*var(--height))))_scale(var(--scale))]\",\n        \"after:absolute after:top-full after:left-0 after:h-[calc(var(--gap)+1px)] after:w-full after:content-['']\",\n        \"data-expanded:h-(--toast-height) data-expanded:[transform:translateX(var(--toast-swipe-movement-x))_translateY(var(--offset-y))]\",\n        \"data-limited:opacity-0 data-starting-style:[transform:translateY(150%)]\",\n        \"[&[data-ending-style]:not([data-limited]):not([data-swipe-direction])]:[transform:translateY(150%)]\",\n        \"data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]\",\n        \"data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))]\",\n        \"data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]\",\n        \"data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=down]:[transform:translateY(calc(var(--toast-swipe-movement-y)+150%))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=left]:[transform:translateX(calc(var(--toast-swipe-movement-x)-150%))_translateY(var(--offset-y))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=right]:[transform:translateX(calc(var(--toast-swipe-movement-x)+150%))_translateY(var(--offset-y))]\",\n        \"data-expanded:data-ending-style:data-[swipe-direction=up]:[transform:translateY(calc(var(--toast-swipe-movement-y)-150%))]\",\n        className,\n      )}\n      {...props}\n    >\n      <Stitch />\n      {children}\n    </ToastPrimitive.Root>\n  )\n}\n\nfunction ToastContent({ className, ...props }: WithClassName<ToastPrimitive.Content.Props>) {\n  return (\n    <ToastPrimitive.Content\n      data-slot=\"toast-content\"\n      className={cn(\n        \"tx-toast-content relative flex h-full items-center gap-3 overflow-hidden px-[18px] py-4 data-behind:opacity-0 data-expanded:opacity-100\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction ToastTitle({ className, ...props }: WithClassName<ToastPrimitive.Title.Props>) {\n  return <ToastPrimitive.Title data-slot=\"toast-title\" className={cn(\"tx-toast-title text-sm font-bold\", className)} {...props} />\n}\n\nfunction ToastDescription({ className, ...props }: WithClassName<ToastPrimitive.Description.Props>) {\n  return <ToastPrimitive.Description data-slot=\"toast-description\" className={cn(\"tx-toast-description text-sm\", className)} {...props} />\n}\n\nfunction ToastAction({ className, render = <Button variant=\"secondary\" size=\"sm\" />, ...props }: WithClassName<ToastPrimitive.Action.Props>) {\n  return <ToastPrimitive.Action data-slot=\"toast-action\" render={render} className={cn(\"shrink-0\", className)} {...props} />\n}\n\nfunction ToastClose({ className, children, render = <Button variant=\"ghost\" size=\"icon-xs\" shape=\"round\" />, ...props }: WithClassName<ToastPrimitive.Close.Props>) {\n  return (\n    <ToastPrimitive.Close data-slot=\"toast-close\" aria-label=\"Close toast\" render={render} className={cn(\"shrink-0\", className)} {...props}>\n      {children ?? (\n        <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" strokeWidth=\"2\" strokeLinecap=\"round\" aria-hidden=\"true\">\n          <path d=\"M18 6 6 18\" />\n          <path d=\"m6 6 12 12\" />\n        </svg>\n      )}\n    </ToastPrimitive.Close>\n  )\n}\n\nconst ICON_PATHS: Record<string, React.ReactNode> = {\n  success: <path d=\"m5 12.5 4.5 4.5L19 7.5\" />,\n  info: (\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"9\" />\n      <path d=\"M12 11v5M12 7.5v.01\" />\n    </>\n  ),\n  warning: (\n    <>\n      <path d=\"M12 3 2.5 20h19Z\" />\n      <path d=\"M12 10v4M12 17v.01\" />\n    </>\n  ),\n  error: (\n    <>\n      <circle cx=\"12\" cy=\"12\" r=\"9\" />\n      <path d=\"m9 9 6 6M15 9l-6 6\" />\n    </>\n  ),\n}\n\n/** The small mark at the start of a toast, chosen by its `type`. */\nfunction ToastIcon({ type }: { type: string | undefined }) {\n  if (type === \"loading\") return <Spinner data-slot=\"toast-icon\" className=\"size-[18px]\" />\n  const paths = type ? ICON_PATHS[type] : undefined\n  if (!paths) return null\n  return (\n    <svg\n      data-slot=\"toast-icon\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      stroke=\"currentColor\"\n      strokeWidth=\"2\"\n      strokeLinecap=\"round\"\n      strokeLinejoin=\"round\"\n      aria-hidden=\"true\"\n      className=\"tx-toast-icon size-[18px] shrink-0\"\n    >\n      {paths}\n    </svg>\n  )\n}\n\nfunction ToastList() {\n  const { toasts } = ToastPrimitive.useToastManager()\n  return toasts.map((item) => (\n    <Toast key={item.id} toast={item}>\n      <ToastContent>\n        <ToastIcon type={item.type} />\n        <div className=\"flex min-w-0 flex-1 flex-col gap-1\">\n          <ToastTitle />\n          <ToastDescription />\n        </div>\n        <ToastAction />\n        <ToastClose />\n      </ToastContent>\n    </Toast>\n  ))\n}\n\n/**\n * Put this once near the root of your app. Then call toast.add() anywhere.\n *\n * @example\n * <Toaster />\n * toast.add({ title: \"Added to bag\", description: \"Model 08, W32 L34\", type: \"success\" })\n */\nfunction Toaster({ children, toastManager = toast, ...props }: ToastPrimitive.Provider.Props) {\n  return (\n    <ToastProvider toastManager={toastManager} {...props}>\n      {children}\n      <ToastPortal>\n        <ToastViewport>\n          <ToastList />\n        </ToastViewport>\n      </ToastPortal>\n    </ToastProvider>\n  )\n}\n\nconst createToastManager = ToastPrimitive.createToastManager\nconst useToastManager = ToastPrimitive.useToastManager\n\nexport {\n  Toaster,\n  Toast,\n  ToastAction,\n  ToastClose,\n  ToastContent,\n  ToastDescription,\n  ToastPortal,\n  ToastProvider,\n  ToastTitle,\n  ToastViewport,\n  createToastManager,\n  toast,\n  useToastManager,\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-toast": {
+        "--_stitch": "var(--tx-thread)",
+        "--_inset": "6px",
+        "--_radius": "var(--tx-radius)",
+        "--_thread": "var(--tx-thread-width)",
+        "border-radius": "var(--_radius)",
+        "background-color": "var(--tx-surface)",
+        "background-image": "var(--tx-card-sheen)",
+        "color": "var(--tx-surface-foreground)",
+        "box-shadow": "var(--tx-card-shadow),\n      0 10px 24px rgb(0 0 0 / 0.35)",
+        "transition": "transform 500ms cubic-bezier(0.22, 1, 0.36, 1),\n      opacity 500ms,\n      height 150ms"
+      },
+      ".tx-toast-content": {
+        "transition": "opacity 250ms cubic-bezier(0.22, 1, 0.36, 1)"
+      },
+      ".tx-toast-description": {
+        "color": "var(--tx-muted-foreground)"
+      },
+      ".tx-toast[data-type=\"error\"]": {
+        "--_stitch": "var(--tx-invalid)"
+      },
+      ".tx-toast[data-type=\"error\"] .tx-toast-icon": {
+        "color": "var(--tx-invalid)"
+      },
+      ".tx-toast:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-toast, :root .tx-toast-content": {
+          "transition": "none"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-toast": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-toast[data-type=\"error\"]": {
+          "border": "3px double CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

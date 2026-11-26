@@ -1,0 +1,58 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "A round photo with a stitched ring, or initials on cream canvas.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/avatar.tsx",
+      "content": "\"use client\"\n\nimport type * as React from \"react\"\nimport { Avatar as AvatarPrimitive } from \"@base-ui/react/avatar\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// Same parts and API as shadcn's Base UI Avatar. Base UI shows the fallback\n// until the image has loaded (or if it fails). The look is in styles/avatar.css.\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\n/**\n * A round photo with a stitched ring. Without a photo it shows initials on\n * cream canvas.\n *\n * @example\n * <Avatar>\n *   <AvatarImage src=\"/rafi.jpg\" alt=\"Rafi\" />\n *   <AvatarFallback>RA</AvatarFallback>\n * </Avatar>\n */\nfunction Avatar({\n  className,\n  size = \"default\",\n  children,\n  ...props\n}: WithClassName<AvatarPrimitive.Root.Props> & {\n  size?: \"default\" | \"sm\" | \"lg\"\n}) {\n  return (\n    <AvatarPrimitive.Root\n      data-slot=\"avatar\"\n      data-size={size}\n      className={cn(\"tx-avatar group/avatar relative flex shrink-0 rounded-full select-none data-[size=default]:size-10 data-[size=lg]:size-14 data-[size=sm]:size-8\", className)}\n      {...props}\n    >\n      {children}\n      {/* Last, so the ring is drawn over the photo. */}\n      <Stitch />\n    </AvatarPrimitive.Root>\n  )\n}\n\nfunction AvatarImage({ className, ...props }: WithClassName<AvatarPrimitive.Image.Props>) {\n  return <AvatarPrimitive.Image data-slot=\"avatar-image\" className={cn(\"aspect-square size-full rounded-full object-cover\", className)} {...props} />\n}\n\nfunction AvatarFallback({ className, ...props }: WithClassName<AvatarPrimitive.Fallback.Props>) {\n  return (\n    <AvatarPrimitive.Fallback\n      data-slot=\"avatar-fallback\"\n      className={cn(\"tx-avatar-fallback flex size-full items-center justify-center rounded-full text-sm font-bold group-data-[size=lg]/avatar:text-base group-data-[size=sm]/avatar:text-xs\", className)}\n      {...props}\n    />\n  )\n}\n\n/** A small gold dot on the edge, e.g. \"online\". */\nfunction AvatarBadge({ className, ...props }: React.ComponentProps<\"span\">) {\n  return (\n    <span\n      data-slot=\"avatar-badge\"\n      className={cn(\n        \"tx-avatar-badge absolute right-0 bottom-0 z-10 inline-flex items-center justify-center rounded-full select-none group-data-[size=default]/avatar:size-3 group-data-[size=lg]/avatar:size-3.5 group-data-[size=sm]/avatar:size-2.5\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\n/** Avatars that overlap, each cut out from the fabric behind it. */\nfunction AvatarGroup({ className, ...props }: React.ComponentProps<\"div\">) {\n  return <div data-slot=\"avatar-group\" className={cn(\"tx-avatar-group flex -space-x-2.5\", className)} {...props} />\n}\n\n/** \"+3\": how many more people are in the group. */\nfunction AvatarGroupCount({ className, ...props }: React.ComponentProps<\"div\">) {\n  return (\n    <div\n      data-slot=\"avatar-group-count\"\n      className={cn(\"tx-avatar-group-count relative flex size-10 shrink-0 items-center justify-center rounded-full text-sm font-bold\", className)}\n      {...props}\n    />\n  )\n}\n\nexport { Avatar, AvatarImage, AvatarFallback, AvatarGroup, AvatarGroupCount, AvatarBadge }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-avatar": {
+        "--_stitch": "color-mix(in srgb, #fff 80%, transparent)",
+        "--_inset": "3px",
+        "--_radius": "999px",
+        "--_thread": "1.2px",
+        "background-color": "var(--tx-field)",
+        "box-shadow": "0 2px 4px rgb(0 0 0 / 0.3)"
+      },
+      ".tx-avatar-fallback": {
+        "background-color": "var(--tx-field)",
+        "color": "var(--tx-field-foreground)",
+        "font-family": "var(--tx-font-patch)"
+      },
+      ".tx-avatar:has(.tx-avatar-fallback)": {
+        "--_stitch": "var(--tx-field-border)"
+      },
+      ".tx-avatar-badge": {
+        "background-color": "var(--tx-patch)",
+        "box-shadow": "0 0 0 2px var(--tx-fabric)"
+      },
+      ".tx-avatar-group > :is(.tx-avatar, .tx-avatar-group-count)": {
+        "box-shadow": "0 0 0 2px var(--tx-fabric)"
+      },
+      ".tx-avatar-group-count": {
+        "background-color": "var(--tx-patch-secondary)",
+        "color": "var(--tx-patch-secondary-foreground)",
+        "font-family": "var(--tx-font-patch)"
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-avatar, :root .tx-avatar-group-count": {
+          "border": "1px solid CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

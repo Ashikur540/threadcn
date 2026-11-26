@@ -1,0 +1,40 @@
+/* Drawer: the shared modal card (styles/modal.css) as a swipeable panel.
+ *
+ * The swipe and stack motion are Tailwind classes in drawer.tsx (shadcn's),
+ * and so is turning them off under reduced motion.
+ * .tx-modal.tx-drawer (two classes) switches off the modal's own grow-in, so
+ * only the slide runs. The edge against the screen is square.
+ * Base UI sets data-swipe-direction on the popup.
+ */
+@layer components {
+  .tx-modal.tx-drawer:is([data-starting-style], [data-ending-style]) {
+    scale: 1;
+  }
+  .tx-drawer[data-swipe-direction="down"] {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .tx-drawer[data-swipe-direction="up"] {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+  .tx-drawer[data-swipe-direction="left"] {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+  .tx-drawer[data-swipe-direction="right"] {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  /* The handle: a short line of thread. */
+  .tx-drawer-handle {
+    border-top: 3px dashed var(--tx-thread);
+  }
+  .tx-drawer-handle:where(.group\/drawer-popup[data-swipe-axis="x"] *) {
+    border-top: 0;
+    border-left: 3px dashed var(--tx-thread);
+  }
+
+  /* Reduced motion lives in drawer.tsx (motion-reduce:transition-none): the
+     slide is Tailwind utilities, and utilities beat any rule in this layer. */
+}

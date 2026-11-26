@@ -1,0 +1,60 @@
+/* Modal: the shared look of Dialog, Alert Dialog, Sheet and Drawer.
+ * A stitched card that floats over a dimmed page.
+ *
+ * Public tokens it reads: --tx-surface*, --tx-card-sheen, --tx-thread,
+ *   --tx-radius, --tx-muted-foreground, --tx-font-heading
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ * Base UI sets data-starting-style / data-ending-style while it opens and closes.
+ */
+@layer components {
+  .tx-modal-overlay {
+    background-color: rgb(0 0 0 / 0.55);
+    transition: opacity 180ms ease-out;
+  }
+  .tx-modal-overlay:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+  }
+  .tx-modal {
+    --_stitch: var(--tx-thread);
+    --_inset: 8px;
+    --_radius: calc(var(--tx-radius) + 4px);
+    --_thread: var(--tx-thread-width);
+
+    border-radius: var(--_radius);
+    background-color: var(--tx-surface);
+    background-image: var(--tx-card-sheen);
+    color: var(--tx-surface-foreground);
+    box-shadow: 0 24px 48px rgb(0 0 0 / 0.5);
+    outline: none;
+    transition:
+      opacity 180ms ease-out,
+      scale 180ms ease-out;
+  }
+  /* Opening and closing: a small fade and grow. */
+  .tx-modal:is([data-starting-style], [data-ending-style]) {
+    opacity: 0;
+    scale: 0.96;
+  }
+  .tx-modal-title {
+    font-family: var(--tx-font-heading);
+  }
+  .tx-modal-description {
+    color: var(--tx-muted-foreground);
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-modal-overlay,
+    :root .tx-modal {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-modal {
+      border: 1px solid CanvasText;
+    }
+  }
+}

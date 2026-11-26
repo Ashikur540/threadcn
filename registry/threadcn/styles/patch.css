@@ -1,0 +1,62 @@
+/* Patch: a sewn-on brand label. threadcn only.
+ *
+ * Public tokens it reads: --tx-leather*, --tx-patch-secondary*, --tx-thread,
+ *   --tx-ring, --tx-font-heading, --tx-font-patch
+ * Knobs: --_stitch, --_inset, --_radius, --_thread   (read by <Stitch />)
+ */
+@layer components {
+  /* Default: a leather label with pressed-in grain. */
+  .tx-patch {
+    --_stitch: var(--tx-thread);
+    --_inset: 5px;
+    --_radius: 7px;
+    --_thread: 1.5px;
+
+    background-color: var(--tx-leather);
+    background-image:
+      radial-gradient(rgb(0 0 0 / 0.2) 0.7px, transparent 1px),
+      radial-gradient(rgb(255 255 255 / 0.06) 0.7px, transparent 1px);
+    background-size: 3px 3px, 5px 5px;
+    color: var(--tx-leather-foreground);
+    font-family: var(--tx-font-heading);
+    text-shadow:
+      0 1px 0 rgb(255 255 255 / 0.16),
+      0 -1px 0 rgb(0 0 0 / 0.5);
+    box-shadow: 0 3px 6px rgb(0 0 0 / 0.4);
+  }
+
+  /* ---- Variants ---- */
+
+  /* Round: denim, rounded on the left for the dot. An SVG rectangle can't
+     follow this lopsided shape, so this one stitches with a dashed outline. */
+  .tx-patch-round {
+    background-color: var(--tx-patch-secondary);
+    background-image: none;
+    color: var(--tx-patch-secondary-foreground);
+    font-family: var(--tx-font-patch);
+    text-shadow: none;
+    outline: 1.5px dashed var(--tx-thread);
+    outline-offset: -5px;
+  }
+  .tx-patch-round > [data-slot="stitch"] {
+    display: none;
+  }
+
+  /* ---- States ---- */
+
+  /* When the patch is a link. An outline, so shadow-* classes can't erase it. */
+  .tx-patch:focus-visible {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (forced-colors: active) {
+    :root .tx-patch {
+      border: 1px solid CanvasText;
+    }
+  }
+}

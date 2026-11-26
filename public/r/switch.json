@@ -1,0 +1,101 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "switch",
+  "title": "Switch",
+  "description": "A fabric strap with a sewing-button thumb that rolls as it slides.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/switch.tsx",
+      "content": "\"use client\"\n\nimport { Switch as SwitchPrimitive } from \"@base-ui/react/switch\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n/**\n * A fabric strap with a sewing-button thumb that rolls as it slides.\n * Same API as shadcn's Switch, including size=\"sm\". The look is in styles/switch.css.\n *\n * @example\n * <Switch id=\"express\" /> <Label htmlFor=\"express\">Express shipping</Label>\n */\nfunction Switch({\n  className,\n  size = \"default\",\n  ...props\n}: Omit<SwitchPrimitive.Root.Props, \"className\"> & {\n  className?: string\n  size?: \"sm\" | \"default\"\n}) {\n  return (\n    <SwitchPrimitive.Root\n      data-slot=\"switch\"\n      data-size={size}\n      className={cn(\"tx-switch peer relative inline-flex shrink-0 cursor-pointer items-center rounded-full data-disabled:cursor-not-allowed\", className)}\n      {...props}\n    >\n      <Stitch />\n      <SwitchPrimitive.Thumb data-slot=\"switch-thumb\" className=\"tx-switch-thumb pointer-events-none absolute rounded-full\" />\n    </SwitchPrimitive.Root>\n  )\n}\n\nexport { Switch }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-switch": {
+        "--_stitch": "var(--tx-thread)",
+        "--_inset": "5px",
+        "--_radius": "16px",
+        "--_thread": "var(--tx-thread-width)",
+        "--_travel": "26px",
+        "--_roll": "125deg",
+        "width": "58px",
+        "height": "32px",
+        "background-color": "var(--tx-patch-secondary)",
+        "background-image": "repeating-linear-gradient(90deg, rgb(255 255 255 / 0.07) 0 3px, transparent 3px 6px)",
+        "box-shadow": "inset 0 2px 5px rgb(0 0 0 / 0.45)",
+        "transition": "background-color 260ms ease"
+      },
+      ".tx-switch[data-checked]": {
+        "--_stitch": "var(--tx-patch-edge)",
+        "background-color": "var(--tx-patch)"
+      },
+      ".tx-switch-thumb": {
+        "top": "4px",
+        "left": "4px",
+        "width": "24px",
+        "height": "24px",
+        "background": "radial-gradient(circle at 38% 38%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 62% 38%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 38% 62%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle at 62% 62%, var(--tx-rivet-dark) 0 1.6px, transparent 2px),\n      radial-gradient(circle, var(--tx-rivet-light) 55%, color-mix(in srgb, var(--tx-rivet-light) 70%, var(--tx-rivet)) 100%)",
+        "box-shadow": "0 2px 3px rgb(0 0 0 / 0.45)",
+        "transition": "transform 420ms cubic-bezier(0.34, 1.45, 0.64, 1),\n      scale 140ms ease-out"
+      },
+      ".tx-switch[data-checked] .tx-switch-thumb": {
+        "transform": "translateX(var(--_travel)) rotate(var(--_roll))"
+      },
+      ".tx-switch[data-size=\"sm\"]": {
+        "--_inset": "4px",
+        "--_radius": "13px",
+        "--_travel": "20px",
+        "--_roll": "115deg",
+        "width": "46px",
+        "height": "26px"
+      },
+      ".tx-switch[data-size=\"sm\"] .tx-switch-thumb": {
+        "top": "3px",
+        "left": "3px",
+        "width": "20px",
+        "height": "20px"
+      },
+      ".tx-switch:active:not([data-disabled]) .tx-switch-thumb": {
+        "scale": "0.88"
+      },
+      ".tx-switch:is([aria-invalid=\"true\"], [data-invalid])": {
+        "outline": "2px solid var(--tx-invalid)",
+        "outline-offset": "2px"
+      },
+      ".tx-switch:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      ".tx-switch[data-disabled]": {
+        "opacity": "0.5",
+        "cursor": "not-allowed"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-switch, :root .tx-switch-thumb": {
+          "transition": "none"
+        },
+        ":root .tx-switch[data-checked] .tx-switch-thumb": {
+          "transform": "translateX(var(--_travel))"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-switch": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-switch-thumb": {
+          "forced-color-adjust": "none",
+          "background": "CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

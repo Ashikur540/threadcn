@@ -1,0 +1,68 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "select",
+  "title": "Select",
+  "description": "A field that opens a stitched denim pocket of options.",
+  "dependencies": [
+    "@base-ui/react",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/canvas",
+    "@threadcn/pocket",
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/select.tsx",
+      "content": "\"use client\"\n\nimport type * as React from \"react\"\nimport { Select as SelectPrimitive } from \"@base-ui/react/select\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n// Same parts and API as shadcn's Base UI Select. Base UI handles the keyboard,\n// typeahead and screen-reader roles. The trigger wears the shared canvas look\n// (styles/canvas.css), the list the shared pocket look (styles/pocket.css);\n// Select's own extras are in styles/select.css.\n\ntype WithClassName<T> = Omit<T, \"className\"> & { className?: string }\n\nconst Select = SelectPrimitive.Root\n\nfunction SelectGroup({ className, ...props }: WithClassName<SelectPrimitive.Group.Props>) {\n  return <SelectPrimitive.Group data-slot=\"select-group\" className={cn(\"tx-select-group\", className)} {...props} />\n}\n\nfunction SelectValue({ className, ...props }: WithClassName<SelectPrimitive.Value.Props>) {\n  return <SelectPrimitive.Value data-slot=\"select-value\" className={cn(\"tx-select-value truncate\", className)} {...props} />\n}\n\n/** The closed field. Looks like an Input, with a chevron that flips when open. */\nfunction SelectTrigger({\n  className,\n  size = \"default\",\n  children,\n  ...props\n}: WithClassName<SelectPrimitive.Trigger.Props> & {\n  size?: \"sm\" | \"default\"\n}) {\n  return (\n    <SelectPrimitive.Trigger\n      data-slot=\"select-trigger\"\n      data-size={size}\n      className={cn(\n        \"tx-canvas tx-select-trigger flex w-fit min-w-0 cursor-pointer items-center data-disabled:cursor-not-allowed justify-between gap-2.5 text-left whitespace-nowrap data-[size=default]:min-h-11 data-[size=default]:px-3.5 data-[size=default]:py-2.5 data-[size=default]:text-[15px] data-[size=sm]:min-h-9 data-[size=sm]:px-3 data-[size=sm]:py-1.5 data-[size=sm]:text-sm\",\n        className,\n      )}\n      {...props}\n    >\n      {children}\n      {/* Empty on purpose: the chevron is drawn in CSS, and Base UI would add a \"▼\". */}\n      <SelectPrimitive.Icon data-slot=\"select-icon\" className=\"tx-select-icon size-2 shrink-0\">\n        {null}\n      </SelectPrimitive.Icon>\n    </SelectPrimitive.Trigger>\n  )\n}\n\n/**\n * The open list: a stitched denim pocket.\n *\n * Differs from shadcn: `alignItemWithTrigger` defaults to false, so the list\n * opens below the trigger instead of covering it.\n */\nfunction SelectContent({\n  className,\n  children,\n  side = \"bottom\",\n  sideOffset = 6,\n  align = \"center\",\n  alignOffset = 0,\n  alignItemWithTrigger = false,\n  ...props\n}: WithClassName<SelectPrimitive.Popup.Props> &\n  Pick<SelectPrimitive.Positioner.Props, \"align\" | \"alignOffset\" | \"side\" | \"sideOffset\" | \"alignItemWithTrigger\">) {\n  return (\n    <SelectPrimitive.Portal>\n      <SelectPrimitive.Positioner\n        side={side}\n        sideOffset={sideOffset}\n        align={align}\n        alignOffset={alignOffset}\n        alignItemWithTrigger={alignItemWithTrigger}\n        className=\"isolate z-50\"\n      >\n        {/* The popup doesn't scroll, the list inside it does, so the stitch stays put. */}\n        <SelectPrimitive.Popup\n          data-slot=\"select-content\"\n          className={cn(\n            \"tx-pocket tx-select-content relative flex max-h-(--available-height) w-(--anchor-width) min-w-40 origin-(--transform-origin) flex-col overflow-hidden p-2.5\",\n            className,\n          )}\n          {...props}\n        >\n          <Stitch />\n          <SelectScrollUpButton />\n          <SelectPrimitive.List className=\"relative min-h-0 overflow-y-auto\">{children}</SelectPrimitive.List>\n          <SelectScrollDownButton />\n        </SelectPrimitive.Popup>\n      </SelectPrimitive.Positioner>\n    </SelectPrimitive.Portal>\n  )\n}\n\nfunction SelectLabel({ className, ...props }: WithClassName<SelectPrimitive.GroupLabel.Props>) {\n  return (\n    <SelectPrimitive.GroupLabel\n      data-slot=\"select-label\"\n      className={cn(\"tx-pocket-label tx-select-label px-2.5 pt-2 pb-1 text-xs font-semibold tracking-[.04em] uppercase\", className)}\n      {...props}\n    />\n  )\n}\n\n/** One option. The picked one gets a thread tick on the left. Items are whole pixels tall, so dividers stay crisp. */\nfunction SelectItem({ className, children, ...props }: WithClassName<SelectPrimitive.Item.Props>) {\n  return (\n    <SelectPrimitive.Item\n      data-slot=\"select-item\"\n      className={cn(\n        \"tx-pocket-item tx-select-item relative flex w-full cursor-default items-center rounded-lg py-2 pr-2.5 pl-8 text-sm leading-5 outline-hidden select-none data-disabled:pointer-events-none data-disabled:opacity-50\",\n        className,\n      )}\n      {...props}\n    >\n      <Stitch />\n      {/* Empty on purpose: the tick is drawn in CSS, and Base UI would add a \"✔️\". */}\n      <SelectPrimitive.ItemIndicator data-slot=\"select-item-indicator\" className=\"tx-pocket-tick tx-select-item-indicator absolute\">\n        {null}\n      </SelectPrimitive.ItemIndicator>\n      <SelectPrimitive.ItemText className=\"tx-select-item-text min-w-0\">{children}</SelectPrimitive.ItemText>\n    </SelectPrimitive.Item>\n  )\n}\n\nfunction SelectSeparator({ className, ...props }: WithClassName<SelectPrimitive.Separator.Props>) {\n  return <SelectPrimitive.Separator data-slot=\"select-separator\" className={cn(\"tx-pocket-separator tx-select-separator mx-2 my-1.5 h-px\", className)} {...props} />\n}\n\nfunction SelectScrollUpButton({ className, ...props }: WithClassName<React.ComponentProps<typeof SelectPrimitive.ScrollUpArrow>>) {\n  return (\n    <SelectPrimitive.ScrollUpArrow\n      data-slot=\"select-scroll-up-button\"\n      className={cn(\"tx-select-scroll tx-select-scroll-up top-0 z-[1] flex h-6 w-full items-center justify-center\", className)}\n      {...props}\n    >\n      {null /* empty on purpose: the chevron is drawn in CSS, and Base UI would add a \"▲\" */}\n    </SelectPrimitive.ScrollUpArrow>\n  )\n}\n\nfunction SelectScrollDownButton({ className, ...props }: WithClassName<React.ComponentProps<typeof SelectPrimitive.ScrollDownArrow>>) {\n  return (\n    <SelectPrimitive.ScrollDownArrow\n      data-slot=\"select-scroll-down-button\"\n      className={cn(\"tx-select-scroll bottom-0 z-[1] flex h-6 w-full items-center justify-center\", className)}\n      {...props}\n    >\n      {null /* empty on purpose: the chevron is drawn in CSS, and Base UI would add a \"▼\" */}\n    </SelectPrimitive.ScrollDownArrow>\n  )\n}\n\nexport {\n  Select,\n  SelectContent,\n  SelectGroup,\n  SelectItem,\n  SelectLabel,\n  SelectScrollDownButton,\n  SelectScrollUpButton,\n  SelectSeparator,\n  SelectTrigger,\n  SelectValue,\n}\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-select-icon": {
+        "border-right": "2px solid currentColor",
+        "border-bottom": "2px solid currentColor",
+        "transform": "translateY(-2px) rotate(45deg)",
+        "transition": "transform 150ms"
+      },
+      ".tx-select-trigger[data-popup-open] .tx-select-icon": {
+        "transform": "translateY(2px) rotate(225deg)"
+      },
+      ".tx-select-trigger[data-placeholder]": {
+        "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
+      },
+      ".tx-select-item + .tx-select-item": {
+        "background-image": "var(--_divider)",
+        "background-position": "8px 0",
+        "background-size": "calc(100% - 16px) 1px",
+        "background-repeat": "no-repeat"
+      },
+      ".tx-select-item[data-selected]": {
+        "font-weight": "700"
+      },
+      ".tx-select-scroll": {
+        "background-color": "var(--tx-surface)",
+        "color": "var(--tx-surface-foreground)"
+      },
+      ".tx-select-scroll::before": {
+        "content": "\"\"",
+        "width": "7px",
+        "height": "7px",
+        "border-right": "2px solid currentColor",
+        "border-bottom": "2px solid currentColor",
+        "transform": "translateY(-2px) rotate(45deg)"
+      },
+      ".tx-select-scroll-up::before": {
+        "transform": "translateY(2px) rotate(225deg)"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-select-icon": {
+          "transition": "none"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

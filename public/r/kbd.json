@@ -1,0 +1,35 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "A keyboard key as a small cream key cap.",
+  "dependencies": [
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/base"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/kbd.tsx",
+      "content": "import type * as React from \"react\"\nimport { cn } from \"cn\"\n\n/**\n * A keyboard key, as a small cream key cap. Same API as shadcn's Kbd.\n * The look is in styles/kbd.css.\n *\n * @example\n * <KbdGroup><Kbd>⌘</Kbd><Kbd>K</Kbd></KbdGroup>\n */\nfunction Kbd({ className, ...props }: React.ComponentProps<\"kbd\">) {\n  return (\n    <kbd\n      data-slot=\"kbd\"\n      className={cn(\n        \"tx-kbd pointer-events-none inline-flex h-[22px] min-w-[22px] items-center justify-center gap-1 rounded-md px-1.5 text-xs font-semibold select-none [&_svg:not([class*='size-'])]:size-3\",\n        className,\n      )}\n      {...props}\n    />\n  )\n}\n\nfunction KbdGroup({ className, ...props }: React.ComponentProps<\"kbd\">) {\n  return <kbd data-slot=\"kbd-group\" className={cn(\"inline-flex items-center gap-1\", className)} {...props} />\n}\n\nexport { Kbd, KbdGroup }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-kbd": {
+        "background-color": "var(--tx-field)",
+        "color": "var(--tx-field-foreground)",
+        "font-family": "var(--tx-font-patch)",
+        "box-shadow": "0 2px 0 var(--tx-field-border)"
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-kbd": {
+          "border": "1px solid CanvasText"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}

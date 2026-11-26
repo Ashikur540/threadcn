@@ -1,0 +1,40 @@
+/* Progress: a recessed denim strap filled by a gold patch with a running thread.
+ *
+ * Public tokens it reads: --tx-patch*
+ * Base UI sets the fill width (as a percentage) on the indicator.
+ */
+@layer components {
+  .tx-progress-track {
+    background-color: var(--tx-patch-secondary);
+    box-shadow: inset 0 2px 4px rgb(0 0 0 / 0.45);
+  }
+  /* A dashed thread runs along the middle of the gold fill. */
+  .tx-progress-indicator {
+    background-color: var(--tx-patch);
+    background-image: repeating-linear-gradient(90deg, color-mix(in srgb, #fff 80%, var(--tx-patch)) 0 5px, transparent 5px 9px);
+    background-position: 0 50%;
+    background-size: 100% 1.5px;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 -2px 0 var(--tx-patch-edge);
+    transition: width 300ms ease-out;
+  }
+
+  /* ---- Accessibility ----
+     Selectors start with :root because the shadcn CLI moves @media blocks
+     above the normal rules on install. :root keeps them winning. */
+
+  @media (prefers-reduced-motion: reduce) {
+    :root .tx-progress-indicator {
+      transition: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :root .tx-progress-track {
+      border: 1px solid CanvasText;
+    }
+    :root .tx-progress-indicator {
+      forced-color-adjust: none;
+      background: Highlight;
+    }
+  }
+}

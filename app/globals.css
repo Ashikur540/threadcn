@@ -1,0 +1,46 @@
+@import "tailwindcss";
+@import "./fabric.generated.css";
+@import "../registry/threadcn/styles/base.css";
+@import "../registry/threadcn/styles/button.css";
+@import "../registry/threadcn/styles/card.css";
+@import "../registry/threadcn/styles/modal.css";
+@import "../registry/threadcn/styles/badge.css";
+@import "../registry/threadcn/styles/separator.css";
+@import "../registry/threadcn/styles/patch.css";
+@import "../registry/threadcn/styles/canvas.css";
+@import "../registry/threadcn/styles/checkbox.css";
+@import "../registry/threadcn/styles/radio-group.css";
+@import "../registry/threadcn/styles/switch.css";
+@import "../registry/threadcn/styles/pocket.css";
+@import "../registry/threadcn/styles/select.css";
+@import "../registry/threadcn/styles/tooltip.css";
+@import "../registry/threadcn/styles/tabs.css";
+@import "../registry/threadcn/styles/pocket-card.css";
+@import "../registry/threadcn/styles/toggle.css";
+@import "../registry/threadcn/styles/alert.css";
+@import "../registry/threadcn/styles/progress.css";
+@import "../registry/threadcn/styles/slider.css";
+@import "../registry/threadcn/styles/skeleton.css";
+@import "../registry/threadcn/styles/spinner.css";
+@import "../registry/threadcn/styles/toast.css";
+@import "../registry/threadcn/styles/accordion.css";
+@import "../registry/threadcn/styles/breadcrumb.css";
+@import "../registry/threadcn/styles/avatar.css";
+@import "../registry/threadcn/styles/table.css";
+@import "../registry/threadcn/styles/kbd.css";
+@import "../registry/threadcn/styles/scroll-area.css";
+@import "../registry/threadcn/styles/sheet.css";
+@import "../registry/threadcn/styles/drawer.css";
+
+/* dark mode follows the .dark class on <html>, like shadcn */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* This site uses the recommended fonts. Installed components use the app's own font. */
+:root {
+  --tx-font-patch: var(--font-patch), ui-rounded, system-ui, sans-serif;
+  --tx-font-heading: var(--font-heading), Georgia, serif;
+}
+
+body {
+  font-family: var(--font-sans), system-ui, sans-serif;
+}

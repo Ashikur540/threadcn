@@ -1,0 +1,75 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "toggle",
+  "title": "Toggle",
+  "description": "Plain fabric when off, a leather patch sewn on when on.",
+  "dependencies": [
+    "@base-ui/react",
+    "class-variance-authority",
+    "cn"
+  ],
+  "registryDependencies": [
+    "@threadcn/stitch"
+  ],
+  "files": [
+    {
+      "path": "registry/threadcn/ui/toggle.tsx",
+      "content": "\"use client\"\n\nimport { Toggle as TogglePrimitive } from \"@base-ui/react/toggle\"\nimport { cva, type VariantProps } from \"class-variance-authority\"\nimport { cn } from \"cn\"\n\nimport { Stitch } from \"@/registry/threadcn/ui/stitch\"\n\n/**\n * Toggle classes. Layout is Tailwind here; the look (fabric, leather patch\n * when on) is in styles/toggle.css, keyed on the tx-toggle-* classes.\n */\nconst toggleVariants = cva(\n  \"tx-toggle relative inline-flex shrink-0 cursor-pointer items-center justify-center gap-2 font-semibold whitespace-nowrap select-none data-disabled:cursor-not-allowed [&_svg:not([data-slot=stitch])]:pointer-events-none [&_svg:not([data-slot=stitch])]:shrink-0 [&_svg:not([data-slot=stitch]):not([class*='size-'])]:size-[18px]\",\n  {\n    variants: {\n      variant: {\n        default: \"\",\n        outline: \"tx-toggle-outline\",\n      },\n      size: {\n        default: \"min-h-10 min-w-10 px-3 text-sm\",\n        sm: \"tx-toggle-sm min-h-8 min-w-8 px-2.5 text-[13px]\",\n        lg: \"min-h-11 min-w-11 px-4 text-[15px]\",\n      },\n    },\n    defaultVariants: {\n      variant: \"default\",\n      size: \"default\",\n    },\n  },\n)\n\n/**\n * A button that stays on or off. Same API as shadcn's Toggle.\n * Off it is plain fabric; on, a leather patch is sewn on (like a checked Checkbox).\n *\n * @example\n * <Toggle aria-label=\"Show sold out\"><EyeIcon /></Toggle>\n */\nfunction Toggle({\n  className,\n  variant = \"default\",\n  size = \"default\",\n  children,\n  ...props\n}: Omit<TogglePrimitive.Props, \"className\"> & VariantProps<typeof toggleVariants> & { className?: string }) {\n  return (\n    <TogglePrimitive data-slot=\"toggle\" className={cn(toggleVariants({ variant, size }), className)} {...props}>\n      <Stitch />\n      {children}\n    </TogglePrimitive>\n  )\n}\n\nexport { Toggle, toggleVariants }\n",
+      "type": "registry:ui"
+    }
+  ],
+  "css": {
+    "@layer components": {
+      ".tx-toggle": {
+        "--_stitch": "transparent",
+        "--_inset": "4px",
+        "--_radius": "calc(var(--tx-radius) - 4px)",
+        "--_thread": "var(--tx-thread-width)",
+        "border-radius": "var(--_radius)",
+        "color": "inherit",
+        "font-family": "var(--tx-font-patch)",
+        "transition": "background-color 150ms ease-out,\n      color 150ms ease-out,\n      box-shadow 150ms ease-out"
+      },
+      ".tx-toggle > [data-slot=\"stitch\"] rect": {
+        "transition": "stroke 150ms ease-out"
+      },
+      ".tx-toggle-outline": {
+        "--_stitch": "var(--tx-thread)"
+      },
+      ".tx-toggle-sm": {
+        "--_inset": "3px",
+        "--_radius": "calc(var(--tx-radius) - 6px)"
+      },
+      ".tx-toggle:hover:where(:not([data-pressed], [data-disabled]))": {
+        "background-color": "color-mix(in srgb, currentColor 10%, transparent)"
+      },
+      ".tx-toggle[data-pressed]": {
+        "--_stitch": "var(--tx-thread)",
+        "background-color": "var(--tx-leather)",
+        "color": "var(--tx-leather-foreground)",
+        "box-shadow": "0 2px 0 var(--tx-leather-edge)"
+      },
+      ".tx-toggle:focus-visible": {
+        "outline": "3px solid var(--tx-ring)",
+        "outline-offset": "2px"
+      },
+      ".tx-toggle[data-disabled]": {
+        "opacity": "0.5"
+      },
+      "@media (prefers-reduced-motion: reduce)": {
+        ":root .tx-toggle, :root .tx-toggle > [data-slot=\"stitch\"] rect": {
+          "transition": "none"
+        }
+      },
+      "@media (forced-colors: active)": {
+        ":root .tx-toggle": {
+          "border": "1px solid CanvasText"
+        },
+        ":root .tx-toggle[data-pressed]": {
+          "border-width": "3px"
+        }
+      }
+    }
+  },
+  "type": "registry:ui"
+}
