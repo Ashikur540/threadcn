@@ -16,6 +16,13 @@ test("every file listed in registry.json exists", () => {
   for (const item of built.registry.items) for (const file of item.files ?? []) expect(existsSync(file.path), file.path).toBe(true)
 })
 
+test("public/r has no leftover items: every file is in registry.json", () => {
+  // shadcn build writes new files but never removes old ones, and anything here goes live.
+  const names = new Set([...built.registry.items.map((i) => i.name), "registry"])
+  const leftovers = readdirSync("public/r").filter((f) => !names.has(f.replace(/\.json$/, "")))
+  expect(leftovers).toEqual([])
+})
+
 test("the base item carries every Denim token with the tx- prefix", () => {
   const { cssVars } = built.registry.items.find((i) => i.name === "base")!
   expect(cssVars!.light["tx-thread"]).toBe(denim.light.thread)
