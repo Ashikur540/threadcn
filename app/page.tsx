@@ -32,8 +32,9 @@ function Seamline() {
 
 /** The button drawn as a sewing pattern: its four pieces and the CSS variable behind each. */
 function PatternSheet() {
-  const label = "font-(family-name:--tx-font-heading) text-[17px] font-bold fill-[#3a2412]"
-  const token = "font-mono text-[13px] fill-[#4a2f1a]"
+  // The labels inside the drawing get too small on a phone, so there they move to a list below it.
+  const label = "max-md:hidden font-(family-name:--tx-font-heading) text-[17px] font-bold fill-[#3a2412]"
+  const token = "max-md:hidden font-mono text-[13px] fill-[#4a2f1a]"
   return (
     <div className="rotate-[-1.2deg] rounded bg-[#e9dcbc] bg-[radial-gradient(rgb(90_58_34/.14)_1px,transparent_1.2px)] bg-size-[22px_22px] p-5 shadow-[0_18px_34px_rgb(0_0_0/.38)] md:p-9 max-md:rotate-0">
       <svg viewBox="0 0 520 470" role="img" aria-label="A button cut into four pieces: the patch, the edge under it, the thread and the fabric" className="h-auto w-full">
@@ -60,9 +61,24 @@ function PatternSheet() {
         <text className={label} x="300" y="392">D · Fabric</text>
         <text className={token} x="300" y="414">--tx-fabric</text>
       </svg>
+      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-[#3a2412] md:hidden">
+        {pieces.map(([name, token]) => (
+          <div key={name}>
+            <dt className="font-(family-name:--tx-font-heading) font-bold">{name}</dt>
+            <dd className="font-mono text-[13px] break-all text-[#4a2f1a]">{token}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   )
 }
+
+const pieces = [
+  ["A · Patch", "--tx-patch"],
+  ["B · Edge", "--tx-press-depth"],
+  ["C · Thread", "--tx-thread-width"],
+  ["D · Fabric", "--tx-fabric"],
+]
 
 const brandCss = `/* your brand colors, threadcn's stitching */
 :root {
@@ -126,29 +142,31 @@ export default function Home() {
       </section>
       <Seamline />
 
-      <section aria-labelledby="install" className={`${wrap} py-24`}>
-        <SectionHead id="install" title="Install in three steps.">
-          threadcn uses the normal shadcn CLI. You copy the code into your project and own it, like any shadcn component.
-        </SectionHead>
-        <ol className="grid max-w-3xl gap-10">
-          {steps.map((step, i) => (
-            <li key={step.title} className="grid gap-x-5 gap-y-3 sm:grid-cols-[3.5rem_1fr]">
-              <span
-                aria-hidden="true"
-                className="relative grid size-12 place-items-center rounded-full bg-(--tx-leather) font-(family-name:--tx-font-heading) text-2xl font-bold text-(--tx-leather-foreground) shadow-[0_3px_0_var(--tx-leather-edge)] [--_inset:5px] [--_radius:9999px] sm:size-14"
-              >
-                <Stitch />
-                {i + 1}
-              </span>
-              <div className="grid min-w-0 gap-3">
-                <h3 className={`${heading} text-2xl`}>{step.title}</h3>
-                <p className="text-(--tx-muted-foreground)">{step.text}</p>
-                {step.body}
-                {step.note && <p className="text-sm text-(--tx-muted-foreground)">{step.note}</p>}
-              </div>
-            </li>
-          ))}
-        </ol>
+      <section aria-labelledby="install" data-fabric="flip" className="tx-fabric">
+        <div className={`${wrap} py-24`}>
+          <SectionHead id="install" title="Install in three steps.">
+            threadcn uses the normal shadcn CLI. You copy the code into your project and own it, like any shadcn component.
+          </SectionHead>
+          <ol className="grid max-w-3xl gap-10">
+            {steps.map((step, i) => (
+              <li key={step.title} className="grid gap-x-5 gap-y-3 sm:grid-cols-[3.5rem_1fr]">
+                <span
+                  aria-hidden="true"
+                  className="relative grid size-12 place-items-center rounded-full bg-(--tx-leather) font-(family-name:--tx-font-heading) text-2xl font-bold text-(--tx-leather-foreground) shadow-[0_3px_0_var(--tx-leather-edge)] [--_inset:5px] [--_radius:9999px] sm:size-14"
+                >
+                  <Stitch />
+                  {i + 1}
+                </span>
+                <div className="grid min-w-0 gap-3">
+                  <h3 className={`${heading} text-2xl`}>{step.title}</h3>
+                  <p className="text-(--tx-muted-foreground)">{step.text}</p>
+                  {step.body}
+                  {step.note && <p className="text-sm text-(--tx-muted-foreground)">{step.note}</p>}
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
       <Seamline />
 
@@ -165,8 +183,15 @@ export default function Home() {
               <CardContent>
                 <ul className="flex flex-wrap gap-2">
                   {items.map((item) => (
-                    <li key={item.name} title={item.description} className="rounded-lg bg-(--tx-patch-secondary) px-3 py-1 text-[15px] text-(--tx-patch-secondary-foreground)">
-                      {item.title}
+                    <li key={item.name}>
+                      {/* Until each component has its docs page, the chip opens its source on GitHub. */}
+                      <a
+                        href={`${repoUrl}/blob/main/registry/threadcn/ui/${item.name}.tsx`}
+                        title={item.description}
+                        className="block rounded-lg bg-(--tx-patch-secondary) px-3 py-1 text-[15px] text-(--tx-patch-secondary-foreground) hover:bg-(--tx-patch) hover:text-(--tx-patch-foreground)"
+                      >
+                        {item.title}
+                      </a>
                     </li>
                   ))}
                 </ul>

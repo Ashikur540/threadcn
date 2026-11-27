@@ -6,27 +6,28 @@ import { Badge } from "@/registry/threadcn/ui/badge"
 import { Button } from "@/registry/threadcn/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 import { Label } from "@/registry/threadcn/ui/label"
+import { Patch } from "@/registry/threadcn/ui/patch"
 import { Switch } from "@/registry/threadcn/ui/switch"
 
 function OrderCard({ id }: { id: string }) {
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
+    <Card className="w-full max-w-sm text-center">
+      <CardHeader className="justify-items-center">
         <CardTitle>Model 08 Straight</CardTitle>
         <CardDescription>Order #2041 · ships in 2 days</CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4">
-        <div className="flex flex-wrap gap-2">
+        <div className="flex flex-wrap justify-center gap-2">
           <Badge>Raw denim</Badge>
           <Badge variant="secondary">W32 · L34</Badge>
         </div>
-        <Label>
+        <Label className="justify-center">
           <Switch id={`${id}-gift`} defaultChecked /> Gift wrap
         </Label>
       </CardContent>
       <CardFooter>
-        <Button>Add to bag</Button>
-        <Button variant="secondary">Save</Button>
+        <Button className="flex-1">Add to bag</Button>
+        <Button variant="secondary" className="flex-1">Save</Button>
       </CardFooter>
     </Card>
   )
@@ -71,8 +72,8 @@ export function Seam() {
       </div>
 
 
-      <span className="pointer-events-none absolute bottom-4 left-4 z-10 rounded-lg bg-black/40 px-3 py-1.5 font-(family-name:--tx-font-patch) text-sm text-white">Denim · light</span>
-      <span className="pointer-events-none absolute right-4 bottom-4 z-10 rounded-lg bg-black/40 px-3 py-1.5 font-(family-name:--tx-font-patch) text-sm text-white">Quilted night · dark</span>
+      <Patch aria-hidden="true" className="pointer-events-none absolute bottom-4 left-4 z-10">Denim<span className="max-sm:hidden"> · light</span></Patch>
+      <Patch aria-hidden="true" className="pointer-events-none absolute right-4 bottom-4 z-10">Quilted night<span className="max-sm:hidden"> · dark</span></Patch>
     </div>
   )
 }

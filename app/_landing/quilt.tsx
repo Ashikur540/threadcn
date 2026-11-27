@@ -150,7 +150,7 @@ export function Quilt() {
         </Block>
         <Block name="Spinner and Kbd" className="max-lg:hidden">
           <span className="flex items-center gap-2"><Spinner /> Saving</span>
-          <span className="text-sm">Search with <Kbd>⌘</Kbd> <Kbd>K</Kbd></span>
+          <span className="text-sm">Copy with <Kbd>⌘</Kbd> <Kbd>C</Kbd></span>
         </Block>
 
         <Patch aria-hidden="true" className="pointer-events-none absolute top-[49%] left-[36%] z-10 -rotate-6 max-lg:hidden">

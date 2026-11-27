@@ -47,7 +47,7 @@ export function InstallCommand({ item = "button", className }: { item?: string; 
         return (
           <TabsContent key={pm} value={pm} className="p-0">
             <div className="flex items-center gap-3 rounded-[10px] bg-(--tx-field) py-1.5 pr-1.5 pl-4 text-(--tx-field-foreground)">
-              <code className="min-w-0 flex-1 overflow-x-auto font-mono text-[15px] whitespace-nowrap [scrollbar-width:none]">{command}</code>
+              <code className="min-w-0 flex-1 font-mono text-[15px] [overflow-wrap:anywhere] sm:overflow-x-auto sm:whitespace-nowrap sm:[scrollbar-width:none]">{command}</code>
               <CopyButton text={command} />
             </div>
           </TabsContent>

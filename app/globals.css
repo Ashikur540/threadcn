@@ -44,3 +44,16 @@
 body {
   font-family: var(--font-sans), system-ui, sans-serif;
 }
+
+/* The browser's own parts, in the fabric's colors */
+::selection {
+  background: var(--tx-patch);
+  color: var(--tx-patch-foreground);
+}
+html {
+  scrollbar-color: var(--tx-thread) var(--tx-fabric);
+}
+input,
+textarea {
+  caret-color: var(--tx-field-foreground);
+}
