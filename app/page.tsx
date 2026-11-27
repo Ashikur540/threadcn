@@ -1,275 +1,190 @@
-import { Badge } from "@/registry/threadcn/ui/badge"
-import { Button } from "@/registry/threadcn/ui/button"
-import { Checkbox } from "@/registry/threadcn/ui/checkbox"
-import { Input } from "@/registry/threadcn/ui/input"
-import { Label } from "@/registry/threadcn/ui/label"
-import { Patch, PatchDot } from "@/registry/threadcn/ui/patch"
-import { PocketCard, PocketCardAction, PocketCardContent, PocketCardDescription, PocketCardFooter, PocketCardHeader, PocketCardTag, PocketCardTitle } from "@/registry/threadcn/ui/pocket-card"
-import { RadioGroup, RadioGroupItem } from "@/registry/threadcn/ui/radio-group"
-import { Separator } from "@/registry/threadcn/ui/separator"
-import { Switch } from "@/registry/threadcn/ui/switch"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/threadcn/ui/tabs"
-import { Textarea } from "@/registry/threadcn/ui/textarea"
-import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
+import { buttonVariants } from "@/registry/threadcn/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
+import { Stitch } from "@/registry/threadcn/ui/stitch"
 
-import { DialogDemo } from "./dialog-demo"
-import { PopupsDemo } from "./popups-demo"
-import { FeedbackDemo, ToggleDemo } from "./wave1-demo"
-import { Wave2Demo } from "./wave2-demo"
-import { Wave3Demo } from "./wave3-demo"
-import { ThemeToggle } from "./theme-toggle"
+import { PatchColor } from "./_landing/patch-color"
+import { Quilt } from "./_landing/quilt"
+import { Seam } from "./_landing/seam"
+import { catalog, components } from "./_site/catalog"
+import { CodeBlock } from "./_site/code-block"
+import { GitHubIcon, repoUrl } from "./_site/github"
 
-const variants = ["default", "secondary", "destructive", "leather", "outline", "ghost", "link"] as const
+const heading = "font-(family-name:--tx-font-heading) font-bold tracking-tight text-balance"
+const wrap = "mx-auto w-full max-w-7xl px-4 md:px-8"
 
-function Heart() {
+function SectionHead({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
-    </svg>
+    <div className="mb-10 max-w-[60ch]">
+      <h2 id={id} className={`${heading} text-4xl md:text-5xl`}>
+        {title}
+      </h2>
+      <p className="mt-4 text-lg text-(--tx-muted-foreground)">{children}</p>
+    </div>
   )
 }
 
-function Scissors() {
+/** A line of thread between sections. */
+function Seamline() {
+  return <hr className="border-0 border-t-[1.8px] border-dashed border-(--tx-thread)/60" />
+}
+
+/** The button drawn as a sewing pattern: its four pieces and the CSS variable behind each. */
+function PatternSheet() {
+  // The labels inside the drawing get too small on a phone, so there they move to a list below it.
+  const label = "max-md:hidden font-(family-name:--tx-font-heading) text-[17px] font-bold fill-[#3a2412]"
+  const token = "max-md:hidden font-mono text-[13px] fill-[#4a2f1a]"
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <circle cx="6" cy="6" r="3" />
-      <circle cx="6" cy="18" r="3" />
-      <path d="M20 4 8.12 15.88" />
-      <path d="M14.47 14.48 20 20" />
-      <path d="M8.12 8.12 12 12" />
-    </svg>
+    <div className="rotate-[-1.2deg] rounded bg-[#e9dcbc] bg-[radial-gradient(rgb(90_58_34/.14)_1px,transparent_1.2px)] bg-size-[22px_22px] p-5 shadow-[0_18px_34px_rgb(0_0_0/.38)] md:p-9 max-md:rotate-0">
+      <svg viewBox="0 0 520 470" role="img" aria-label="A button cut into four pieces: the patch, the edge under it, the thread and the fabric" className="h-auto w-full">
+        <defs>
+          <pattern id="twill" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+            <path d="M0 0V8" stroke="#2b4a74" strokeWidth="2.2" opacity=".55" />
+          </pattern>
+        </defs>
+        <rect x="10" y="10" width="270" height="96" rx="20" fill="none" stroke="#4a2f1a" strokeWidth="2" />
+        <rect x="22" y="22" width="246" height="72" rx="13" fill="#e1a73e" opacity=".6" />
+        <rect x="32" y="32" width="226" height="52" rx="9" fill="none" stroke="#a9462a" strokeWidth="1.4" strokeDasharray="8 5" />
+        <text className={label} x="300" y="46">A · Patch</text>
+        <text className={token} x="300" y="68">--tx-patch</text>
+        <rect x="10" y="140" width="270" height="34" rx="12" fill="none" stroke="#4a2f1a" strokeWidth="2" />
+        <rect x="20" y="149" width="250" height="16" rx="7" fill="#a8741f" opacity=".6" />
+        <text className={label} x="300" y="152">B · Edge</text>
+        <text className={token} x="300" y="174">--tx-press-depth: 4px</text>
+        <rect x="10" y="210" width="270" height="96" rx="20" fill="none" stroke="#a9462a" strokeWidth="3" strokeDasharray="10 7" />
+        <text className={label} x="300" y="246">C · Thread</text>
+        <text className={token} x="300" y="268">--tx-thread-width</text>
+        <text className={token} x="300" y="288">--tx-stitch-inset</text>
+        <path d="M10 340H280V460H10Z" fill="none" stroke="#4a2f1a" strokeWidth="2" />
+        <path d="M20 350H270V450H20Z" fill="url(#twill)" />
+        <text className={label} x="300" y="392">D · Fabric</text>
+        <text className={token} x="300" y="414">--tx-fabric</text>
+      </svg>
+      <dl className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3 text-[#3a2412] md:hidden">
+        {pieces.map(([name, token]) => (
+          <div key={name}>
+            <dt className="font-(family-name:--tx-font-heading) font-bold">{name}</dt>
+            <dd className="font-mono text-[13px] break-all text-[#4a2f1a]">{token}</dd>
+          </div>
+        ))}
+      </dl>
+    </div>
   )
 }
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  return (
-    <section className="grid gap-4">
-      <h2 className="font-(family-name:--tx-font-heading) text-2xl font-bold">{title}</h2>
-      {children}
-    </section>
-  )
-}
+const pieces = [
+  ["A · Patch", "--tx-patch"],
+  ["B · Edge", "--tx-press-depth"],
+  ["C · Thread", "--tx-thread-width"],
+  ["D · Fabric", "--tx-fabric"],
+]
 
-const row = "flex flex-wrap items-center gap-4"
+const brandCss = `/* your brand colors, threadcn's stitching */
+:root {
+  --tx-patch: var(--primary);
+  --tx-patch-foreground: var(--primary-foreground);
+}`
 
 export default function Home() {
   return (
-    <main className="mx-auto grid max-w-5xl gap-12 px-4 py-10">
-      <header className="flex flex-wrap items-center justify-between gap-4">
-        <div className="grid gap-1">
-          <h1 className="font-(family-name:--tx-font-heading) text-4xl font-bold">threadcn</h1>
-          <p className="text-(--tx-muted-foreground)">Stitched, fabric-style components for shadcn/ui.</p>
-        </div>
-        <ThemeToggle />
-      </header>
+    <main>
+      <Quilt />
+      <Seamline />
 
-      <Section title="Button">
-        <div className={row}>
-          {variants.map((variant) => (
-            <Button key={variant} variant={variant}>
-              {variant === "link" ? "Read the care guide" : variant[0].toUpperCase() + variant.slice(1)}
-            </Button>
-          ))}
-        </div>
-        <div className={row}>
-          <Button size="sm">Small</Button>
-          <Button>Default</Button>
-          <Button size="lg">Large</Button>
-          <Button disabled>Disabled</Button>
-        </div>
-        <div className={row}>
-          <Button size="icon" aria-label="Save to wishlist"><Heart /></Button>
-          <Button size="icon" variant="secondary" aria-label="Save to wishlist"><Heart /></Button>
-          <Button size="icon" variant="leather" aria-label="Save to wishlist"><Heart /></Button>
-          <Button size="icon" variant="outline" aria-label="Book alterations"><Scissors /></Button>
-          <Button size="icon" variant="ghost" aria-label="Book alterations"><Scissors /></Button>
-          <Button size="icon" shape="round" aria-label="Book alterations"><Scissors /></Button>
-          <Button size="icon" shape="round" variant="secondary" aria-label="Save to wishlist"><Heart /></Button>
-        </div>
-      </Section>
+      <section aria-labelledby="fabrics" className={`${wrap} py-24`}>
+        <SectionHead id="fabrics" title="One set of components. Two fabrics.">
+          Light mode is Denim. Dark mode is Quilted night, a padded cloth sewn with white thread. Drag the seam to compare the same card.
+        </SectionHead>
+        <Seam />
+      </section>
+      <Seamline />
 
-      <Section title="Card">
-        <div className="flex flex-wrap items-start gap-6">
-          <Card className="w-full max-w-sm">
-            <CardHeader>
-              <CardTitle>Free repairs, forever</CardTitle>
-              <CardDescription>Rips, holes and broken buttons. Send them back any time.</CardDescription>
-            </CardHeader>
-            <CardContent>We have fixed 1,240 pairs this year. Most come back within 9 days.</CardContent>
-            <CardFooter>
-              <Button size="sm">Book a repair</Button>
-              <Button size="sm" variant="ghost">How it works</Button>
-            </CardFooter>
-          </Card>
-          <Card className="w-56">
-            <CardHeader>
-              <CardDescription>On the machine</CardDescription>
-              <CardAction>
-                <Button size="icon" variant="ghost" shape="round" className="size-8" aria-label="Save"><Heart /></Button>
-              </CardAction>
-            </CardHeader>
-            <CardContent className="font-(family-name:--tx-font-heading) text-4xl font-bold tabular-nums">36</CardContent>
-          </Card>
-        </div>
-      </Section>
-
-      <Section title="Badge">
-        <div className={row}>
-          <Badge>New</Badge>
-          <Badge variant="secondary">Raw denim</Badge>
-          <Badge variant="outline">14 oz</Badge>
-          <Badge variant="destructive">Sold out</Badge>
-          <Badge variant="ghost">Ghost</Badge>
-          <Badge variant="link" render={<a href="#" />}>Care guide</Badge>
-        </div>
-      </Section>
-
-      <Section title="Label and Separator">
-        <div className="grid max-w-sm gap-4">
-          <div className="grid gap-1.5">
-            <Label htmlFor="demo-email">Email</Label>
-            <Input id="demo-email" type="email" placeholder="you@studio.dev" />
-          </div>
-          <Separator />
-          <div className="flex h-12 items-center gap-4 text-sm">
-            <span>Fit</span>
-            <Separator orientation="vertical" />
-            <span>Wash</span>
-            <Separator orientation="vertical" />
-            <span>Repairs</span>
+      <section aria-labelledby="pieces" className={`${wrap} grid items-center gap-14 py-24 lg:grid-cols-[1.1fr_1fr]`}>
+        <PatternSheet />
+        <div className="min-w-0">
+          <h2 id="pieces" className={`${heading} text-4xl md:text-5xl`}>Cut from a few pieces.</h2>
+          <p className="mt-4 mb-6 text-lg text-(--tx-muted-foreground)">
+            Every component is built from the same few pieces: the patch, the edge under it, the thread and the fabric. Each piece is one CSS
+            variable. Set it to your brand color and every button, card and input follows, with no component code to edit.
+          </p>
+          <CodeBlock file="globals.css" code={brandCss} />
+          <div className="mt-6">
+            <p className="mb-3 font-(family-name:--tx-font-patch) text-(--tx-muted-foreground)">Try a patch color</p>
+            <PatchColor />
           </div>
         </div>
-      </Section>
+      </section>
 
-      <Section title="Input and Textarea">
-        <div className="grid max-w-2xl gap-5 sm:grid-cols-2">
-          <div className="grid gap-1.5">
-            <Label htmlFor="f-name">Name</Label>
-            <Input id="f-name" defaultValue="Rafi" />
+      <section aria-labelledby="components" data-fabric="flip" className="tx-fabric">
+        <div className={`${wrap} py-24`}>
+          <SectionHead id="components" title={`${components.length} components, and counting.`}>
+            Same names as shadcn/ui, so what you already know carries over. More are on the way.
+          </SectionHead>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {catalog.map(({ group, items }) => (
+              <Card key={group} className={group === "Denim specials" ? "bg-(--tx-leather) text-(--tx-leather-foreground)" : undefined}>
+                <CardHeader>
+                  <CardTitle>{group}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="flex flex-wrap gap-2">
+                    {items.map((item) => (
+                      <li key={item.name}>
+                        {/* Until each component has its docs page, the chip opens its source on GitHub. */}
+                        <a
+                          href={`${repoUrl}/blob/main/registry/threadcn/ui/${item.name}.tsx`}
+                          title={item.description}
+                          className="block rounded-lg bg-(--tx-patch-secondary) px-3 py-1 text-[15px] text-(--tx-patch-secondary-foreground) hover:bg-(--tx-patch) hover:text-(--tx-patch-foreground)"
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            ))}
           </div>
-          <div className="grid gap-1.5">
-            <Label htmlFor="f-email">Email</Label>
-            <Input id="f-email" aria-invalid="true" aria-describedby="f-email-error" defaultValue="rafi@indigo" />
-            <p id="f-email-error" className="text-[13px] text-(--tx-invalid)">Add the part after the dot, like .shop</p>
-          </div>
-          <div className="grid gap-1.5">
-            <Label htmlFor="f-off">Order number</Label>
-            <Input id="f-off" disabled defaultValue="IND-2041" />
-          </div>
-          <div className="grid gap-1.5 sm:col-span-2">
-            <Label htmlFor="f-notes">Repair notes</Label>
-            <Textarea id="f-notes" placeholder="Where is the tear?" />
-          </div>
-        </div>
-      </Section>
+  </div>
+      </section>
 
-      <Section title="Checkbox, Radio and Switch">
-        <div className="grid gap-6 sm:grid-cols-3">
-          <div className="grid content-start gap-3">
-            <Label><Checkbox defaultChecked /> Gift wrap</Label>
-            <Label><Checkbox /> Add a care card</Label>
-            <Label><Checkbox indeterminate /> Some items</Label>
-            <Label><Checkbox disabled defaultChecked /> Hemming (sold out)</Label>
-            <Label><Checkbox aria-invalid="true" /> Accept the repair terms</Label>
-          </div>
-          <RadioGroup defaultValue="regular" aria-label="Fit" className="grid content-start gap-3">
-            <Label><RadioGroupItem value="slim" /> Slim</Label>
-            <Label><RadioGroupItem value="regular" /> Regular</Label>
-            <Label><RadioGroupItem value="loose" /> Loose</Label>
-            <Label><RadioGroupItem value="tapered" disabled /> Tapered (soon)</Label>
-          </RadioGroup>
-          <div className="grid content-start gap-3">
-            <Label><Switch defaultChecked /> Express shipping</Label>
-            <Label><Switch /> Gift receipt</Label>
-            <Label><Switch size="sm" defaultChecked /> Small, on</Label>
-            <Label><Switch size="sm" /> Small, off</Label>
-            <Label><Switch disabled /> Same-day (not in your area)</Label>
-          </div>
-        </div>
-      </Section>
-
-      <Section title="Select and Tooltip">
-        <PopupsDemo />
-      </Section>
-
-      <Section title="Patch">
-        <div className={row}>
-          <Patch>Indigo Supply</Patch>
-          <Patch render={<a href="#" />}>Indigo Supply (link)</Patch>
-          <Patch variant="round">
-            <PatchDot>42</PatchDot>
-            Orders this week
-          </Patch>
-        </div>
-      </Section>
-
-      <Section title="Tabs">
-        <div className="grid gap-8 lg:grid-cols-3">
-          {(["default", "leather", "line"] as const).map((variant) => (
-            <div key={variant} className="grid content-start gap-2">
-              <p className="text-xs text-(--tx-muted-foreground)">variant=&quot;{variant}&quot;</p>
-              <Tabs defaultValue="details">
-                <TabsList variant={variant} aria-label={`Product (${variant})`}>
-                  <TabsTrigger value="details">Details</TabsTrigger>
-                  <TabsTrigger value="sizing">Sizing</TabsTrigger>
-                  <TabsTrigger value="reviews" disabled>Reviews</TabsTrigger>
-                </TabsList>
-                <TabsContent value="details" className="grid gap-3">
-                  Raw selvedge denim, 14 oz cotton. Fades to your shape in about 6 months.
-                  <Label><Checkbox /> Tell me when 32 is back</Label>
-                </TabsContent>
-                <TabsContent value="sizing">True to size. Size down for a slim fit.</TabsContent>
-              </Tabs>
+      <section aria-labelledby="open" className={`${wrap} pt-24 pb-10`}>
+        <div className="relative grid items-center gap-10 rounded-[20px] bg-(--tx-leather) p-8 text-(--tx-leather-foreground) shadow-[0_6px_0_var(--tx-leather-edge),0_16px_30px_rgb(0_0_0/.35)] [--_inset:10px] [--_radius:20px] md:p-14 lg:grid-cols-[1.2fr_1fr]">
+          <Stitch />
+          <div>
+            <h2 id="open" className={`${heading} text-4xl md:text-5xl`}>Built in the open.</h2>
+            <p className="mt-4 mb-7 max-w-[48ch] text-lg">
+              threadcn is free and MIT licensed. The code, the tests and every design decision live on GitHub. Ideas, bug reports and new fabrics
+              are welcome.
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <a href={repoUrl} className={buttonVariants()}>
+                <Stitch />
+                <GitHubIcon />
+                Star on GitHub
+              </a>
+              <a href={`${repoUrl}/issues`} className={buttonVariants({ variant: "secondary" })}>
+                <Stitch />
+                Report an issue
+              </a>
             </div>
-          ))}
+          </div>
+          <ul className="relative grid gap-3 rounded-2xl bg-(--tx-field) p-6 text-(--tx-field-foreground) [--_inset:7px] [--_radius:16px] [--_stitch:var(--tx-field-border)]">
+            <Stitch />
+            {[
+              "Built on Base UI, so keyboard and screen readers work",
+              "Tested: behavior, color contrast and reduced motion",
+              "Never touches your own theme or your stock shadcn files",
+            ].map((line) => (
+              <li key={line} className="flex gap-3">
+                <svg viewBox="0 0 24 24" className="mt-1 size-4 shrink-0" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                  <path d="M20 6 9 17l-5-5" />
+                </svg>
+                {line}
+              </li>
+            ))}
+          </ul>
         </div>
-      </Section>
-
-      <Section title="Pocket card">
-        <PocketCard className="w-full max-w-sm">
-          <PocketCardTag>W32 · L34</PocketCardTag>
-          <PocketCardHeader>
-            <PocketCardTitle>Model 08 Straight</PocketCardTitle>
-            <PocketCardAction>$128</PocketCardAction>
-          </PocketCardHeader>
-          <PocketCardDescription>Deep indigo, unwashed. Fades to your shape in about 6 months.</PocketCardDescription>
-          <PocketCardContent>
-            <div role="group" aria-label="Waist size" className="flex flex-wrap gap-2">
-              {[28, 30, 32, 34].map((size) => (
-                <Button key={size} size="sm" variant={size === 32 ? "default" : "secondary"} aria-pressed={size === 32}>
-                  {size}
-                </Button>
-              ))}
-              <Button size="sm" variant="secondary" disabled aria-label="36, sold out">36</Button>
-            </div>
-          </PocketCardContent>
-          <PocketCardFooter>
-            <Button>Add to bag</Button>
-          </PocketCardFooter>
-        </PocketCard>
-      </Section>
-
-      <Section title="Toggle and Toggle Group">
-        <ToggleDemo />
-      </Section>
-
-      <Section title="Feedback: Alert, Toast, Alert Dialog, Progress, Slider, Skeleton, Spinner">
-        <FeedbackDemo />
-      </Section>
-
-      <Section title="Overlays and menus">
-        <Wave2Demo />
-      </Section>
-
-      <Section title="Layout and navigation">
-        <Wave3Demo />
-      </Section>
-
-      <Section title="Dialog">
-        <div className={row}>
-          <DialogDemo />
-        </div>
-      </Section>
+      </section>
     </main>
   )
 }
