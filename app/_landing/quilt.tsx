@@ -62,7 +62,7 @@ export function Quilt() {
         <Block className="col-span-2 bg-(--tx-leather) p-4 text-(--tx-leather-foreground) md:p-11 lg:col-span-3 lg:col-start-1 lg:row-start-3">
           <InstallCommand className="[--tx-muted-foreground:var(--tx-leather-foreground)]" />
           <div className="flex flex-wrap gap-3">
-            <Link href="#components" className={buttonVariants({ size: "sm" })}>
+            <Link href="/docs/components" className={buttonVariants({ size: "sm" })}>
               <Stitch />
               Browse components
             </Link>

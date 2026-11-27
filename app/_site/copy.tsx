@@ -6,7 +6,7 @@ import { Button } from "@/registry/threadcn/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/threadcn/ui/tabs"
 
 /** A small Copy button. Says "Copied" for a moment, and tells screen readers too. */
-export function CopyButton({ text, label = "Copy" }: { text: string; label?: string }) {
+export function CopyButton({ text, label = "Copy", size = "xs" }: { text: string; label?: string; size?: "xs" | "sm" }) {
   const [copied, setCopied] = useState(false)
 
   async function copy() {
@@ -18,7 +18,7 @@ export function CopyButton({ text, label = "Copy" }: { text: string; label?: str
   }
 
   return (
-    <Button size="xs" onClick={copy} aria-label={copied ? "Copied" : `${label}: ${text}`}>
+    <Button size={size} onClick={copy} aria-label={copied ? "Copied" : `${label}: ${text}`}>
       <span aria-live="polite">{copied ? "Copied" : label}</span>
     </Button>
   )
@@ -45,8 +45,8 @@ export function InstallCommand({ item = "button", className }: { item?: string; 
       {Object.entries(managers).map(([pm, run]) => {
         const command = `${run} @threadcn/${item}`
         return (
-          <TabsContent key={pm} value={pm} className="p-0">
-            <div className="flex items-center gap-3 rounded-[10px] bg-(--tx-field) py-1.5 pr-1.5 pl-4 text-(--tx-field-foreground)">
+          <TabsContent key={pm} value={pm} className="[--_stitch:transparent] bg-transparent p-0">
+            <div className="flex items-center gap-3 rounded-[10px] bg-(--tx-field) py-1.5 pr-1.5 pl-4 text-(--tx-field-foreground) outline-[1.6px] -outline-offset-4 outline-(--tx-field-border) outline-dashed">
               <code className="min-w-0 flex-1 font-mono text-[15px] [overflow-wrap:anywhere] sm:overflow-x-auto sm:whitespace-nowrap sm:[scrollbar-width:none]">{command}</code>
               <CopyButton text={command} />
             </div>
