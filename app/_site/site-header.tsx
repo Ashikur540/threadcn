@@ -6,7 +6,7 @@ import { ModeSwitch } from "./mode-switch"
 
 const nav = [
   { href: "/#components", label: "Components" },
-  { href: "/#install", label: "Install" },
+  { href: `${repoUrl}#install`, label: "Install" },
 ]
 
 export function SiteHeader() {

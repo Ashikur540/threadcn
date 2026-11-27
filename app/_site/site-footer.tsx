@@ -4,7 +4,7 @@ import { repoUrl } from "./github"
 import { SewingButton } from "./logo"
 
 const columns = [
-  { title: "Get started", links: [{ href: "/#install", label: "Install" }, { href: "/#components", label: "Components" }] },
+  { title: "Get started", links: [{ href: `${repoUrl}#install`, label: "Install" }, { href: "/#components", label: "Components" }] },
   { title: "Project", links: [{ href: repoUrl, label: "GitHub" }, { href: `${repoUrl}/issues`, label: "Report an issue" }] },
 ]
 

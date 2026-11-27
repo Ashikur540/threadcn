@@ -1,14 +1,12 @@
 import { buttonVariants } from "@/registry/threadcn/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 import { Stitch } from "@/registry/threadcn/ui/stitch"
-import { siteUrl } from "@/site"
 
 import { PatchColor } from "./_landing/patch-color"
 import { Quilt } from "./_landing/quilt"
 import { Seam } from "./_landing/seam"
 import { catalog, components } from "./_site/catalog"
 import { CodeBlock } from "./_site/code-block"
-import { InstallCommand } from "./_site/copy"
 import { GitHubIcon, repoUrl } from "./_site/github"
 
 const heading = "font-(family-name:--tx-font-heading) font-bold tracking-tight text-balance"
@@ -86,31 +84,6 @@ const brandCss = `/* your brand colors, threadcn's stitching */
   --tx-patch-foreground: var(--primary-foreground);
 }`
 
-const registryJson = `{
-  "registries": {
-    "@threadcn": "${siteUrl}/r/{name}.json"
-  }
-}`
-
-const steps = [
-  {
-    title: "Add the registry",
-    text: "Open components.json and tell the shadcn CLI where threadcn lives. You do this once per project.",
-    body: <CodeBlock file="components.json" code={registryJson} />,
-    note: "Once threadcn is in shadcn's official registry list, this step goes away.",
-  },
-  {
-    title: "Add a component",
-    text: "Same command as any shadcn component. The Denim and Quilted night colors come along with the first one.",
-    body: <InstallCommand />,
-  },
-  {
-    title: "Put the fabric on the page",
-    text: "One class on <body> draws the denim behind your app. Your own theme stays as it is.",
-    body: <CodeBlock file="app/layout.tsx" code={`<body className="tx-fabric">`} />,
-  },
-]
-
 export default function Home() {
   return (
     <main>
@@ -140,68 +113,41 @@ export default function Home() {
           </div>
         </div>
       </section>
-      <Seamline />
 
-      <section aria-labelledby="install" data-fabric="flip" className="tx-fabric">
+      <section aria-labelledby="components" data-fabric="flip" className="tx-fabric">
         <div className={`${wrap} py-24`}>
-          <SectionHead id="install" title="Install in three steps.">
-            threadcn uses the normal shadcn CLI. You copy the code into your project and own it, like any shadcn component.
+          <SectionHead id="components" title={`${components.length} components, and counting.`}>
+            Same names as shadcn/ui, so what you already know carries over. More are on the way.
           </SectionHead>
-          <ol className="grid max-w-3xl gap-10">
-            {steps.map((step, i) => (
-              <li key={step.title} className="grid gap-x-5 gap-y-3 sm:grid-cols-[3.5rem_1fr]">
-                <span
-                  aria-hidden="true"
-                  className="relative grid size-12 place-items-center rounded-full bg-(--tx-leather) font-(family-name:--tx-font-heading) text-2xl font-bold text-(--tx-leather-foreground) shadow-[0_3px_0_var(--tx-leather-edge)] [--_inset:5px] [--_radius:9999px] sm:size-14"
-                >
-                  <Stitch />
-                  {i + 1}
-                </span>
-                <div className="grid min-w-0 gap-3">
-                  <h3 className={`${heading} text-2xl`}>{step.title}</h3>
-                  <p className="text-(--tx-muted-foreground)">{step.text}</p>
-                  {step.body}
-                  {step.note && <p className="text-sm text-(--tx-muted-foreground)">{step.note}</p>}
-                </div>
-              </li>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            {catalog.map(({ group, items }) => (
+              <Card key={group} className={group === "Denim specials" ? "bg-(--tx-leather) text-(--tx-leather-foreground)" : undefined}>
+                <CardHeader>
+                  <CardTitle>{group}</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <ul className="flex flex-wrap gap-2">
+                    {items.map((item) => (
+                      <li key={item.name}>
+                        {/* Until each component has its docs page, the chip opens its source on GitHub. */}
+                        <a
+                          href={`${repoUrl}/blob/main/registry/threadcn/ui/${item.name}.tsx`}
+                          title={item.description}
+                          className="block rounded-lg bg-(--tx-patch-secondary) px-3 py-1 text-[15px] text-(--tx-patch-secondary-foreground) hover:bg-(--tx-patch) hover:text-(--tx-patch-foreground)"
+                        >
+                          {item.title}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
             ))}
-          </ol>
-        </div>
-      </section>
-      <Seamline />
-
-      <section aria-labelledby="components" className={`${wrap} py-24`}>
-        <SectionHead id="components" title={`${components.length} components, and counting.`}>
-          Same names as shadcn/ui, so what you already know carries over. More are on the way.
-        </SectionHead>
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {catalog.map(({ group, items }) => (
-            <Card key={group} className={group === "Denim specials" ? "bg-(--tx-leather) text-(--tx-leather-foreground)" : undefined}>
-              <CardHeader>
-                <CardTitle>{group}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ul className="flex flex-wrap gap-2">
-                  {items.map((item) => (
-                    <li key={item.name}>
-                      {/* Until each component has its docs page, the chip opens its source on GitHub. */}
-                      <a
-                        href={`${repoUrl}/blob/main/registry/threadcn/ui/${item.name}.tsx`}
-                        title={item.description}
-                        className="block rounded-lg bg-(--tx-patch-secondary) px-3 py-1 text-[15px] text-(--tx-patch-secondary-foreground) hover:bg-(--tx-patch) hover:text-(--tx-patch-foreground)"
-                      >
-                        {item.title}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+          </div>
+  </div>
       </section>
 
-      <section aria-labelledby="open" className={`${wrap} pt-4 pb-10`}>
+      <section aria-labelledby="open" className={`${wrap} pt-24 pb-10`}>
         <div className="relative grid items-center gap-10 rounded-[20px] bg-(--tx-leather) p-8 text-(--tx-leather-foreground) shadow-[0_6px_0_var(--tx-leather-edge),0_16px_30px_rgb(0_0_0/.35)] [--_inset:10px] [--_radius:20px] md:p-14 lg:grid-cols-[1.2fr_1fr]">
           <Stitch />
           <div>
