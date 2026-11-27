@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "threadcn",
-  "homepage": "https://github.com/Ashikur540/threadcn",
+  "homepage": "https://threadcn.vercel.app",
   "items": [
     {
       "name": "base",
