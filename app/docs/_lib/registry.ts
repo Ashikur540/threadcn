@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from "node:fs"
+import { join } from "node:path"
 
 import registry from "@/registry.json"
 
@@ -10,18 +11,25 @@ import { catalog } from "../../_site/catalog"
 
 type Item = (typeof registry.items)[number]
 
+// All paths here are relative to the project root (where registry.json lives).
+// Next.js runs from that folder, and every docs page is built ahead of time
+// (dynamic = "force-static", dynamicParams = false), so these reads only ever
+// happen during the build, never on a visitor's request.
+const root = process.cwd()
+const fromRoot = (path: string) => join(root, path)
+
 export function getItem(name: string): Item | undefined {
   return registry.items.find((item) => item.name === name && item.type === "registry:ui")
 }
 
 /** The file's text, with the registry import path rewritten to the one users have. */
 export function readSource(path: string) {
-  return readFileSync(path, "utf8").replace(/@\/registry\/threadcn\/ui\//g, "@/components/ui/").trimEnd()
+  return readFileSync(fromRoot(path), "utf8").replace(/@\/registry\/threadcn\/ui\//g, "@/components/ui/").trimEnd()
 }
 
 /** Everything a component file exports, for the import line in Usage (components and helpers like buttonVariants). Types are left out. */
 export function exportsOf(name: string) {
-  const text = readFileSync(`registry/threadcn/ui/${name}.tsx`, "utf8")
+  const text = readFileSync(fromRoot(`registry/threadcn/ui/${name}.tsx`), "utf8")
   const names = [...text.matchAll(/export\s*\{([^}]*)\}/g)].flatMap((m) => m[1].split(","))
   return names.map((n) => n.trim()).filter((n) => n && !n.startsWith("type "))
 }
@@ -29,7 +37,7 @@ export function exportsOf(name: string) {
 /** The component's own stylesheet, if it has one. */
 export function stylePath(name: string) {
   const path = `registry/threadcn/styles/${name}.css`
-  return existsSync(path) ? path : undefined
+  return existsSync(fromRoot(path)) ? path : undefined
 }
 
 /** Docs pages in sidebar order, for previous / next links. */

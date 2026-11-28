@@ -2,7 +2,7 @@
 
 import { Avatar, AvatarFallback, AvatarGroup } from "@/registry/threadcn/ui/avatar"
 import { Toaster, toast } from "@/registry/threadcn/ui/toast"
-import { Tooltip, TooltipContent, TooltipTrigger } from "@/registry/threadcn/ui/tooltip"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/registry/threadcn/ui/tooltip"
 
 import { InstallCommand } from "../_site/copy"
 
@@ -25,18 +25,20 @@ const people = [
   { initials: "OH", name: "Omar Haque" },
 ]
 
-/** Avatars that show the person's name in a real threadcn Tooltip on hover or keyboard focus. */
+/** Avatars that show the person's name in a real threadcn Tooltip on hover or keyboard focus. The provider shows it with no wait. */
 export function HeroAvatars() {
   return (
-    <AvatarGroup>
-      {people.map((p) => (
-        <Tooltip key={p.initials}>
-          <TooltipTrigger render={<Avatar tabIndex={0} />}>
-            <AvatarFallback>{p.initials}</AvatarFallback>
-          </TooltipTrigger>
-          <TooltipContent>{p.name}</TooltipContent>
-        </Tooltip>
-      ))}
-    </AvatarGroup>
+    <TooltipProvider>
+      <AvatarGroup>
+        {people.map((p) => (
+          <Tooltip key={p.initials}>
+            <TooltipTrigger render={<Avatar tabIndex={0} />}>
+              <AvatarFallback>{p.initials}</AvatarFallback>
+            </TooltipTrigger>
+            <TooltipContent>{p.name}</TooltipContent>
+          </Tooltip>
+        ))}
+      </AvatarGroup>
+    </TooltipProvider>
   )
 }
