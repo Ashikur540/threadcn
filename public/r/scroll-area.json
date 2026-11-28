@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "scroll-area",
   "title": "Scroll Area",
-  "description": "A box that scrolls with a thin thread-colored scrollbar.",
+  "description": "A box that scrolls with a thin scrollbar that matches the theme.",
   "dependencies": [
     "@base-ui/react",
     "cn"

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toast",
   "title": "Toast",
-  "description": "A small stitched card that slides in from the corner.",
+  "description": "A short message that pops up in a corner, then goes away.",
   "dependencies": [
     "@base-ui/react",
     "cn"

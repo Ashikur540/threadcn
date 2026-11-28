@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "tabs",
   "title": "Tabs",
-  "description": "Sewn-on label tabs; the active tab is stitched onto its panel.",
+  "description": "Switch between views on the same page, one panel at a time.",
   "dependencies": [
     "@base-ui/react",
     "class-variance-authority",

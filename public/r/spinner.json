@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "spinner",
   "title": "Spinner",
-  "description": "A ring of stitches that turns while something loads.",
+  "description": "A turning ring of stitches that says \"loading, please wait\".",
   "dependencies": [
     "cn"
   ],
@@ -12,7 +12,7 @@
   "files": [
     {
       "path": "registry/threadcn/ui/spinner.tsx",
-      "content": "import type * as React from \"react\"\nimport { cn } from \"cn\"\n\n/**\n * A ring of stitches that turns while something loads. Same API as shadcn's\n * Spinner. It uses the text color around it. The turning only runs when the\n * user allows motion; otherwise the ring stays still.\n *\n * @example\n * <Button disabled><Spinner /> Saving</Button>\n */\nfunction Spinner({ className, ...props }: React.ComponentProps<\"svg\">) {\n  return (\n    <svg\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label=\"Loading\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      className={cn(\"tx-spinner size-4 shrink-0 motion-safe:animate-spin\", className)}\n      {...props}\n    >\n      <circle cx=\"12\" cy=\"12\" r=\"9\" stroke=\"currentColor\" strokeWidth=\"2.5\" strokeLinecap=\"round\" />\n    </svg>\n  )\n}\n\nexport { Spinner }\n",
+      "content": "import type * as React from \"react\"\nimport { cn } from \"cn\"\n\n/**\n * A ring of stitches that turns while something loads. Same API as shadcn's\n * Spinner. It uses the text color around it. The turning only runs when the\n * user allows motion; otherwise the ring stays still.\n *\n * @example\n * <Button disabled><Spinner aria-hidden=\"true\" /> Saving</Button>\n *\n * Next to words, add aria-hidden so screen readers don't hear \"Loading\" on top of them.\n */\nfunction Spinner({ className, ...props }: React.ComponentProps<\"svg\">) {\n  return (\n    <svg\n      data-slot=\"spinner\"\n      role=\"status\"\n      aria-label=\"Loading\"\n      viewBox=\"0 0 24 24\"\n      fill=\"none\"\n      className={cn(\"tx-spinner size-4 shrink-0 motion-safe:animate-spin\", className)}\n      {...props}\n    >\n      <circle cx=\"12\" cy=\"12\" r=\"9\" stroke=\"currentColor\" strokeWidth=\"2.5\" strokeLinecap=\"round\" />\n    </svg>\n  )\n}\n\nexport { Spinner }\n",
       "type": "registry:ui"
     }
   ],

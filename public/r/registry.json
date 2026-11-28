@@ -141,7 +141,7 @@
       "name": "stitch",
       "type": "registry:ui",
       "title": "Stitch",
-      "description": "The stitch line drawn inside a part's edge.",
+      "description": "The dashed thread line inside every stitched part. Add it to your own boxes.",
       "dependencies": [
         "cn"
       ],
@@ -290,7 +290,7 @@
       "name": "card",
       "type": "registry:ui",
       "title": "Card",
-      "description": "A stitched piece of fabric. Puffy and quilted in dark mode.",
+      "description": "A box that groups related content, like a product or an order. Quilted in dark mode.",
       "dependencies": [
         "cn"
       ],
@@ -412,7 +412,7 @@
       "name": "badge",
       "type": "registry:ui",
       "title": "Badge",
-      "description": "A small woven label.",
+      "description": "A small label for a status or a count, like \"New\" or \"3\".",
       "dependencies": [
         "@base-ui/react",
         "class-variance-authority",
@@ -500,7 +500,7 @@
       "name": "separator",
       "type": "registry:ui",
       "title": "Separator",
-      "description": "A line of thread between two blocks.",
+      "description": "A thin line of thread that splits two blocks of content.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -532,7 +532,7 @@
       "name": "patch",
       "type": "registry:ui",
       "title": "Patch",
-      "description": "A sewn-on brand patch: leather label or round denim patch.",
+      "description": "A sewn-on brand badge: a leather label or a round denim patch.",
       "dependencies": [
         "@base-ui/react",
         "class-variance-authority",
@@ -1193,7 +1193,7 @@
       "name": "tabs",
       "type": "registry:ui",
       "title": "Tabs",
-      "description": "Sewn-on label tabs; the active tab is stitched onto its panel.",
+      "description": "Switch between views on the same page, one panel at a time.",
       "dependencies": [
         "@base-ui/react",
         "class-variance-authority",
@@ -1349,7 +1349,7 @@
       "name": "pocket-card",
       "type": "registry:ui",
       "title": "Pocket Card",
-      "description": "A jeans back pocket with double stitching, rivets and a hang tag.",
+      "description": "A card shaped like a jeans back pocket, with rivets and a hang tag.",
       "dependencies": [
         "cn"
       ],
@@ -1586,7 +1586,7 @@
       "name": "alert",
       "type": "registry:ui",
       "title": "Alert",
-      "description": "A notice sewn on like a garment care label.",
+      "description": "A message that stays on the page, like a warning or a tip.",
       "dependencies": [
         "class-variance-authority",
         "cn"
@@ -1657,7 +1657,7 @@
       "name": "progress",
       "type": "registry:ui",
       "title": "Progress",
-      "description": "A recessed denim strap filled by a gold patch with a running thread.",
+      "description": "A bar that shows how far along something is, like an upload.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1764,7 +1764,7 @@
       "name": "skeleton",
       "type": "registry:ui",
       "title": "Skeleton",
-      "description": "A basted fabric placeholder that pulses while content loads.",
+      "description": "A gray shape that holds the place of content while it loads.",
       "dependencies": [
         "cn"
       ],
@@ -1791,7 +1791,7 @@
       "name": "spinner",
       "type": "registry:ui",
       "title": "Spinner",
-      "description": "A ring of stitches that turns while something loads.",
+      "description": "A turning ring of stitches that says \"loading, please wait\".",
       "dependencies": [
         "cn"
       ],
@@ -1816,7 +1816,7 @@
       "name": "toast",
       "type": "registry:ui",
       "title": "Toast",
-      "description": "A small stitched card that slides in from the corner.",
+      "description": "A short message that pops up in a corner, then goes away.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1882,7 +1882,7 @@
       "name": "accordion",
       "type": "registry:ui",
       "title": "Accordion",
-      "description": "Stacked questions with dashed thread between them.",
+      "description": "A stack of sections you open and close, like an FAQ.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1912,7 +1912,7 @@
           ".tx-accordion-trigger[aria-expanded=\"true\"] .tx-accordion-icon": {
             "transform": "translateY(2px) rotate(225deg)"
           },
-          ".tx-accordion-trigger:hover:where(:not([aria-disabled=\"true\"]))": {
+          ".tx-accordion-trigger:hover:where(:not([data-disabled]))": {
             "text-decoration": "underline dashed var(--tx-thread)",
             "text-underline-offset": "5px"
           },
@@ -1939,7 +1939,7 @@
       "name": "collapsible",
       "type": "registry:ui",
       "title": "Collapsible",
-      "description": "A trigger that shows and hides a panel. No look of its own.",
+      "description": "A button that shows and hides one section. It has no look of its own.",
       "dependencies": [
         "@base-ui/react"
       ],
@@ -1955,7 +1955,7 @@
       "name": "breadcrumb",
       "type": "registry:ui",
       "title": "Breadcrumb",
-      "description": "Muted links with thread chevrons between them.",
+      "description": "A trail of links that shows where this page sits, like Shop > Jeans.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1994,7 +1994,7 @@
       "name": "pagination",
       "type": "registry:ui",
       "title": "Pagination",
-      "description": "Page links built from Button; the current page is the leather patch.",
+      "description": "Links to move between pages of a long list.",
       "dependencies": [
         "cn"
       ],
@@ -2013,7 +2013,7 @@
       "name": "avatar",
       "type": "registry:ui",
       "title": "Avatar",
-      "description": "A round photo with a stitched ring, or initials on cream canvas.",
+      "description": "A round photo of a person, or their initials when there is no photo.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2069,7 +2069,7 @@
       "name": "table",
       "type": "registry:ui",
       "title": "Table",
-      "description": "A data table with dashed thread lines between rows.",
+      "description": "Rows and columns of data, like a list of orders.",
       "dependencies": [
         "cn"
       ],
@@ -2137,7 +2137,7 @@
       "name": "kbd",
       "type": "registry:ui",
       "title": "Kbd",
-      "description": "A keyboard key as a small cream key cap.",
+      "description": "Shows a keyboard key or shortcut, like ⌘ K.",
       "dependencies": [
         "cn"
       ],
@@ -2170,7 +2170,7 @@
       "name": "scroll-area",
       "type": "registry:ui",
       "title": "Scroll Area",
-      "description": "A box that scrolls with a thin thread-colored scrollbar.",
+      "description": "A box that scrolls with a thin scrollbar that matches the theme.",
       "dependencies": [
         "@base-ui/react",
         "cn"

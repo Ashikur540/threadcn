@@ -6,7 +6,7 @@ export default function SpinnerDemo() {
     <div className="flex items-center gap-4">
       <Spinner className="size-6" />
       <Button variant="secondary" disabled>
-        <Spinner /> Saving
+        <Spinner aria-hidden="true" /> Saving
       </Button>
     </div>
   )

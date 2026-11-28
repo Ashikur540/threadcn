@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "patch",
   "title": "Patch",
-  "description": "A sewn-on brand patch: leather label or round denim patch.",
+  "description": "A sewn-on brand badge: a leather label or a round denim patch.",
   "dependencies": [
     "@base-ui/react",
     "class-variance-authority",

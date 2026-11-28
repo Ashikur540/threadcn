@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pocket-card",
   "title": "Pocket Card",
-  "description": "A jeans back pocket with double stitching, rivets and a hang tag.",
+  "description": "A card shaped like a jeans back pocket, with rivets and a hang tag.",
   "dependencies": [
     "cn"
   ],

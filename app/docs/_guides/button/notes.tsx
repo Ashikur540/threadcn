@@ -1,6 +1,7 @@
 import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   {
     name: "variant",
     type: '"default" | "secondary" | "destructive" | "leather" | "outline" | "ghost" | "link"',
@@ -17,7 +18,7 @@ const props = [
   { name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const settings = [
+export const settings: SettingRow[] = [
   ["--_bg", "Patch color"],
   ["--_fg", "Text color"],
   ["--_edge", "Color of the edge you see under the patch"],
@@ -28,8 +29,6 @@ const settings = [
   ["--_radius", "How round the corners are"],
 ]
 
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
-
 /** The hand-written part of the Button page: props, changing one button, and accessibility. */
 export function ButtonNotes() {
   return (
@@ -37,61 +36,19 @@ export function ButtonNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/button" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+        <BaseUiLink name="button">
           All other props come from Base UI Button
-        </a>
+        </BaseUiLink>
         , like <C>disabled</C>, <C>render</C> and <C>focusableWhenDisabled</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[36rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={p.name}>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
 
       <H3 id="settings">What each setting changes</H3>
       <p>
         The Change the look of one button example above uses these. Set them with a Tailwind class like <C>[--_bg:#5f7f43]</C>, and only that button
         changes. To change every button at once, set the shared colors instead (like <C>--tx-patch</C>) on <C>:root</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[28rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Setting</th>
-              <th className={cell}>What it changes</th>
-            </tr>
-          </thead>
-          <tbody>
-            {settings.map(([name, what]) => (
-              <tr key={name}>
-                <td className={cell}>
-                  <C>{name}</C>
-                </td>
-                <td className={cell}>{what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">

@@ -6,7 +6,7 @@
 @layer components {
   /* ---- Stitch ----
    * The dashed thread line every stitched part draws with <Stitch />.
-   * The parent part sets these knobs:
+   * Knobs (the parent part sets them):
    *   --_stitch   thread color
    *   --_inset    distance from the edge
    *   --_radius   the parent's corner radius

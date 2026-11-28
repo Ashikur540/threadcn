@@ -6,7 +6,7 @@ import { Stitch } from "@/registry/threadcn/ui/stitch"
 
 /** Alert classes. Layout is Tailwind here; the care-label look is in styles/alert.css. */
 const alertVariants = cva(
-  "tx-alert relative grid w-full gap-y-1 px-4 py-3.5 text-sm has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-3 has-data-[slot=alert-action]:pr-28 [&>svg]:row-span-2 [&>svg]:translate-y-0.5 [&>svg:not([data-slot=stitch])]:size-[18px]",
+  "tx-alert relative grid w-full gap-y-1 px-4 py-3.5 text-sm has-[>svg:not([data-slot=stitch])]:grid-cols-[auto_1fr] has-[>svg:not([data-slot=stitch])]:gap-x-3 has-data-[slot=alert-action]:pr-28 [&>svg:not([data-slot=stitch])]:row-span-2 [&>svg:not([data-slot=stitch])]:translate-y-0.5 [&>svg:not([data-slot=stitch])]:size-[18px]",
   {
     variants: {
       variant: {

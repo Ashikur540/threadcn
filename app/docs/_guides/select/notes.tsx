@@ -1,6 +1,7 @@
 import { C, H2 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   {
     part: "SelectTrigger",
     name: "size",
@@ -21,8 +22,6 @@ const props = [
   { part: "any part", name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
-
 /** The hand-written part of the Select page: props and accessibility. */
 export function SelectNotes() {
   return (
@@ -30,38 +29,13 @@ export function SelectNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/select" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+        <BaseUiLink name="select">
           All other props come from Base UI Select
-        </a>
+        </BaseUiLink>
         , like <C>items</C>, <C>value</C>, <C>onValueChange</C>, <C>multiple</C> and <C>disabled</C> on <C>Select</C>, and <C>disabled</C> on{" "}
         <C>SelectItem</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[40rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Part</th>
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={`${p.part}-${p.name}`}>
-                <td className={cell}>{p.part}</td>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
       <p>
         Pass <C>items</C> to <C>Select</C> (a list of <C>{"{ label, value }"}</C>) so the closed field shows the label, like &quot;Waist 32&quot;,
         and not the raw value.

@@ -11,7 +11,7 @@ export function Preview({ children, code, label }: { children: React.ReactNode; 
         <TabsTrigger value="code">Code</TabsTrigger>
       </TabsList>
       <TabsContent value="preview" className="[&>[data-slot=stitch]]:hidden bg-transparent p-0">
-        <div className="docs-stage tx-fabric shadow-[inset_0_2px_10px_rgb(0_0_0/.35)] grid min-h-64 place-items-center overflow-x-auto rounded-xl p-6 sm:p-10">{children}</div>
+        <div className="docs-stage tx-fabric shadow-[inset_0_2px_10px_rgb(0_0_0/.35)] grid min-h-64 grid-cols-[minmax(0,1fr)] place-items-center overflow-x-auto rounded-xl p-6 sm:p-10">{children}</div>
       </TabsContent>
       <TabsContent value="code" className="[&>[data-slot=stitch]]:hidden bg-transparent p-0">
         {code}

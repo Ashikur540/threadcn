@@ -1,6 +1,14 @@
-import { C, H2 } from "../../_ui/page-shell"
+import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const settings: SettingRow[] = [
+  ["--_stitch", "Thread color of the one stitch around a joined outline group", "[--_stitch:white]"],
+  ["--_thread", "How thick that thread is", "[--_thread:2.5px]"],
+  ["--_inset", "How far the stitch sits inside the edge", "[--_inset:6px]"],
+  ["--_radius", "How round the two end corners are. The stitch follows the same curve.", "[--_radius:6px]"],
+]
+
+export const props: PropRow[] = [
   {
     name: "variant",
     type: '"default" | "outline"',
@@ -23,8 +31,6 @@ const props = [
   { name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
-
 /** The hand-written part of the Toggle Group page: props and accessibility. */
 export function ToggleGroupNotes() {
   return (
@@ -32,40 +38,24 @@ export function ToggleGroupNotes() {
       <H2 id="props">Props</H2>
       <p>
         These are the <C>ToggleGroup</C> props threadcn adds. They match shadcn/ui.{" "}
-        <a href="https://base-ui.com/react/components/toggle-group" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+        <BaseUiLink name="toggle-group">
           All other props come from Base UI Toggle Group
-        </a>
+        </BaseUiLink>
         , like <C>multiple</C>, <C>value</C>, <C>defaultValue</C>, <C>onValueChange</C>, <C>loopFocus</C> and <C>disabled</C>. The value is
         always an array, even when only one item can be on.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[36rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={p.name}>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
       <p>
         Each <C>ToggleGroupItem</C> needs a <C>value</C> and has the same look as a Toggle, so the Toggle settings (like <C>--_radius</C>) work
         on it too.
       </p>
+
+      <H3 id="settings">What each setting changes</H3>
+      <p>
+        These change the stitch around a joined group (<C>spacing={"{0}"}</C> with <C>variant=&quot;outline&quot;</C>). Set them with a Tailwind
+        class on <C>ToggleGroup</C>. To change the items themselves, use the Toggle settings on <C>ToggleGroupItem</C>.
+      </p>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">

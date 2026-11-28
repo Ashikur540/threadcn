@@ -265,3 +265,13 @@ test("each drawer direction pushes its stitch past the screen edge", () => {
   expect(rule("right")).toContain(`width: ${past}`)
   expect(rule("left")).toContain(`width: ${past}`)
 })
+
+// The stitch is an <svg> too, so a class that styles "the icon svg" must skip it.
+// Without that, an Alert with no icon was laid out as if it had one.
+test("svg rules in stitched components never match the stitch itself", () => {
+  for (const file of readdirSync("registry/threadcn/ui").filter((f) => f.endsWith(".tsx"))) {
+    const source = readFileSync(`registry/threadcn/ui/${file}`, "utf8")
+    if (!source.includes("<Stitch")) continue
+    for (const [rule] of source.matchAll(/\S*>svg[^\s"]*/g)) expect(rule, file).toContain("data-slot=stitch")
+  }
+})

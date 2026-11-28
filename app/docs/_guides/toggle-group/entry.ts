@@ -49,6 +49,7 @@ export default {
   Notes: ToggleGroupNotes,
   toc: [
     { id: "props", title: "Props" },
+    { id: "settings", title: "Settings", depth: 2 },
     { id: "accessibility", title: "Accessibility" },
   ],
 } satisfies Guide

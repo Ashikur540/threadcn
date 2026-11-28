@@ -5,11 +5,11 @@ export default function ButtonLoading() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-4">
       <Button disabled>
-        <Spinner />
+        <Spinner aria-hidden="true" />
         Placing order
       </Button>
       <Button variant="secondary" disabled>
-        <Spinner />
+        <Spinner aria-hidden="true" />
         Saving
       </Button>
     </div>

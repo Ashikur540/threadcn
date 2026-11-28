@@ -1,6 +1,7 @@
 import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   {
     part: "Drawer",
     name: "showSwipeHandle",
@@ -18,14 +19,12 @@ const props = [
   { part: "any part", name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const settings = [
+export const settings: SettingRow[] = [
   ["--_stitch", "Thread color", "[--_stitch:white]"],
   ["--_thread", "How thick the thread is", "[--_thread:2.5px]"],
   ["--_inset", "How far the stitch sits inside the edge. The default is 8px.", "[--_inset:12px]"],
   ["--_radius", "How round the corners are. The stitch follows the same curve. The corners against the screen edge stay square.", "[--_radius:8px]"],
 ]
-
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
 
 /** The hand-written part of the Drawer page: Drawer vs Sheet, props, settings, and accessibility. */
 export function DrawerNotes() {
@@ -51,38 +50,13 @@ export function DrawerNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds, and the one Base UI prop every drawer needs, are listed here.{" "}
-        <a href="https://base-ui.com/react/components/drawer" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+        <BaseUiLink name="drawer">
           All other props come from Base UI Drawer
-        </a>
+        </BaseUiLink>
         , like <C>open</C>, <C>onOpenChange</C>, <C>modal</C>, <C>snapPoints</C>, <C>snapPoint</C>, <C>defaultSnapPoint</C> and{" "}
         <C>onSnapPointChange</C> on <C>Drawer</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[40rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Part</th>
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={`${p.part}-${p.name}`}>
-                <td className={cell}>{p.part}</td>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
       <p>
         <strong>Snap points.</strong> Each value in <C>snapPoints</C> is a height the drawer can rest at. A number from 0 to 1 is a part of the
         screen height (0.5 is half), a bigger number is pixels, and a string like <C>&quot;30rem&quot;</C> or <C>&quot;148px&quot;</C> works too.
@@ -103,28 +77,7 @@ export function DrawerNotes() {
         The drawer reads a few settings (CSS variables). Set them with a Tailwind class on <C>DrawerContent</C> and only that drawer changes. For
         example, <C>&lt;DrawerContent className=&quot;[--_stitch:white]&quot;&gt;</C> sews it with white thread.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[36rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Setting</th>
-              <th className={cell}>What it changes</th>
-              <th className={cell}>Example class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {settings.map(([name, what, example]) => (
-              <tr key={name}>
-                <td className={`${cell} whitespace-nowrap`}>
-                  <C>{name}</C>
-                </td>
-                <td className={cell}>{what}</td>
-                <td className={`${cell} font-mono text-[13px] whitespace-nowrap`}>{example}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">

@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "table",
   "title": "Table",
-  "description": "A data table with dashed thread lines between rows.",
+  "description": "Rows and columns of data, like a list of orders.",
   "dependencies": [
     "cn"
   ],

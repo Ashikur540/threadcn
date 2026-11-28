@@ -144,7 +144,7 @@ export function Quilt() {
           </RadioGroup>
         </Block>
         <Block name="Spinner and Kbd" className="max-lg:hidden">
-          <span className="flex items-center gap-2"><Spinner /> Saving</span>
+          <span className="flex items-center gap-2"><Spinner aria-hidden="true" /> Saving</span>
           <span className="text-sm">Copy with <Kbd>⌘</Kbd> <Kbd>C</Kbd></span>
         </Block>
 

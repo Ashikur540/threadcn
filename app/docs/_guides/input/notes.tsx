@@ -1,4 +1,5 @@
 import { C, H2 } from "../../_ui/page-shell"
+import { BaseUiLink } from "../../_ui/notes-tables"
 
 const link = "font-semibold underline underline-offset-4"
 
@@ -13,9 +14,9 @@ export function InputNotes() {
           every normal input attribute works
         </a>
         , like <C>type</C>, <C>placeholder</C>, <C>disabled</C> and <C>required</C>. Base UI adds a few more, like <C>onValueChange</C>, see{" "}
-        <a href="https://base-ui.com/react/components/input" target="_blank" rel="noreferrer" className={link}>
+        <BaseUiLink name="input">
           Base UI Input
-        </a>
+        </BaseUiLink>
         . One small change: <C>className</C> takes a plain string. Base UI also accepts a function there; threadcn does not.
       </p>
 
