@@ -1,6 +1,7 @@
 import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   { part: "ContextMenuContent", name: "side", type: '"top" | "right" | "bottom" | "left" | ...', def: '"right"', what: "Which side of the pointer the menu opens on." },
   { part: "ContextMenuContent", name: "sideOffset", type: "number", def: "0", what: "Gap in pixels between the pointer and the menu." },
   { part: "ContextMenuContent", name: "align", type: '"start" | "center" | "end"', def: '"start"', what: "How the menu lines up with the pointer. start puts its top at the pointer." },
@@ -26,7 +27,7 @@ const props = [
   { part: "any part", name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const settings = [
+export const settings: SettingRow[] = [
   ["--_mark", "Color of the tick on a checked item and the dot on a picked radio item. A highlighted item uses its text color instead.", "[--_mark:var(--tx-leather)]"],
   ["--_divider", "The dashed line drawn by ContextMenuSeparator. It is a background image, so a gradient works.", "[--_divider:linear-gradient(white,white)]"],
   ["--_stitch", "Thread color of the pocket's outline", "[--_stitch:white]"],
@@ -35,9 +36,6 @@ const settings = [
   ["--_radius", "How round the pocket's corners are. The stitch follows it.", "[--_radius:8px]"],
 ]
 
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
-const link = "font-semibold underline underline-offset-4"
-
 /** The hand-written part of the Context Menu page: props, settings, and accessibility. */
 export function ContextMenuNotes() {
   return (
@@ -45,67 +43,21 @@ export function ContextMenuNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/context-menu" target="_blank" rel="noreferrer" className={link}>
+        <BaseUiLink name="context-menu">
           All other props come from Base UI Context Menu
-        </a>
+        </BaseUiLink>
         , like <C>open</C>, <C>onOpenChange</C> and <C>disabled</C> on <C>ContextMenu</C>, <C>onClick</C>, <C>disabled</C> and{" "}
         <C>closeOnClick</C> on items, <C>checked</C> and <C>onCheckedChange</C> on checkbox items, and <C>value</C> and <C>onValueChange</C> on{" "}
         <C>ContextMenuRadioGroup</C>. The parts inside the menu are the same as in Dropdown Menu.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[44rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Part</th>
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={`${p.part}-${p.name}`}>
-                <td className={cell}>{p.part}</td>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
 
       <H3 id="settings">What each setting changes</H3>
       <p>
         The menu reads a few settings (CSS variables). Set them with a Tailwind class on <C>ContextMenuContent</C> and only that menu changes. Each
         item sets its own stitch for the highlight, so the last four change the pocket&apos;s outline only.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[40rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Setting</th>
-              <th className={cell}>What it changes</th>
-              <th className={cell}>Example class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {settings.map(([name, what, example]) => (
-              <tr key={name}>
-                <td className={cell}>
-                  <C>{name}</C>
-                </td>
-                <td className={cell}>{what}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{example}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">

@@ -1,6 +1,7 @@
 import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   {
     part: "SheetContent",
     name: "side",
@@ -18,14 +19,12 @@ const props = [
   { part: "any part", name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const settings = [
+export const settings: SettingRow[] = [
   ["--_stitch", "Thread color", "[--_stitch:white]"],
   ["--_thread", "How thick the thread is", "[--_thread:2.5px]"],
   ["--_inset", "How far the stitch sits inside the edge. The default is 8px.", "[--_inset:12px]"],
   ["--_radius", "How round the corners are. The stitch follows the same curve.", "[--_radius:8px]"],
 ]
-
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
 
 /** The hand-written part of the Sheet page: how it differs, props, settings, and accessibility. */
 export function SheetNotes() {
@@ -34,37 +33,12 @@ export function SheetNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here. A Sheet is a Base UI Dialog that slides in from an edge, so{" "}
-        <a href="https://base-ui.com/react/components/dialog" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+        <BaseUiLink name="dialog">
           all other props come from Base UI Dialog
-        </a>
+        </BaseUiLink>
         , like <C>open</C>, <C>defaultOpen</C>, <C>onOpenChange</C> and <C>disablePointerDismissal</C> on <C>Sheet</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[40rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Part</th>
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={`${p.part}-${p.name}`}>
-                <td className={cell}>{p.part}</td>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
       <p>Two things differ from shadcn/ui:</p>
       <ul className="grid list-disc gap-2 pl-5">
         <li>
@@ -81,28 +55,7 @@ export function SheetNotes() {
         The sheet reads a few settings (CSS variables). Set them with a Tailwind class on <C>SheetContent</C> and only that sheet changes. For
         example, <C>&lt;SheetContent className=&quot;[--_stitch:white]&quot;&gt;</C> sews it with white thread.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[36rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Setting</th>
-              <th className={cell}>What it changes</th>
-              <th className={cell}>Example class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {settings.map(([name, what, example]) => (
-              <tr key={name}>
-                <td className={`${cell} whitespace-nowrap`}>
-                  <C>{name}</C>
-                </td>
-                <td className={cell}>{what}</td>
-                <td className={`${cell} font-mono text-[13px] whitespace-nowrap`}>{example}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">

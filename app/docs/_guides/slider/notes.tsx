@@ -1,6 +1,7 @@
 import { C, H2 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   {
     name: "value / defaultValue",
     type: "number | number[]",
@@ -22,8 +23,6 @@ const props = [
   { name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
-
 /** The hand-written part of the Slider page: props and accessibility. */
 export function SliderNotes() {
   return (
@@ -31,35 +30,12 @@ export function SliderNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/slider" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+        <BaseUiLink name="slider">
           All other props come from Base UI Slider
-        </a>
+        </BaseUiLink>
         , like <C>min</C>, <C>max</C>, <C>step</C>, <C>largeStep</C>, <C>onValueChange</C>, <C>orientation</C> and <C>disabled</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[36rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={p.name}>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
       <p>
         <C>onValueChange</C> gives you a number when there is one thumb, and an array when there are two.
       </p>

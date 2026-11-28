@@ -1,6 +1,7 @@
 import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   {
     part: "DialogContent",
     name: "showCloseButton",
@@ -18,14 +19,12 @@ const props = [
   { part: "any part", name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win. Use sm:max-w-2xl on DialogContent for a wider box." },
 ]
 
-const settings = [
+export const settings: SettingRow[] = [
   ["--_stitch", "Thread color", "[--_stitch:white]"],
   ["--_thread", "How thick the thread is", "[--_thread:2.5px]"],
   ["--_inset", "How far the stitch sits inside the edge. The default is 8px.", "[--_inset:12px]"],
   ["--_radius", "How round the corners are. The stitch follows the same curve.", "[--_radius:8px]"],
 ]
-
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
 
 /** The hand-written part of the Dialog page: props, settings, and accessibility. */
 export function DialogNotes() {
@@ -34,38 +33,13 @@ export function DialogNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/dialog" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
+        <BaseUiLink name="dialog">
           All other props come from Base UI Dialog
-        </a>
+        </BaseUiLink>
         , like <C>open</C>, <C>defaultOpen</C>, <C>onOpenChange</C>, <C>modal</C> and <C>disablePointerDismissal</C> on <C>Dialog</C>, and{" "}
         <C>initialFocus</C> and <C>finalFocus</C> on <C>DialogContent</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[40rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Part</th>
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={`${p.part}-${p.name}`}>
-                <td className={cell}>{p.part}</td>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
       <p>
         Any button can close the dialog: wrap it like <C>&lt;DialogClose render=&#123;&lt;Button /&gt;&#125;&gt;Save&lt;/DialogClose&gt;</C>. A
         plain <C>Button</C> inside the dialog does not close it.
@@ -77,28 +51,7 @@ export function DialogNotes() {
         For example, <C>&lt;DialogContent className=&quot;[--_stitch:white]&quot;&gt;</C> sews it with white thread. Alert Dialog, Sheet and
         Drawer read the same settings.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[36rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Setting</th>
-              <th className={cell}>What it changes</th>
-              <th className={cell}>Example class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {settings.map(([name, what, example]) => (
-              <tr key={name}>
-                <td className={`${cell} whitespace-nowrap`}>
-                  <C>{name}</C>
-                </td>
-                <td className={cell}>{what}</td>
-                <td className={`${cell} font-mono text-[13px] whitespace-nowrap`}>{example}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">

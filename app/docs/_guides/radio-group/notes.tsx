@@ -1,8 +1,9 @@
 import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
 const link = "font-semibold underline underline-offset-4"
 
-const settings = [
+export const settings: SettingRow[] = [
   ["--_stitch", "Thread color. It changes in both the empty and the picked option.", "[--_stitch:var(--tx-ring)]"],
   ["--_thread", "How thick the thread is", "[--_thread:2.5px]"],
   ["--_inset", "How far the stitch sits inside the edge (4px by default)", "[--_inset:2px]"],
@@ -13,8 +14,6 @@ const settings = [
   ],
 ]
 
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
-
 /** The hand-written part of the Radio Group page: props, settings and accessibility. */
 export function RadioGroupNotes() {
   return (
@@ -22,9 +21,9 @@ export function RadioGroupNotes() {
       <H2 id="props">Props</H2>
       <p>
         threadcn adds no props. <C>RadioGroup</C> is Base UI&apos;s RadioGroup and <C>RadioGroupItem</C> is Base UI&apos;s Radio.{" "}
-        <a href="https://base-ui.com/react/components/radio-group" target="_blank" rel="noreferrer" className={link}>
+        <BaseUiLink name="radio-group">
           All props come from Base UI Radio Group
-        </a>
+        </BaseUiLink>
         , like <C>value</C>, <C>defaultValue</C>, <C>onValueChange</C>, <C>name</C>, <C>required</C> and <C>disabled</C> on the group, and{" "}
         <C>value</C> and <C>disabled</C> on each item. One small change: <C>className</C> takes a plain string on both. Base UI also accepts a
         function there; threadcn does not.
@@ -40,28 +39,7 @@ export function RadioGroupNotes() {
         option changes. To change the thread only when the option is picked, add the <C>data-checked:</C> prefix, like{" "}
         <C>data-checked:[--_stitch:var(--tx-ring)]</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[36rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Setting</th>
-              <th className={cell}>What it changes</th>
-              <th className={cell}>Example class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {settings.map(([name, what, example]) => (
-              <tr key={name}>
-                <td className={`${cell} whitespace-nowrap`}>
-                  <C>{name}</C>
-                </td>
-                <td className={cell}>{what}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{example}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">

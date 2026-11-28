@@ -1,6 +1,7 @@
 import { C, H2, H3 } from "../../_ui/page-shell"
+import { BaseUiLink, type PropRow, PropsTable, type SettingRow, SettingsTable } from "../../_ui/notes-tables"
 
-const props = [
+export const props: PropRow[] = [
   { part: "DropdownMenuContent", name: "side", type: '"top" | "right" | "bottom" | "left" | ...', def: '"bottom"', what: "Which side of the button the menu opens on." },
   { part: "DropdownMenuContent", name: "sideOffset", type: "number", def: "6", what: "Gap in pixels between the button and the menu." },
   { part: "DropdownMenuContent", name: "align", type: '"start" | "center" | "end"', def: '"start"', what: "How the menu lines up with the button. start lines up the left edges (in left-to-right text)." },
@@ -25,7 +26,7 @@ const props = [
   { part: "any part", name: "className", type: "string", def: "none", what: "Your own Tailwind classes. If they clash with a built-in style, yours win." },
 ]
 
-const settings = [
+export const settings: SettingRow[] = [
   ["--_mark", "Color of the tick on a checked item and the dot on a picked radio item. A highlighted item uses its text color instead.", "[--_mark:var(--tx-leather)]"],
   ["--_divider", "The dashed line drawn by DropdownMenuSeparator. It is a background image, so a gradient works.", "[--_divider:linear-gradient(white,white)]"],
   ["--_stitch", "Thread color of the pocket's outline", "[--_stitch:white]"],
@@ -34,9 +35,6 @@ const settings = [
   ["--_radius", "How round the pocket's corners are. The stitch follows it.", "[--_radius:8px]"],
 ]
 
-const cell = "border-b border-dashed border-(--tx-field-border)/50 px-3 py-2.5 text-left align-top"
-const link = "font-semibold underline underline-offset-4"
-
 /** The hand-written part of the Dropdown Menu page: props, settings, and accessibility. */
 export function DropdownMenuNotes() {
   return (
@@ -44,39 +42,14 @@ export function DropdownMenuNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here. Base UI calls this part Menu.{" "}
-        <a href="https://base-ui.com/react/components/menu" target="_blank" rel="noreferrer" className={link}>
+        <BaseUiLink name="menu">
           All other props come from Base UI Menu
-        </a>
+        </BaseUiLink>
         , like <C>open</C>, <C>onOpenChange</C> and <C>modal</C> on <C>DropdownMenu</C>, <C>openOnHover</C> on <C>DropdownMenuTrigger</C>,{" "}
         <C>onClick</C>, <C>disabled</C> and <C>closeOnClick</C> on items, <C>checked</C> and <C>onCheckedChange</C> on checkbox items, and{" "}
         <C>value</C> and <C>onValueChange</C> on <C>DropdownMenuRadioGroup</C>.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[44rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Part</th>
-              <th className={cell}>Prop</th>
-              <th className={cell}>Type</th>
-              <th className={cell}>Default</th>
-              <th className={cell}>What it does</th>
-            </tr>
-          </thead>
-          <tbody>
-            {props.map((p) => (
-              <tr key={`${p.part}-${p.name}`}>
-                <td className={cell}>{p.part}</td>
-                <td className={cell}>
-                  <C>{p.name}</C>
-                </td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.type}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{p.def}</td>
-                <td className={cell}>{p.what}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <PropsTable rows={props} />
       <p>
         A plain item closes the menu when picked. Checkbox and radio items keep it open. Change either with <C>closeOnClick</C>.
       </p>
@@ -87,28 +60,7 @@ export function DropdownMenuNotes() {
         example, <C>&lt;DropdownMenuContent className=&quot;[--_mark:var(--tx-leather)]&quot;&gt;</C> sews the ticks in leather brown. Each item
         sets its own stitch for the highlight, so the last four change the pocket&apos;s outline only.
       </p>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[40rem] border-collapse text-[15px]">
-          <thead>
-            <tr className="font-(family-name:--tx-font-patch)">
-              <th className={cell}>Setting</th>
-              <th className={cell}>What it changes</th>
-              <th className={cell}>Example class</th>
-            </tr>
-          </thead>
-          <tbody>
-            {settings.map(([name, what, example]) => (
-              <tr key={name}>
-                <td className={cell}>
-                  <C>{name}</C>
-                </td>
-                <td className={cell}>{what}</td>
-                <td className={`${cell} font-mono text-[13px]`}>{example}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <SettingsTable rows={settings} />
 
       <H2 id="accessibility">Accessibility</H2>
       <ul className="grid list-disc gap-2 pl-5">
