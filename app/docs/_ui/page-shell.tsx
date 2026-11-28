@@ -101,12 +101,24 @@ export function C({ children }: { children: React.ReactNode }) {
 }
 
 /** Previous and next docs page. On phones it sticks to the bottom of the screen. */
+// Previous / next: leather hang tags with a copper rivet, like the tag on a pair of jeans.
+const tag =
+  "relative flex items-center gap-2 rounded-[10px] bg-(--tx-leather) px-4 py-2.5 font-(family-name:--tx-font-patch) font-semibold text-(--tx-leather-foreground) shadow-[0_3px_0_var(--tx-leather-edge)] [--_inset:4px] [--_radius:10px] [--_stitch:var(--tx-thread)] hover:brightness-110 focus-visible:outline-3 focus-visible:outline-offset-2 focus-visible:outline-(--tx-ring)"
+const rivet = (
+  <span
+    aria-hidden="true"
+    className="size-[9px] shrink-0 rounded-full bg-[radial-gradient(circle_at_35%_35%,var(--tx-rivet-light),var(--tx-rivet)_55%,var(--tx-rivet-dark))]"
+  />
+)
+
 export function PrevNext({ href }: { href: string }) {
   const { prev, next } = neighbours(href)
   return (
     <nav aria-label="Previous and next page" className="mt-8 flex justify-between gap-4 max-sm:sticky max-sm:bottom-0 max-sm:z-30 max-sm:-mx-4 max-sm:border-t-[1.6px] max-sm:border-dashed max-sm:border-(--tx-thread)/60 max-sm:bg-(--tx-fabric) max-sm:px-4 max-sm:py-2.5">
       {prev ? (
-        <Link href={prev.href} className="flex items-center gap-1.5 rounded-xl bg-(--tx-patch-secondary) px-4 py-2.5 font-(family-name:--tx-font-patch) font-semibold text-(--tx-patch-secondary-foreground) shadow-[0_3px_0_var(--tx-patch-secondary-edge)]">
+        <Link href={prev.href} className={tag}>
+          <Stitch />
+          {rivet}
           {chevron("m15 6-6 6 6 6")}
           {prev.title}
         </Link>
@@ -114,9 +126,11 @@ export function PrevNext({ href }: { href: string }) {
         <span />
       )}
       {next && (
-        <Link href={next.href} className="flex items-center gap-1.5 rounded-xl bg-(--tx-patch-secondary) px-4 py-2.5 font-(family-name:--tx-font-patch) font-semibold text-(--tx-patch-secondary-foreground) shadow-[0_3px_0_var(--tx-patch-secondary-edge)]">
+        <Link href={next.href} className={tag}>
+          <Stitch />
           {next.title}
           {chevron("m9 6 6 6-6 6")}
+          {rivet}
         </Link>
       )}
     </nav>
