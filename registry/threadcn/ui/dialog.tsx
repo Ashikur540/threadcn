@@ -57,17 +57,24 @@ function DialogContent({
       <DialogPrimitive.Popup
         data-slot="dialog-content"
         className={cn(
-          "tx-modal fixed top-1/2 left-1/2 z-50 grid w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 gap-3.5 p-6 sm:max-w-md",
+          "tx-modal fixed top-1/2 left-1/2 z-50 flex max-h-[calc(100dvh-2rem)] w-full max-w-[calc(100%-2rem)] -translate-x-1/2 -translate-y-1/2 flex-col p-3 sm:max-w-md",
           className,
         )}
         {...props}
       >
         <Stitch />
-        {children}
+        {/* Long content scrolls in here, inside the stitch, so the stitch and the
+            close button stay put. The mask fades text out before it reaches the thread. */}
+        <div
+          data-slot="dialog-body"
+          className="grid min-h-0 gap-3.5 overflow-y-auto overscroll-contain p-3 [mask-image:linear-gradient(transparent,black_12px,black_calc(100%-12px),transparent)]"
+        >
+          {children}
+        </div>
         {showCloseButton && (
           <DialogPrimitive.Close
             data-slot="dialog-close"
-            render={<Button variant="ghost" size="icon-sm" shape="round" className="absolute top-3 right-3" />}
+            render={<Button variant="ghost" size="icon-sm" shape="round" className="absolute top-3 right-3 [--_bg:var(--tx-surface)]" />}
           >
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
               <path d="M18 6 6 18" />

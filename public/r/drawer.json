@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "drawer",
   "title": "Drawer",
-  "description": "The stitched modal card as a panel you can swipe away.",
+  "description": "A panel you can drag or swipe to close, and stop at set heights.",
   "dependencies": [
     "@base-ui/react",
     "cn"

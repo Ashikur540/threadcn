@@ -63,3 +63,23 @@ test("a max-width class on DialogContent makes it wider, like shadcn", async () 
   expect(dialog).not.toHaveClass("sm:max-w-md")
   expect(dialog.className).not.toMatch(/(^|\s)w-\[/)
 })
+
+test("a long Dialog fits the screen and scrolls inside its stitch, so the stitch and close button stay put", async () => {
+  render(
+    <Dialog defaultOpen>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Care guide</DialogTitle>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>,
+  )
+  const dialog = await screen.findByRole("dialog", { name: "Care guide" })
+  expect(dialog.className).toMatch(/max-h-/)
+  expect(dialog.className).not.toMatch(/overflow-y-auto/)
+  expect(dialog.querySelector(":scope > [data-slot=stitch]")).not.toBeNull()
+  expect(dialog.querySelector(":scope > [data-slot=dialog-close]")).not.toBeNull()
+  const body = screen.getByText("Care guide").closest("[data-slot=dialog-body]")
+  expect(body?.parentElement).toBe(dialog)
+  expect(body?.className).toMatch(/overflow-y-auto/)
+})

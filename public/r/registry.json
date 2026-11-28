@@ -390,7 +390,7 @@
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
-      "description": "A stitched card that floats over a dimmed page.",
+      "description": "A box that opens over the page for one task, like a form. The page behind dims.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1128,7 +1128,7 @@
       "name": "tooltip",
       "type": "registry:ui",
       "title": "Tooltip",
-      "description": "A small stitched leather tag with a pointer.",
+      "description": "A short hint that shows when you hover or Tab to something.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1566,7 +1566,7 @@
       "name": "alert-dialog",
       "type": "registry:ui",
       "title": "Alert Dialog",
-      "description": "A dialog that must be answered, in the stitched modal look.",
+      "description": "A dialog that asks \"are you sure?\" and must be answered before you go on.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2145,7 +2145,7 @@
       "name": "popover",
       "type": "registry:ui",
       "title": "Popover",
-      "description": "A small stitched pocket that opens next to its trigger.",
+      "description": "A small box that opens next to a button when you click it.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2165,7 +2165,7 @@
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
-      "description": "A stitched pocket that previews a link on hover.",
+      "description": "A preview card that shows when you hover a link.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2185,7 +2185,7 @@
       "name": "dropdown-menu",
       "type": "registry:ui",
       "title": "Dropdown Menu",
-      "description": "A menu in a stitched pocket, with ticks, dots and submenus.",
+      "description": "A list of actions that opens from a button. Can hold ticks and submenus.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2205,7 +2205,7 @@
       "name": "context-menu",
       "type": "registry:ui",
       "title": "Context Menu",
-      "description": "A right-click menu in a stitched pocket.",
+      "description": "A menu that opens when you right-click an area.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2225,7 +2225,7 @@
       "name": "sheet",
       "type": "registry:ui",
       "title": "Sheet",
-      "description": "The stitched modal card, sliding in from a side.",
+      "description": "A panel that slides in from any side of the screen, like a filters panel.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2274,7 +2274,7 @@
       "name": "drawer",
       "type": "registry:ui",
       "title": "Drawer",
-      "description": "The stitched modal card as a panel you can swipe away.",
+      "description": "A panel you can drag or swipe to close, and stop at set heights.",
       "dependencies": [
         "@base-ui/react",
         "cn"

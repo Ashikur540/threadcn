@@ -133,3 +133,23 @@ test("Drawer opens a stitched panel named by its title", async () => {
   expect(drawer).toHaveClass("tx-modal")
   expect(stitches(drawer)).toHaveLength(1)
 })
+
+test("a long Sheet scrolls inside its stitch, so the stitch and close button stay put", async () => {
+  render(
+    <Sheet defaultOpen>
+      <SheetContent>
+        <SheetHeader>
+          <SheetTitle>Care guide</SheetTitle>
+        </SheetHeader>
+      </SheetContent>
+    </Sheet>,
+  )
+  const sheet = await screen.findByRole("dialog", { name: "Care guide" })
+  expect(sheet.className).not.toMatch(/overflow-y-auto/)
+  // The stitch and the close button belong to the panel, not to the part that scrolls.
+  expect(sheet.querySelector(":scope > [data-slot=stitch]")).not.toBeNull()
+  expect(sheet.querySelector(":scope > [data-slot=sheet-close]")).not.toBeNull()
+  const body = screen.getByText("Care guide").closest("[data-slot=sheet-body]")
+  expect(body?.parentElement).toBe(sheet)
+  expect(body?.className).toMatch(/overflow-y-auto/)
+})
