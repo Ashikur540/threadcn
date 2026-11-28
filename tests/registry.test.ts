@@ -249,3 +249,19 @@ test("importsOf ignores imports mentioned in comments", () => {
   const source = '// import it from "button"\n/* or from "card" */\nimport { cn } from "cn"\n'
   expect(importsOf(source)).toEqual({ dependencies: ["cn"], registryDependencies: [] })
 })
+
+// The side of a drawer that sits on the screen edge is sewn to it, so its stitch
+// line and round corners run off the screen instead of closing the loop there.
+test("each drawer direction pushes its stitch past the screen edge", () => {
+  const css = styles("drawer")
+  const rule = (dir: string) => {
+    const start = css.indexOf(`.tx-drawer[data-swipe-direction="${dir}"] > [data-slot="stitch"] {`)
+    expect(start, dir).toBeGreaterThan(-1)
+    return css.slice(start, css.indexOf("}", start))
+  }
+  const past = "calc(100% + var(--_radius) + var(--_inset))"
+  expect(rule("down")).toContain(`height: ${past}`)
+  expect(rule("up")).toContain(`height: ${past}`)
+  expect(rule("right")).toContain(`width: ${past}`)
+  expect(rule("left")).toContain(`width: ${past}`)
+})

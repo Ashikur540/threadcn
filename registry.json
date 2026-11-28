@@ -2380,6 +2380,22 @@
             "border-top-right-radius": "0",
             "border-bottom-right-radius": "0"
           },
+          ".tx-drawer[data-swipe-direction=\"down\"] > [data-slot=\"stitch\"]": {
+            "height": "calc(100% + var(--_radius) + var(--_inset))"
+          },
+          ".tx-drawer[data-swipe-direction=\"up\"] > [data-slot=\"stitch\"]": {
+            "top": "auto",
+            "bottom": "0",
+            "height": "calc(100% + var(--_radius) + var(--_inset))"
+          },
+          ".tx-drawer[data-swipe-direction=\"right\"] > [data-slot=\"stitch\"]": {
+            "width": "calc(100% + var(--_radius) + var(--_inset))"
+          },
+          ".tx-drawer[data-swipe-direction=\"left\"] > [data-slot=\"stitch\"]": {
+            "left": "auto",
+            "right": "0",
+            "width": "calc(100% + var(--_radius) + var(--_inset))"
+          },
           ".tx-drawer-handle": {
             "border-top": "3px dashed var(--tx-thread)"
           },
