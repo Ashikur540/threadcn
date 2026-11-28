@@ -161,7 +161,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ name
           {guide.examples.map(({ slug, title, description, file, Component }) => (
             <section key={slug} aria-labelledby={slug} className="grid gap-3">
               <H3 id={slug}>{title}</H3>
-              <p>{description}</p>
+              <p>{description.split("`").map((part, i) => (i % 2 ? <C key={i}>{part}</C> : part))}</p>
               <Preview label={title} code={<CodeBlock file={file.split("/").pop()} code={readSource(file)} />}>
                 <Component />
               </Preview>

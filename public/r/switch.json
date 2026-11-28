@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "switch",
   "title": "Switch",
-  "description": "A fabric strap with a sewing-button thumb that rolls as it slides.",
+  "description": "An on and off switch. Its sewing-button thumb rolls as it slides.",
   "dependencies": [
     "@base-ui/react",
     "cn"

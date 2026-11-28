@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "checkbox",
   "title": "Checkbox",
-  "description": "A stitched cream box that turns to leather when checked.",
+  "description": "A box to tick on or off. It turns leather when ticked.",
   "dependencies": [
     "@base-ui/react",
     "cn"

@@ -34,6 +34,7 @@
 @import "../registry/threadcn/styles/scroll-area.css";
 @import "../registry/threadcn/styles/sheet.css";
 @import "../registry/threadcn/styles/drawer.css";
+@import "./docs/docs-focus.css";
 
 /* dark mode follows the .dark class on <html>, like shadcn */
 @custom-variant dark (&:where(.dark, .dark *));

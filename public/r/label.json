@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "label",
   "title": "Label",
-  "description": "A field label in the fabric's text color.",
+  "description": "The name above a field. Click it to jump into that field.",
   "dependencies": [
     "cn"
   ],
