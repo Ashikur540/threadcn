@@ -12,6 +12,15 @@ import selectGuide from "./select/entry"
 import sliderGuide from "./slider/entry"
 import toggleGuide from "./toggle/entry"
 import toggleGroupGuide from "./toggle-group/entry"
+import dialogGuide from "./dialog/entry"
+import alertDialogGuide from "./alert-dialog/entry"
+import sheetGuide from "./sheet/entry"
+import drawerGuide from "./drawer/entry"
+import popoverGuide from "./popover/entry"
+import tooltipGuide from "./tooltip/entry"
+import hoverCardGuide from "./hover-card/entry"
+import dropdownMenuGuide from "./dropdown-menu/entry"
+import contextMenuGuide from "./context-menu/entry"
 import type { Guide } from "./types"
 
 export const guides: Record<string, Guide> = {
@@ -26,4 +35,13 @@ export const guides: Record<string, Guide> = {
   "slider": sliderGuide,
   "toggle": toggleGuide,
   "toggle-group": toggleGroupGuide,
+  "dialog": dialogGuide,
+  "alert-dialog": alertDialogGuide,
+  "sheet": sheetGuide,
+  "drawer": drawerGuide,
+  "popover": popoverGuide,
+  "tooltip": tooltipGuide,
+  "hover-card": hoverCardGuide,
+  "dropdown-menu": dropdownMenuGuide,
+  "context-menu": contextMenuGuide,
 }

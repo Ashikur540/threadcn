@@ -1,3 +1,7 @@
+"use client"
+
+import { useState } from "react"
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -12,8 +16,10 @@ import {
 import { Button } from "@/registry/threadcn/ui/button"
 
 export default function AlertDialogDemo() {
+  const [open, setOpen] = useState(false)
+
   return (
-    <AlertDialog>
+    <AlertDialog open={open} onOpenChange={setOpen}>
       <AlertDialogTrigger render={<Button variant="outline" />}>Remove item</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -22,7 +28,9 @@ export default function AlertDialogDemo() {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Keep them</AlertDialogCancel>
-          <AlertDialogAction variant="destructive">Remove</AlertDialogAction>
+          <AlertDialogAction variant="destructive" onClick={() => setOpen(false)}>
+            Remove
+          </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

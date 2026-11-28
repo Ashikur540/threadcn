@@ -10,7 +10,8 @@ import { Stitch } from "@/registry/threadcn/ui/stitch"
 // Same parts and API as shadcn's Base UI Sheet: a dialog that slides in from
 // a side. It wears the shared modal look (styles/modal.css); the slide is in
 // styles/sheet.css. Differs from shadcn: it floats 12px off the screen edge,
-// so its stitched corners stay round.
+// so its stitched corners stay round, and long content scrolls inside the
+// stitch instead of scrolling the stitch away.
 
 type WithClassName<T> = Omit<T, "className"> & { className?: string }
 
@@ -63,7 +64,7 @@ function SheetContent({
         data-slot="sheet-content"
         data-side={side}
         className={cn(
-          "tx-modal tx-sheet fixed z-50 flex flex-col gap-4 overflow-y-auto p-6",
+          "tx-modal tx-sheet fixed z-50 flex flex-col p-3",
           "data-[side=left]:inset-y-3 data-[side=left]:left-3 data-[side=left]:w-[calc(100%-1.5rem)] data-[side=left]:sm:max-w-sm",
           "data-[side=right]:inset-y-3 data-[side=right]:right-3 data-[side=right]:w-[calc(100%-1.5rem)] data-[side=right]:sm:max-w-sm",
           "data-[side=top]:inset-x-3 data-[side=top]:top-3 data-[side=top]:max-h-[85dvh]",
@@ -73,9 +74,16 @@ function SheetContent({
         {...props}
       >
         <Stitch />
-        {children}
+        {/* Long content scrolls in here, inside the stitch, so the stitch and the
+            close button stay put. The mask fades text out before it reaches the thread. */}
+        <div
+          data-slot="sheet-body"
+          className="flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-3 [mask-image:linear-gradient(transparent,black_12px,black_calc(100%-12px),transparent)]"
+        >
+          {children}
+        </div>
         {showCloseButton && (
-          <SheetPrimitive.Close data-slot="sheet-close" render={<Button variant="ghost" size="icon-sm" shape="round" className="absolute top-3 right-3" />}>
+          <SheetPrimitive.Close data-slot="sheet-close" render={<Button variant="ghost" size="icon-sm" shape="round" className="absolute top-3 right-3 [--_bg:var(--tx-surface)]" />}>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
               <path d="M18 6 6 18" />
               <path d="m6 6 12 12" />

@@ -117,6 +117,7 @@
         "position": "absolute",
         "inset": "0",
         "z-index": "-1",
+        "border-radius": "inherit",
         "pointer-events": "none",
         "opacity": "var(--tx-texture-opacity)",
         "background-image": "var(--tx-texture)",

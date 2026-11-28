@@ -114,7 +114,7 @@ test("each item installs exactly the packages and threadcn parts its file import
     tabs: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     "pocket-card": { deps: ["cn"], parts: ["@threadcn/base"], css: true },
     toggle: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
-    "toggle-group": { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch", "@threadcn/toggle"], css: false },
+    "toggle-group": { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch", "@threadcn/toggle"], css: true },
     alert: { deps: ["class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     "alert-dialog": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/modal", "@threadcn/button", "@threadcn/stitch"], css: false },
     progress: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
@@ -248,4 +248,20 @@ test("Button is a client component, but buttonVariants stays callable on the ser
 test("importsOf ignores imports mentioned in comments", () => {
   const source = '// import it from "button"\n/* or from "card" */\nimport { cn } from "cn"\n'
   expect(importsOf(source)).toEqual({ dependencies: ["cn"], registryDependencies: [] })
+})
+
+// The side of a drawer that sits on the screen edge is sewn to it, so its stitch
+// line and round corners run off the screen instead of closing the loop there.
+test("each drawer direction pushes its stitch past the screen edge", () => {
+  const css = styles("drawer")
+  const rule = (dir: string) => {
+    const start = css.indexOf(`.tx-drawer[data-swipe-direction="${dir}"] > [data-slot="stitch"] {`)
+    expect(start, dir).toBeGreaterThan(-1)
+    return css.slice(start, css.indexOf("}", start))
+  }
+  const past = "calc(100% + var(--_radius) + var(--_inset))"
+  expect(rule("down")).toContain(`height: ${past}`)
+  expect(rule("up")).toContain(`height: ${past}`)
+  expect(rule("right")).toContain(`width: ${past}`)
+  expect(rule("left")).toContain(`width: ${past}`)
 })

@@ -10,10 +10,10 @@ export function InstallTabs({ cli, manual }: { cli: React.ReactNode; manual: Rea
         <TabsTrigger value="cli">CLI</TabsTrigger>
         <TabsTrigger value="manual">Manual</TabsTrigger>
       </TabsList>
-      <TabsContent value="cli" className="[--_stitch:transparent] bg-transparent grid gap-4 p-0">
+      <TabsContent value="cli" className="[&>[data-slot=stitch]]:hidden bg-transparent grid gap-4 p-0">
         {cli}
       </TabsContent>
-      <TabsContent value="manual" className="[--_stitch:transparent] bg-transparent grid gap-4 p-0">
+      <TabsContent value="manual" className="[&>[data-slot=stitch]]:hidden bg-transparent grid gap-4 p-0">
         {manual}
       </TabsContent>
     </Tabs>

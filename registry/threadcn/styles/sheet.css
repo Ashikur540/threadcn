@@ -30,7 +30,7 @@
      Selectors start with :root because the shadcn CLI moves @media blocks
      above the normal rules on install. :root keeps them winning. */
 
-  /* Reduced motion: the sheet fades in place, without sliding. */
+  /* Reduced motion: no slide and no fade, the sheet just appears. */
   @media (prefers-reduced-motion: reduce) {
     :root .tx-modal.tx-sheet {
       transition: none;

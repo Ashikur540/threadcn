@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "dropdown-menu",
   "title": "Dropdown Menu",
-  "description": "A menu in a stitched pocket, with ticks, dots and submenus.",
+  "description": "A list of actions that opens from a button. Can hold ticks and submenus.",
   "dependencies": [
     "@base-ui/react",
     "cn"

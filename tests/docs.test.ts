@@ -67,3 +67,11 @@ test("every link to another site opens in a new tab", () => {
     }
   }
 })
+
+test("docs wrappers hide their own stitch without hiding the stitch of what's inside", () => {
+  // --_stitch passes down to children, so setting it on a wrapper would also
+  // blank every <Stitch /> in the demo inside. Hide the wrapper's own stitch instead.
+  for (const file of ["app/docs/_ui/preview.tsx", "app/docs/_ui/install-tabs.tsx", "app/_site/copy.tsx"]) {
+    expect(readFileSync(file, "utf8"), file).not.toMatch(/--_stitch:transparent/)
+  }
+})

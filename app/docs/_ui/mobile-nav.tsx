@@ -18,7 +18,7 @@ export function MobileNav() {
         </svg>
         Docs menu
       </SheetTrigger>
-      <SheetContent side="left" className="overflow-hidden">
+      <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>Docs</SheetTitle>
         </SheetHeader>

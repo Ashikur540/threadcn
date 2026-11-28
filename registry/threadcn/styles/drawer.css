@@ -3,7 +3,8 @@
  * The swipe and stack motion are Tailwind classes in drawer.tsx (shadcn's),
  * and so is turning them off under reduced motion.
  * .tx-modal.tx-drawer (two classes) switches off the modal's own grow-in, so
- * only the slide runs. The edge against the screen is square.
+ * only the slide runs. The edge against the screen is square, and the
+ * stitch runs off the screen there.
  * Base UI sets data-swipe-direction on the popup.
  */
 @layer components {
@@ -26,6 +27,25 @@
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
   }
+  /* The side on the screen edge is sewn to it: the stitch runs on past the
+     edge (by one corner), so you only see the three free sides. */
+  .tx-drawer[data-swipe-direction="down"] > [data-slot="stitch"] {
+    height: calc(100% + var(--_radius) + var(--_inset));
+  }
+  .tx-drawer[data-swipe-direction="up"] > [data-slot="stitch"] {
+    top: auto;
+    bottom: 0;
+    height: calc(100% + var(--_radius) + var(--_inset));
+  }
+  .tx-drawer[data-swipe-direction="right"] > [data-slot="stitch"] {
+    width: calc(100% + var(--_radius) + var(--_inset));
+  }
+  .tx-drawer[data-swipe-direction="left"] > [data-slot="stitch"] {
+    left: auto;
+    right: 0;
+    width: calc(100% + var(--_radius) + var(--_inset));
+  }
+
   /* The handle: a short line of thread. */
   .tx-drawer-handle {
     border-top: 3px dashed var(--tx-thread);

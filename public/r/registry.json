@@ -123,6 +123,7 @@
             "position": "absolute",
             "inset": "0",
             "z-index": "-1",
+            "border-radius": "inherit",
             "pointer-events": "none",
             "opacity": "var(--tx-texture-opacity)",
             "background-image": "var(--tx-texture)",
@@ -390,7 +391,7 @@
       "name": "dialog",
       "type": "registry:ui",
       "title": "Dialog",
-      "description": "A stitched card that floats over a dimmed page.",
+      "description": "A box that opens over the page for one task, like a form. The page behind dims.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -989,7 +990,7 @@
             "--_thread": "1.2px"
           },
           ".tx-pocket-item:is([data-highlighted], [data-popup-open])": {
-            "--_mark": "var(--tx-field-border)",
+            "--_mark": "var(--tx-field-foreground)",
             "--_stitch": "var(--tx-field-border)",
             "background-color": "var(--tx-field)",
             "background-image": "none",
@@ -1128,7 +1129,7 @@
       "name": "tooltip",
       "type": "registry:ui",
       "title": "Tooltip",
-      "description": "A small stitched leather tag with a pointer.",
+      "description": "A short hint that shows when you hover or Tab to something.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1510,7 +1511,76 @@
           "path": "registry/threadcn/ui/toggle-group.tsx",
           "type": "registry:ui"
         }
-      ]
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-toggle-group": {
+            "--_stitch": "transparent",
+            "--_inset": "4px",
+            "--_radius": "calc(var(--tx-radius) - 4px)",
+            "--_thread": "var(--tx-thread-width)",
+            "position": "relative",
+            "border-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-size=\"sm\"]": {
+            "--_inset": "3px",
+            "--_radius": "calc(var(--tx-radius) - 6px)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-variant=\"outline\"]": {
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle": {
+            "--_radius": "4px",
+            "border-radius": "0"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle-outline:not([data-pressed])": {
+            "--_stitch": "transparent"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle:not(.tx-toggle ~ .tx-toggle), .tx-toggle-group[data-spacing=\"0\"] > .tx-toggle:not(:has(~ .tx-toggle))": {
+            "--_radius": "calc(var(--tx-radius) - 4px)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"]:not([data-orientation=\"vertical\"]) > .tx-toggle:not(.tx-toggle ~ .tx-toggle)": {
+            "border-top-left-radius": "var(--_radius)",
+            "border-bottom-left-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"]:not([data-orientation=\"vertical\"]) > .tx-toggle:not(:has(~ .tx-toggle))": {
+            "border-top-right-radius": "var(--_radius)",
+            "border-bottom-right-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-orientation=\"vertical\"] > .tx-toggle:not(.tx-toggle ~ .tx-toggle)": {
+            "border-top-left-radius": "var(--_radius)",
+            "border-top-right-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-orientation=\"vertical\"] > .tx-toggle:not(:has(~ .tx-toggle))": {
+            "border-bottom-left-radius": "var(--_radius)",
+            "border-bottom-right-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-variant=\"outline\"] > .tx-toggle ~ .tx-toggle::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset-block": "7px",
+            "left": "0",
+            "border-left": "var(--tx-thread-width) dashed var(--tx-thread)",
+            "pointer-events": "none"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-variant=\"outline\"][data-orientation=\"vertical\"] > .tx-toggle ~ .tx-toggle::before": {
+            "inset-block": "auto",
+            "inset-inline": "7px",
+            "top": "0",
+            "border-left": "0",
+            "border-top": "var(--tx-thread-width) dashed var(--tx-thread)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle[data-pressed]::before, .tx-toggle-group[data-spacing=\"0\"] > .tx-toggle[data-pressed] + .tx-toggle::before": {
+            "display": "none"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-toggle-group[data-spacing=\"0\"] > .tx-toggle ~ .tx-toggle::before": {
+              "border-style": "solid",
+              "border-color": "CanvasText"
+            }
+          }
+        }
+      }
     },
     {
       "name": "alert",
@@ -1566,7 +1636,7 @@
       "name": "alert-dialog",
       "type": "registry:ui",
       "title": "Alert Dialog",
-      "description": "A dialog that must be answered, in the stitched modal look.",
+      "description": "A dialog that asks \"are you sure?\" and must be answered before you go on.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2145,7 +2215,7 @@
       "name": "popover",
       "type": "registry:ui",
       "title": "Popover",
-      "description": "A small stitched pocket that opens next to its trigger.",
+      "description": "A small box that opens next to a button when you click it.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2165,7 +2235,7 @@
       "name": "hover-card",
       "type": "registry:ui",
       "title": "Hover Card",
-      "description": "A stitched pocket that previews a link on hover.",
+      "description": "A preview card that shows when you hover a link.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2185,7 +2255,7 @@
       "name": "dropdown-menu",
       "type": "registry:ui",
       "title": "Dropdown Menu",
-      "description": "A menu in a stitched pocket, with ticks, dots and submenus.",
+      "description": "A list of actions that opens from a button. Can hold ticks and submenus.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2205,7 +2275,7 @@
       "name": "context-menu",
       "type": "registry:ui",
       "title": "Context Menu",
-      "description": "A right-click menu in a stitched pocket.",
+      "description": "A menu that opens when you right-click an area.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2225,7 +2295,7 @@
       "name": "sheet",
       "type": "registry:ui",
       "title": "Sheet",
-      "description": "The stitched modal card, sliding in from a side.",
+      "description": "A panel that slides in from any side of the screen, like a filters panel.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2274,7 +2344,7 @@
       "name": "drawer",
       "type": "registry:ui",
       "title": "Drawer",
-      "description": "The stitched modal card as a panel you can swipe away.",
+      "description": "A panel you can drag or swipe to close, and stop at set heights.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -2309,6 +2379,22 @@
           ".tx-drawer[data-swipe-direction=\"right\"]": {
             "border-top-right-radius": "0",
             "border-bottom-right-radius": "0"
+          },
+          ".tx-drawer[data-swipe-direction=\"down\"] > [data-slot=\"stitch\"]": {
+            "height": "calc(100% + var(--_radius) + var(--_inset))"
+          },
+          ".tx-drawer[data-swipe-direction=\"up\"] > [data-slot=\"stitch\"]": {
+            "top": "auto",
+            "bottom": "0",
+            "height": "calc(100% + var(--_radius) + var(--_inset))"
+          },
+          ".tx-drawer[data-swipe-direction=\"right\"] > [data-slot=\"stitch\"]": {
+            "width": "calc(100% + var(--_radius) + var(--_inset))"
+          },
+          ".tx-drawer[data-swipe-direction=\"left\"] > [data-slot=\"stitch\"]": {
+            "left": "auto",
+            "right": "0",
+            "width": "calc(100% + var(--_radius) + var(--_inset))"
           },
           ".tx-drawer-handle": {
             "border-top": "3px dashed var(--tx-thread)"

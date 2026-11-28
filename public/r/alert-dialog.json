@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "alert-dialog",
   "title": "Alert Dialog",
-  "description": "A dialog that must be answered, in the stitched modal look.",
+  "description": "A dialog that asks \"are you sure?\" and must be answered before you go on.",
   "dependencies": [
     "@base-ui/react",
     "cn"

@@ -90,7 +90,7 @@ function DrawerSwipeHandle({ className, ...props }: React.ComponentProps<"div">)
       data-slot="drawer-swipe-handle"
       aria-hidden="true"
       className={cn(
-        "tx-drawer-handle relative z-10 mx-auto mt-3 h-0 w-14 shrink-0 cursor-grab group-data-[swipe-axis=x]/drawer-popup:mx-3 group-data-[swipe-axis=x]/drawer-popup:my-auto group-data-[swipe-axis=x]/drawer-popup:h-14 group-data-[swipe-axis=x]/drawer-popup:w-0 group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:mb-3 active:cursor-grabbing",
+        "tx-drawer-handle relative z-10 mx-auto mt-6 h-0 w-14 shrink-0 cursor-grab group-data-[swipe-axis=x]/drawer-popup:mx-6 group-data-[swipe-axis=x]/drawer-popup:my-auto group-data-[swipe-axis=x]/drawer-popup:h-14 group-data-[swipe-axis=x]/drawer-popup:w-0 group-data-[swipe-direction=left]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:order-last group-data-[swipe-direction=up]/drawer-popup:mt-0 group-data-[swipe-direction=up]/drawer-popup:mb-6 active:cursor-grabbing",
         className,
       )}
       {...props}
