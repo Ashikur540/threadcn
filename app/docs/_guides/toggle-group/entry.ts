@@ -27,7 +27,7 @@ export default {
     {
       slug: "joined",
       title: "Joined",
-      description: "`spacing={0}` removes the gap, so the items sit right next to each other. Good for a long row of sizes.",
+      description: "`spacing={0}` joins the items into one strip. With `variant=\"outline\"` one stitch runs around the whole strip, a dashed thread sits between items, and the picked item fills its own segment. Good for a long row of sizes.",
       file: `${dir}/joined.tsx`,
       Component: ToggleGroupJoined,
     },

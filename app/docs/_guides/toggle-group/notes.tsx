@@ -13,7 +13,7 @@ const props = [
     def: "none",
     what: "Set it on the group and every item gets it. An item's own size is used only when the group has none.",
   },
-  { name: "spacing", type: "number", def: "2", what: "The gap between items, in Tailwind spacing units (2 is 0.5rem). 0 puts the items right next to each other." },
+  { name: "spacing", type: "number", def: "2", what: "The gap between items, in Tailwind spacing units (2 is 0.5rem). 0 joins them into one strip with square inner corners (and one stitch around it for the outline variant)." },
   {
     name: "orientation",
     type: '"horizontal" | "vertical"',

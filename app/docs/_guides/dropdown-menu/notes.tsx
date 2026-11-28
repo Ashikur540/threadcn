@@ -26,7 +26,7 @@ const props = [
 ]
 
 const settings = [
-  ["--_mark", "Color of the tick on a checked item and the dot on a picked radio item. A highlighted item uses its own darker color.", "[--_mark:var(--tx-leather)]"],
+  ["--_mark", "Color of the tick on a checked item and the dot on a picked radio item. A highlighted item uses its text color instead.", "[--_mark:var(--tx-leather)]"],
   ["--_divider", "The dashed line drawn by DropdownMenuSeparator. It is a background image, so a gradient works.", "[--_divider:linear-gradient(white,white)]"],
   ["--_stitch", "Thread color of the pocket's outline", "[--_stitch:white]"],
   ["--_thread", "How thick that thread is", "[--_thread:2px]"],

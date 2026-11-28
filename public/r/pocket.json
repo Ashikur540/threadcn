@@ -35,7 +35,7 @@
         "--_thread": "1.2px"
       },
       ".tx-pocket-item:is([data-highlighted], [data-popup-open])": {
-        "--_mark": "var(--tx-field-border)",
+        "--_mark": "var(--tx-field-foreground)",
         "--_stitch": "var(--tx-field-border)",
         "background-color": "var(--tx-field)",
         "background-image": "none",

@@ -123,6 +123,7 @@
             "position": "absolute",
             "inset": "0",
             "z-index": "-1",
+            "border-radius": "inherit",
             "pointer-events": "none",
             "opacity": "var(--tx-texture-opacity)",
             "background-image": "var(--tx-texture)",
@@ -989,7 +990,7 @@
             "--_thread": "1.2px"
           },
           ".tx-pocket-item:is([data-highlighted], [data-popup-open])": {
-            "--_mark": "var(--tx-field-border)",
+            "--_mark": "var(--tx-field-foreground)",
             "--_stitch": "var(--tx-field-border)",
             "background-color": "var(--tx-field)",
             "background-image": "none",
@@ -1510,7 +1511,76 @@
           "path": "registry/threadcn/ui/toggle-group.tsx",
           "type": "registry:ui"
         }
-      ]
+      ],
+      "css": {
+        "@layer components": {
+          ".tx-toggle-group": {
+            "--_stitch": "transparent",
+            "--_inset": "4px",
+            "--_radius": "calc(var(--tx-radius) - 4px)",
+            "--_thread": "var(--tx-thread-width)",
+            "position": "relative",
+            "border-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-size=\"sm\"]": {
+            "--_inset": "3px",
+            "--_radius": "calc(var(--tx-radius) - 6px)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-variant=\"outline\"]": {
+            "--_stitch": "var(--tx-thread)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle": {
+            "--_radius": "4px",
+            "border-radius": "0"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle-outline:not([data-pressed])": {
+            "--_stitch": "transparent"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle:not(.tx-toggle ~ .tx-toggle), .tx-toggle-group[data-spacing=\"0\"] > .tx-toggle:not(:has(~ .tx-toggle))": {
+            "--_radius": "calc(var(--tx-radius) - 4px)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"]:not([data-orientation=\"vertical\"]) > .tx-toggle:not(.tx-toggle ~ .tx-toggle)": {
+            "border-top-left-radius": "var(--_radius)",
+            "border-bottom-left-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"]:not([data-orientation=\"vertical\"]) > .tx-toggle:not(:has(~ .tx-toggle))": {
+            "border-top-right-radius": "var(--_radius)",
+            "border-bottom-right-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-orientation=\"vertical\"] > .tx-toggle:not(.tx-toggle ~ .tx-toggle)": {
+            "border-top-left-radius": "var(--_radius)",
+            "border-top-right-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-orientation=\"vertical\"] > .tx-toggle:not(:has(~ .tx-toggle))": {
+            "border-bottom-left-radius": "var(--_radius)",
+            "border-bottom-right-radius": "var(--_radius)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-variant=\"outline\"] > .tx-toggle ~ .tx-toggle::before": {
+            "content": "\"\"",
+            "position": "absolute",
+            "inset-block": "7px",
+            "left": "0",
+            "border-left": "var(--tx-thread-width) dashed var(--tx-thread)",
+            "pointer-events": "none"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"][data-variant=\"outline\"][data-orientation=\"vertical\"] > .tx-toggle ~ .tx-toggle::before": {
+            "inset-block": "auto",
+            "inset-inline": "7px",
+            "top": "0",
+            "border-left": "0",
+            "border-top": "var(--tx-thread-width) dashed var(--tx-thread)"
+          },
+          ".tx-toggle-group[data-spacing=\"0\"] > .tx-toggle[data-pressed]::before, .tx-toggle-group[data-spacing=\"0\"] > .tx-toggle[data-pressed] + .tx-toggle::before": {
+            "display": "none"
+          },
+          "@media (forced-colors: active)": {
+            ":root .tx-toggle-group[data-spacing=\"0\"] > .tx-toggle ~ .tx-toggle::before": {
+              "border-style": "solid",
+              "border-color": "CanvasText"
+            }
+          }
+        }
+      }
     },
     {
       "name": "alert",

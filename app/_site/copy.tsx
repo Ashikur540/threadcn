@@ -65,7 +65,7 @@ export function InstallCommand({
       {Object.entries(managers).map(([pm, run]) => {
         const command = `${run} @threadcn/${item}`
         return (
-          <TabsContent key={pm} value={pm} className="[--_stitch:transparent] bg-transparent p-0">
+          <TabsContent key={pm} value={pm} className="[&>[data-slot=stitch]]:hidden bg-transparent p-0">
             <div className="flex items-center gap-3 rounded-[10px] bg-(--tx-field) py-1.5 pr-1.5 pl-4 text-(--tx-field-foreground) outline-[1.6px] -outline-offset-4 outline-(--tx-field-border) outline-dashed">
               <code className="min-w-0 flex-1 font-mono text-[15px] [overflow-wrap:anywhere] sm:overflow-x-auto sm:whitespace-nowrap sm:[scrollbar-width:none]">{command}</code>
               <CopyButton text={command} onCopied={onCopied} />

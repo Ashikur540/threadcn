@@ -46,7 +46,7 @@
   }
   /* Highlighted (hover or arrow keys): a cream label sewn on. */
   .tx-pocket-item:is([data-highlighted], [data-popup-open]) {
-    --_mark: var(--tx-field-border);
+    --_mark: var(--tx-field-foreground); /* same as the text, so a tick or dot stays clear in both modes */
     --_stitch: var(--tx-field-border);
     background-color: var(--tx-field);
     background-image: none;

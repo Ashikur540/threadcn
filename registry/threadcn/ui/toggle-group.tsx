@@ -10,7 +10,8 @@ import { Stitch } from "@/registry/threadcn/ui/stitch"
 import { toggleVariants } from "@/registry/threadcn/ui/toggle"
 
 // Same parts and API as shadcn's Base UI ToggleGroup. Items wear the Toggle
-// look (styles/toggle.css); the group only shares variant, size and spacing.
+// look (styles/toggle.css); the group shares variant, size and spacing.
+// With spacing={0} the items join into one stitched strip (styles/toggle-group.css).
 
 type GroupOptions = VariantProps<typeof toggleVariants> & {
   spacing?: number
@@ -26,7 +27,7 @@ const ToggleGroupContext = React.createContext<GroupOptions>({
 
 /**
  * A row of toggles. Pass `multiple` to allow more than one on.
- * `spacing` is the gap in Tailwind units (0 joins the items).
+ * `spacing` is the gap in Tailwind units. 0 joins the items into one strip.
  *
  * @example
  * <ToggleGroup variant="outline" defaultValue={["regular"]}>
@@ -60,6 +61,7 @@ function ToggleGroup({
       )}
       {...props}
     >
+      <Stitch />
       <ToggleGroupContext.Provider value={{ variant, size, spacing, orientation }}>{children}</ToggleGroupContext.Provider>
     </ToggleGroupPrimitive>
   )

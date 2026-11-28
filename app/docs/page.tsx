@@ -89,7 +89,7 @@ export default function InstallationPage() {
       <H2 id="check">Check it worked</H2>
       <p>Render a Button. You should see a gold patch with a light stitch that sinks when you press it, like this one:</p>
       <CodeBlock file="app/page.tsx" code={checkCode} />
-      <div className="docs-stage tx-fabric shadow-[inset_0_2px_10px_rgb(0_0_0/.35)] grid place-items-center rounded-xl p-10">
+      <div className="docs-stage tx-fabric shadow-[inset_0_2px_10px_rgb(0_0_0/.35)] grid min-h-64 place-items-center rounded-xl p-6 sm:p-10">
         <Button>It is stitched</Button>
       </div>
       <p className={muted}>

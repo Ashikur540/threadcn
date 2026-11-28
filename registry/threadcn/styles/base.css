@@ -48,6 +48,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
+    border-radius: inherit; /* so the texture follows rounded corners */
     pointer-events: none;
     opacity: var(--tx-texture-opacity);
     background-image: var(--tx-texture);

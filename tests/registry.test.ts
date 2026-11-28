@@ -114,7 +114,7 @@ test("each item installs exactly the packages and threadcn parts its file import
     tabs: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     "pocket-card": { deps: ["cn"], parts: ["@threadcn/base"], css: true },
     toggle: { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
-    "toggle-group": { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch", "@threadcn/toggle"], css: false },
+    "toggle-group": { deps: ["@base-ui/react", "class-variance-authority", "cn"], parts: ["@threadcn/stitch", "@threadcn/toggle"], css: true },
     alert: { deps: ["class-variance-authority", "cn"], parts: ["@threadcn/stitch"], css: true },
     "alert-dialog": { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/modal", "@threadcn/button", "@threadcn/stitch"], css: false },
     progress: { deps: ["@base-ui/react", "cn"], parts: ["@threadcn/base"], css: true },
