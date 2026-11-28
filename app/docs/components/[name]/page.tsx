@@ -16,6 +16,9 @@ import { InstallTabs } from "../../_ui/install-tabs"
 import { C, H2, H3, PageShell, type TocItem } from "../../_ui/page-shell"
 import { Preview } from "../../_ui/preview"
 
+// Every page is built ahead of time from registry.json; any other name is a 404.
+export const dynamicParams = false
+
 export function generateStaticParams() {
   return components.map(({ name }) => ({ name }))
 }

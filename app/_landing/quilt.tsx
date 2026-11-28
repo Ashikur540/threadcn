@@ -1,7 +1,6 @@
 import Link from "next/link"
 import { cn } from "cn"
 
-import { Avatar, AvatarFallback, AvatarGroup } from "@/registry/threadcn/ui/avatar"
 import { Badge } from "@/registry/threadcn/ui/badge"
 import { Button, buttonVariants } from "@/registry/threadcn/ui/button"
 import { Checkbox } from "@/registry/threadcn/ui/checkbox"
@@ -19,8 +18,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/threadcn/ui
 import { Toggle } from "@/registry/threadcn/ui/toggle"
 
 import { components } from "../_site/catalog"
-import { InstallCommand } from "../_site/copy"
 import { repoUrl } from "../_site/github"
+import { HeroAvatars, HeroInstall } from "./hero-bits"
 
 type Cloth = "page" | "other" | "surface"
 
@@ -60,7 +59,7 @@ export function Quilt() {
         </Block>
 
         <Block className="col-span-2 bg-(--tx-leather) p-4 text-(--tx-leather-foreground) md:p-11 lg:col-span-3 lg:col-start-1 lg:row-start-3">
-          <InstallCommand className="[--tx-muted-foreground:var(--tx-leather-foreground)]" />
+          <HeroInstall className="[--tx-muted-foreground:var(--tx-leather-foreground)]" />
           <div className="flex flex-wrap gap-3">
             <Link href="/docs/components" className={buttonVariants({ size: "sm" })}>
               <Stitch />
@@ -90,12 +89,8 @@ export function Quilt() {
           </Label>
         </Block>
 
-        <Block name="Avatar" cloth="other">
-          <AvatarGroup>
-            <Avatar><AvatarFallback>AK</AvatarFallback></Avatar>
-            <Avatar><AvatarFallback>MZ</AvatarFallback></Avatar>
-            <Avatar><AvatarFallback>RN</AvatarFallback></Avatar>
-          </AvatarGroup>
+        <Block name="Avatar and Tooltip" cloth="other">
+          <HeroAvatars />
         </Block>
         <Block name="Tabs" className="col-span-2">
           <Tabs defaultValue="fit">

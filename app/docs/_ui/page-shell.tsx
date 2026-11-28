@@ -56,7 +56,7 @@ export function PageShell({
 
         <div className="relative rounded-2xl bg-(--tx-field) px-5 py-8 text-(--tx-field-foreground) shadow-(--tx-card-shadow) [--_inset:8px] [--_radius:16px] [--_stitch:var(--tx-field-border)] md:px-10 md:py-10">
           <Stitch />
-          <div className="docs-prose grid gap-6">{children}</div>
+          <div className="docs-prose grid gap-6 *:min-w-0">{children}</div>
         </div>
 
         <PrevNext href={href} />

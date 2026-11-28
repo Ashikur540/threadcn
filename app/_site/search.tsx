@@ -36,9 +36,14 @@ export function Search() {
   const q = query.trim().toLowerCase()
   const results = pages.filter((p) => !q || p.title.toLowerCase().includes(q) || p.hint.toLowerCase().includes(q)).slice(0, 8)
 
-  function go(href: string) {
+  function close() {
     setOpen(false)
     setQuery("")
+  }
+
+  // Enter in the box: open the first match.
+  function go(href: string) {
+    close()
     router.push(href)
   }
 
@@ -70,7 +75,7 @@ export function Search() {
               <li key={r.href}>
                 <Link
                   href={r.href}
-                  onClick={() => go(r.href)}
+                  onClick={close}
                   className="grid rounded-lg px-3 py-2 hover:bg-(--tx-patch-secondary) focus-visible:bg-(--tx-patch-secondary) focus-visible:outline-none"
                 >
                   <span className="font-semibold">{r.title}</span>

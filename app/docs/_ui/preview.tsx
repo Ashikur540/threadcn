@@ -5,7 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/threadcn/ui
 /** A live component on the fabric, with a Code tab showing the exact source of what you see. */
 export function Preview({ children, code, label }: { children: React.ReactNode; code: React.ReactNode; label: string }) {
   return (
-    <Tabs defaultValue="preview" className="gap-0">
+    <Tabs defaultValue="preview" className="min-w-0 gap-0">
       <TabsList variant="line" aria-label={`${label}: preview or code`}>
         <TabsTrigger value="preview">Preview</TabsTrigger>
         <TabsTrigger value="code">Code</TabsTrigger>

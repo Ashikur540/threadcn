@@ -18,11 +18,14 @@ export function MobileNav() {
         </svg>
         Docs menu
       </SheetTrigger>
-      <SheetContent side="left" className="overflow-y-auto">
+      <SheetContent side="left" className="overflow-hidden">
         <SheetHeader>
           <SheetTitle>Docs</SheetTitle>
         </SheetHeader>
-        <DocsNav onNavigate={() => setOpen(false)} />
+        {/* Only the menu scrolls, inside the sheet's stitch. */}
+        <div className="-mx-1 min-h-0 flex-1 overflow-y-auto px-1 py-3 [mask-image:linear-gradient(transparent,black_20px,black_calc(100%-20px),transparent)]">
+          <DocsNav onNavigate={() => setOpen(false)} />
+        </div>
       </SheetContent>
     </Sheet>
   )

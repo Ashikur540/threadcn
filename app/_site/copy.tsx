@@ -6,13 +6,25 @@ import { Button } from "@/registry/threadcn/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/registry/threadcn/ui/tabs"
 
 /** A small Copy button. Says "Copied" for a moment, and tells screen readers too. */
-export function CopyButton({ text, label = "Copy", size = "xs" }: { text: string; label?: string; size?: "xs" | "sm" }) {
+export function CopyButton({
+  text,
+  label = "Copy",
+  size = "xs",
+  onCopied,
+}: {
+  text: string
+  label?: string
+  size?: "xs" | "sm"
+  /** Called after the text is on the clipboard, e.g. to show a toast. */
+  onCopied?: (text: string) => void
+}) {
   const [copied, setCopied] = useState(false)
 
   async function copy() {
     try {
       await navigator.clipboard.writeText(text)
       setCopied(true)
+      onCopied?.(text)
       setTimeout(() => setCopied(false), 1500)
     } catch {}
   }
@@ -32,7 +44,15 @@ const managers = {
 } as const
 
 /** The install command for one item, with npm / pnpm / yarn / bun tabs and a copy button. */
-export function InstallCommand({ item = "button", className }: { item?: string; className?: string }) {
+export function InstallCommand({
+  item = "button",
+  className,
+  onCopied,
+}: {
+  item?: string
+  className?: string
+  onCopied?: (text: string) => void
+}) {
   return (
     <Tabs defaultValue="npm" className={className}>
       <TabsList variant="line" aria-label="Package manager">
@@ -48,7 +68,7 @@ export function InstallCommand({ item = "button", className }: { item?: string; 
           <TabsContent key={pm} value={pm} className="[--_stitch:transparent] bg-transparent p-0">
             <div className="flex items-center gap-3 rounded-[10px] bg-(--tx-field) py-1.5 pr-1.5 pl-4 text-(--tx-field-foreground) outline-[1.6px] -outline-offset-4 outline-(--tx-field-border) outline-dashed">
               <code className="min-w-0 flex-1 font-mono text-[15px] [overflow-wrap:anywhere] sm:overflow-x-auto sm:whitespace-nowrap sm:[scrollbar-width:none]">{command}</code>
-              <CopyButton text={command} />
+              <CopyButton text={command} onCopied={onCopied} />
             </div>
           </TabsContent>
         )
