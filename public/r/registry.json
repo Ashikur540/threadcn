@@ -481,7 +481,7 @@
       "name": "label",
       "type": "registry:ui",
       "title": "Label",
-      "description": "A field label in the fabric's text color.",
+      "description": "The name above a field. Click it to jump into that field.",
       "dependencies": [
         "cn"
       ],
@@ -609,6 +609,21 @@
           ".tx-canvas::placeholder": {
             "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
           },
+          ".tx-canvas::file-selector-button": {
+            "margin-right": "12px",
+            "padding": "3px 12px",
+            "border": "0",
+            "border-radius": "calc(var(--tx-radius) - 8px)",
+            "background-color": "var(--tx-leather)",
+            "color": "var(--tx-leather-foreground)",
+            "font": "inherit",
+            "font-size": "13px",
+            "font-weight": "600",
+            "outline": "var(--tx-thread-width) dashed color-mix(in srgb, var(--tx-leather-foreground) 70%, transparent)",
+            "outline-offset": "-4px",
+            "box-shadow": "0 2px 0 var(--tx-leather-edge)",
+            "cursor": "pointer"
+          },
           ".tx-canvas:hover:where(:not(:disabled, [data-disabled]))": {
             "outline-color": "var(--tx-field-foreground)"
           },
@@ -645,7 +660,7 @@
       "name": "input",
       "type": "registry:ui",
       "title": "Input",
-      "description": "A text field on cream canvas.",
+      "description": "A one-line box to type in, like a name or email. Cream canvas look.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -664,7 +679,7 @@
       "name": "textarea",
       "type": "registry:ui",
       "title": "Textarea",
-      "description": "A multi-line text field on cream canvas.",
+      "description": "A bigger box for longer text, like a note or a review.",
       "dependencies": [
         "cn"
       ],
@@ -682,7 +697,7 @@
       "name": "checkbox",
       "type": "registry:ui",
       "title": "Checkbox",
-      "description": "A stitched cream box that turns to leather when checked.",
+      "description": "A box to tick on or off. It turns leather when ticked.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -768,7 +783,7 @@
       "name": "radio-group",
       "type": "registry:ui",
       "title": "Radio Group",
-      "description": "Stitched round options, leather with a cream dot when picked.",
+      "description": "A set of round options where only one can be picked.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -842,7 +857,7 @@
       "name": "switch",
       "type": "registry:ui",
       "title": "Switch",
-      "description": "A fabric strap with a sewing-button thumb that rolls as it slides.",
+      "description": "An on and off switch. Its sewing-button thumb rolls as it slides.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1047,7 +1062,7 @@
       "name": "select",
       "type": "registry:ui",
       "title": "Select",
-      "description": "A field that opens a stitched denim pocket of options.",
+      "description": "A field that opens a list so you pick one option.",
       "dependencies": [
         "@base-ui/react",
         "cn"
@@ -1407,7 +1422,7 @@
       "name": "toggle",
       "type": "registry:ui",
       "title": "Toggle",
-      "description": "Plain fabric when off, a leather patch sewn on when on.",
+      "description": "A button that stays pressed in or out, like Bold in an editor.",
       "dependencies": [
         "@base-ui/react",
         "class-variance-authority",
@@ -1480,7 +1495,7 @@
       "name": "toggle-group",
       "type": "registry:ui",
       "title": "Toggle Group",
-      "description": "A row of toggles that share a variant, size and spacing.",
+      "description": "A row of toggle buttons. Pick one, or allow many.",
       "dependencies": [
         "@base-ui/react",
         "class-variance-authority",
@@ -1622,7 +1637,7 @@
       "name": "slider",
       "type": "registry:ui",
       "title": "Slider",
-      "description": "A denim strap with sewing-button thumbs.",
+      "description": "Drag a thumb to pick a number, or two thumbs for a range.",
       "dependencies": [
         "@base-ui/react",
         "cn"

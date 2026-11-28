@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "radio-group",
   "title": "Radio Group",
-  "description": "Stitched round options, leather with a cream dot when picked.",
+  "description": "A set of round options where only one can be picked.",
   "dependencies": [
     "@base-ui/react",
     "cn"

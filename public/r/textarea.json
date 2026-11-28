@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "textarea",
   "title": "Textarea",
-  "description": "A multi-line text field on cream canvas.",
+  "description": "A bigger box for longer text, like a note or a review.",
   "dependencies": [
     "cn"
   ],

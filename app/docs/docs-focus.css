@@ -1,0 +1,36 @@
+/* Docs only: draws a component's keyboard-focus look without real focus, so a
+ * "States" example can show it next to the other states (only one thing on a
+ * page can really have focus). Add data-docs-focus to the component.
+ *
+ * Each rule copies the declarations of the component's own :focus-visible
+ * rule. tests/docs.test.ts fails if a copy ever differs from the original,
+ * so this file can't drift from the real look. Never shipped to users.
+ */
+@layer components {
+  .tx-canvas[data-docs-focus] {
+    outline-color: var(--tx-field-foreground);
+    box-shadow:
+      inset 0 2px 3px rgb(0 0 0 / 0.14),
+      0 0 0 3px var(--tx-ring);
+  }
+  .tx-checkbox[data-docs-focus] {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-radio-group-item[data-docs-focus] {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-switch[data-docs-focus] {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  .tx-toggle[data-docs-focus] {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+  [data-docs-focus] .tx-slider-thumb {
+    outline: 3px solid var(--tx-ring);
+    outline-offset: 2px;
+  }
+}

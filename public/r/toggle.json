@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "toggle",
   "title": "Toggle",
-  "description": "Plain fabric when off, a leather patch sewn on when on.",
+  "description": "A button that stays pressed in or out, like Bold in an editor.",
   "dependencies": [
     "@base-ui/react",
     "class-variance-authority",

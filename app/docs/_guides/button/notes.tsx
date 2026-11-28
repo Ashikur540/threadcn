@@ -37,7 +37,7 @@ export function ButtonNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/button" className="font-semibold underline underline-offset-4">
+        <a href="https://base-ui.com/react/components/button" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
           All other props come from Base UI Button
         </a>
         , like <C>disabled</C>, <C>render</C> and <C>focusableWhenDisabled</C>.
