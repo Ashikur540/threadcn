@@ -1,4 +1,7 @@
 @import "tailwindcss";
+/* Named on purpose: Tailwind skips folders that .gitignore patterns match, and
+   an old "docs/" pattern once hid this folder. Listing it keeps the docs styled. */
+@source "./docs";
 @import "./fabric.generated.css";
 @import "../registry/threadcn/styles/base.css";
 @import "../registry/threadcn/styles/button.css";
@@ -56,4 +59,11 @@ html {
 input,
 textarea {
   caret-color: var(--tx-field-foreground);
+}
+
+/* Docs: line tabs that sit on the cream reading sheet (not inside a live
+   preview) use the sheet's ink instead of the fabric's light text. */
+.docs-prose [data-slot="tabs-list"][data-variant="line"]:not(.docs-stage *) {
+  --tx-surface-foreground: var(--tx-field-foreground);
+  --tx-thread: var(--tx-field-border);
 }

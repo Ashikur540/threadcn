@@ -1,3 +1,5 @@
+import Link from "next/link"
+
 import { buttonVariants } from "@/registry/threadcn/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/registry/threadcn/ui/card"
 import { Stitch } from "@/registry/threadcn/ui/stitch"
@@ -129,14 +131,13 @@ export default function Home() {
                   <ul className="flex flex-wrap gap-2">
                     {items.map((item) => (
                       <li key={item.name}>
-                        {/* Until each component has its docs page, the chip opens its source on GitHub. */}
-                        <a
-                          href={`${repoUrl}/blob/main/registry/threadcn/ui/${item.name}.tsx`}
+                        <Link
+                          href={`/docs/components/${item.name}`}
                           title={item.description}
                           className="block rounded-lg bg-(--tx-patch-secondary) px-3 py-1 text-[15px] text-(--tx-patch-secondary-foreground) hover:bg-(--tx-patch) hover:text-(--tx-patch-foreground)"
                         >
                           {item.title}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
