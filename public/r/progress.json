@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "progress",
   "title": "Progress",
-  "description": "A recessed denim strap filled by a gold patch with a running thread.",
+  "description": "A bar that shows how far along something is, like an upload.",
   "dependencies": [
     "@base-ui/react",
     "cn"

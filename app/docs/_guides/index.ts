@@ -21,6 +21,26 @@ import tooltipGuide from "./tooltip/entry"
 import hoverCardGuide from "./hover-card/entry"
 import dropdownMenuGuide from "./dropdown-menu/entry"
 import contextMenuGuide from "./context-menu/entry"
+import alertGuide from "./alert/entry"
+import toastGuide from "./toast/entry"
+import progressGuide from "./progress/entry"
+import skeletonGuide from "./skeleton/entry"
+import spinnerGuide from "./spinner/entry"
+import badgeGuide from "./badge/entry"
+import cardGuide from "./card/entry"
+import separatorGuide from "./separator/entry"
+import accordionGuide from "./accordion/entry"
+import collapsibleGuide from "./collapsible/entry"
+import tableGuide from "./table/entry"
+import scrollAreaGuide from "./scroll-area/entry"
+import avatarGuide from "./avatar/entry"
+import kbdGuide from "./kbd/entry"
+import tabsGuide from "./tabs/entry"
+import breadcrumbGuide from "./breadcrumb/entry"
+import paginationGuide from "./pagination/entry"
+import pocketCardGuide from "./pocket-card/entry"
+import patchGuide from "./patch/entry"
+import stitchGuide from "./stitch/entry"
 import type { Guide } from "./types"
 
 export const guides: Record<string, Guide> = {
@@ -44,4 +64,24 @@ export const guides: Record<string, Guide> = {
   "hover-card": hoverCardGuide,
   "dropdown-menu": dropdownMenuGuide,
   "context-menu": contextMenuGuide,
+  "alert": alertGuide,
+  "toast": toastGuide,
+  "progress": progressGuide,
+  "skeleton": skeletonGuide,
+  "spinner": spinnerGuide,
+  "badge": badgeGuide,
+  "card": cardGuide,
+  "separator": separatorGuide,
+  "accordion": accordionGuide,
+  "collapsible": collapsibleGuide,
+  "table": tableGuide,
+  "scroll-area": scrollAreaGuide,
+  "avatar": avatarGuide,
+  "kbd": kbdGuide,
+  "tabs": tabsGuide,
+  "breadcrumb": breadcrumbGuide,
+  "pagination": paginationGuide,
+  "pocket-card": pocketCardGuide,
+  "patch": patchGuide,
+  "stitch": stitchGuide,
 }

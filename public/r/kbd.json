@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "kbd",
   "title": "Kbd",
-  "description": "A keyboard key as a small cream key cap.",
+  "description": "Shows a keyboard key or shortcut, like ⌘ K.",
   "dependencies": [
     "cn"
   ],

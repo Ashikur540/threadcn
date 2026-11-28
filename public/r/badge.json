@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "badge",
   "title": "Badge",
-  "description": "A small woven label.",
+  "description": "A small label for a status or a count, like \"New\" or \"3\".",
   "dependencies": [
     "@base-ui/react",
     "class-variance-authority",

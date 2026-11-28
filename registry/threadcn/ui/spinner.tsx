@@ -7,7 +7,9 @@ import { cn } from "cn"
  * user allows motion; otherwise the ring stays still.
  *
  * @example
- * <Button disabled><Spinner /> Saving</Button>
+ * <Button disabled><Spinner aria-hidden="true" /> Saving</Button>
+ *
+ * Next to words, add aria-hidden so screen readers don't hear "Loading" on top of them.
  */
 function Spinner({ className, ...props }: React.ComponentProps<"svg">) {
   return (

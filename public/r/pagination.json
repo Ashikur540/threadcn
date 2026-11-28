@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "pagination",
   "title": "Pagination",
-  "description": "Page links built from Button; the current page is the leather patch.",
+  "description": "Links to move between pages of a long list.",
   "dependencies": [
     "cn"
   ],

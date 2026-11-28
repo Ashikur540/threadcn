@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "skeleton",
   "title": "Skeleton",
-  "description": "A basted fabric placeholder that pulses while content loads.",
+  "description": "A gray shape that holds the place of content while it loads.",
   "dependencies": [
     "cn"
   ],

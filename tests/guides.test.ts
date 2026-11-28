@@ -38,10 +38,13 @@ function choiceProps(name: string) {
   return found
 }
 
-/** The `--_` settings listed in the header comment of a component's CSS file, and of the shared looks it builds on (like modal.css). */
+/** The `--_` settings a component's CSS lists under "Knobs", and those of the shared looks it builds on (like modal.css). */
 function knobs(name: string) {
-  return { own: knobsIn([name]), shared: knobsIn(sharedLooks(name)) }
+  return { own: knobsIn([cssFile(name)]), shared: knobsIn(sharedLooks(name)) }
 }
+
+// Stitch has no CSS file of its own: its look lives in base.css.
+const cssFile = (name: string) => (name === "stitch" ? "base" : name)
 
 function sharedLooks(name: string) {
   const item = registry.items.find((i) => i.name === name)!
@@ -55,9 +58,11 @@ function knobsIn(files: string[]) {
   for (const file of files) {
     const path = `registry/threadcn/styles/${file}.css`
     if (!existsSync(path)) continue
-    const header = readFileSync(path, "utf8").match(/\/\*[\s\S]*?\*\//)?.[0] ?? ""
-    const after = header.slice(header.indexOf("Knobs") === -1 ? header.length : header.indexOf("Knobs"))
-    for (const [knob] of after.matchAll(/--_[a-z-]+/g)) set.add(knob)
+    // Any comment that lists "Knobs" (base.css lists the stitch knobs in its second comment).
+    for (const [comment] of readFileSync(path, "utf8").matchAll(/\/\*[\s\S]*?\*\//g)) {
+      if (!comment.includes("Knobs")) continue
+      for (const [knob] of comment.slice(comment.indexOf("Knobs")).matchAll(/--_[a-z-]+/g)) set.add(knob)
+    }
   }
   return set
 }
@@ -79,7 +84,7 @@ test("each guide's Settings table matches the settings its CSS lists", () => {
   for (const [name, { settings }] of Object.entries(notes)) {
     const { own, shared } = knobs(name)
     const documented = new Set((settings ?? []).map(([knob]) => knob))
-    for (const knob of own) expect.soft(documented.has(knob), `${name}: ${knob} is in ${name}.css but not in the Settings table`).toBe(true)
+    for (const knob of own) expect.soft(documented.has(knob), `${name}: ${knob} is in ${cssFile(name)}.css but not in the Settings table`).toBe(true)
     for (const knob of documented)
       expect.soft(own.has(knob) || shared.has(knob), `${name}: ${knob} is in the Settings table but no CSS lists it`).toBe(true)
   }

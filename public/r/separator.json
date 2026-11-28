@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "separator",
   "title": "Separator",
-  "description": "A line of thread between two blocks.",
+  "description": "A thin line of thread that splits two blocks of content.",
   "dependencies": [
     "@base-ui/react",
     "cn"

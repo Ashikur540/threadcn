@@ -43,7 +43,7 @@ export function PropsTable({ rows }: { rows: PropRow[] }) {
           </td>
           <td className={mono}>{p.type}</td>
           <td className={mono}>{p.def}</td>
-          <td className={cell}>{p.what}</td>
+          <td className={`${cell} min-w-64`}>{p.what}</td>
         </tr>
       ))}
     </Table>

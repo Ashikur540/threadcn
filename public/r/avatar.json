@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "avatar",
   "title": "Avatar",
-  "description": "A round photo with a stitched ring, or initials on cream canvas.",
+  "description": "A round photo of a person, or their initials when there is no photo.",
   "dependencies": [
     "@base-ui/react",
     "cn"

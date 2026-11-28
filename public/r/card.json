@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "card",
   "title": "Card",
-  "description": "A stitched piece of fabric. Puffy and quilted in dark mode.",
+  "description": "A box that groups related content, like a product or an order. Quilted in dark mode.",
   "dependencies": [
     "cn"
   ],

@@ -45,7 +45,7 @@ export default {
       slug: "loading",
       title: "Loading",
       description:
-        "There is no `loading` prop. Put a Spinner inside and disable the button while the work runs. The Spinner only turns when the visitor allows motion.",
+        "There is no `loading` prop. Put a Spinner inside and disable the button while the work runs. Give the Spinner `aria-hidden=\"true\"`, since the button's words already say what is happening. The Spinner only turns when the visitor allows motion.",
       file: `${dir}/loading.tsx`,
       Component: ButtonLoading,
     },

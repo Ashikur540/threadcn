@@ -1,4 +1,5 @@
 import { Stitch } from "@/registry/threadcn/ui/stitch"
+import { Toaster } from "@/registry/threadcn/ui/toast"
 
 import { MobileNav } from "./_ui/mobile-nav"
 import { DocsNav } from "./_ui/nav"
@@ -21,6 +22,8 @@ export default function DocsLayout({ children }: { children: React.ReactNode }) 
         </div>
         {children}
       </div>
+      {/* The one toast area for every docs page, so any example's toast.add() shows up. */}
+      <Toaster />
     </div>
   )
 }

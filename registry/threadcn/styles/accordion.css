@@ -21,7 +21,7 @@
   .tx-accordion-trigger[aria-expanded="true"] .tx-accordion-icon {
     transform: translateY(2px) rotate(225deg);
   }
-  .tx-accordion-trigger:hover:where(:not([aria-disabled="true"])) {
+  .tx-accordion-trigger:hover:where(:not([data-disabled])) {
     text-decoration: underline dashed var(--tx-thread);
     text-underline-offset: 5px;
   }

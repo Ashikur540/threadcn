@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "stitch",
   "title": "Stitch",
-  "description": "The stitch line drawn inside a part's edge.",
+  "description": "The dashed thread line inside every stitched part. Add it to your own boxes.",
   "dependencies": [
     "cn"
   ],

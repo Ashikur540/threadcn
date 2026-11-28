@@ -2,7 +2,7 @@
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "collapsible",
   "title": "Collapsible",
-  "description": "A trigger that shows and hides a panel. No look of its own.",
+  "description": "A button that shows and hides one section. It has no look of its own.",
   "dependencies": [
     "@base-ui/react"
   ],
