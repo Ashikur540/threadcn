@@ -22,7 +22,7 @@ export function RadioGroupNotes() {
       <H2 id="props">Props</H2>
       <p>
         threadcn adds no props. <C>RadioGroup</C> is Base UI&apos;s RadioGroup and <C>RadioGroupItem</C> is Base UI&apos;s Radio.{" "}
-        <a href="https://base-ui.com/react/components/radio-group" className={link}>
+        <a href="https://base-ui.com/react/components/radio-group" target="_blank" rel="noreferrer" className={link}>
           All props come from Base UI Radio Group
         </a>
         , like <C>value</C>, <C>defaultValue</C>, <C>onValueChange</C>, <C>name</C>, <C>required</C> and <C>disabled</C> on the group, and{" "}

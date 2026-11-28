@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "node:fs"
+import { existsSync, readdirSync, readFileSync } from "node:fs"
 
 import { demos } from "@/app/docs/_demos"
 import { guides } from "@/app/docs/_guides"
@@ -54,5 +54,16 @@ test("the docs focus look matches each component's real focus rule", () => {
   for (const [file, real, copy] of pairs) {
     const original = readFileSync(`registry/threadcn/styles/${file}.css`, "utf8")
     expect(body(docs, copy), file).toBe(body(original, real))
+  }
+})
+
+test("every link to another site opens in a new tab", () => {
+  const files = readdirSync("app", { recursive: true, encoding: "utf8" }).filter((f) => f.endsWith(".tsx"))
+  for (const file of files) {
+    const source = readFileSync(`app/${file}`, "utf8")
+    for (const [tag] of source.matchAll(/<a\s[^>]*href=(?:"https?:|\{[^}]*(?:repoUrl|https?:))[^>]*>/g)) {
+      expect(tag, file).toContain('target="_blank"')
+      expect(tag, file).toContain('rel="noreferrer"')
+    }
   }
 })

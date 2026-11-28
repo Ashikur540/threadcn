@@ -65,7 +65,7 @@ export function Quilt() {
               <Stitch />
               Browse components
             </Link>
-            <a href={repoUrl} className={buttonVariants({ size: "sm", variant: "secondary" })}>
+            <a href={repoUrl} target="_blank" rel="noreferrer" className={buttonVariants({ size: "sm", variant: "secondary" })}>
               <Stitch />
               Star on GitHub
             </a>

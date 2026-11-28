@@ -120,7 +120,7 @@ export default async function ComponentPage({ params }: { params: Promise<{ name
       actions={
         <>
           <CopyButton text={command} label="Copy install command" size="sm" />
-          <a href={`${repoUrl}/blob/main/registry/threadcn/ui/${name}.tsx`} className={buttonVariants({ size: "sm", variant: "secondary" })}>
+          <a href={`${repoUrl}/blob/main/registry/threadcn/ui/${name}.tsx`} target="_blank" rel="noreferrer" className={buttonVariants({ size: "sm", variant: "secondary" })}>
             <Stitch />
             View source
           </a>

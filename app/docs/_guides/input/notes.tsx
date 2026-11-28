@@ -9,11 +9,11 @@ export function InputNotes() {
       <H2 id="props">Props</H2>
       <p>
         threadcn adds no props. Input is Base UI&apos;s Input, which draws a normal <C>&lt;input&gt;</C>, so{" "}
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" className={link}>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input" target="_blank" rel="noreferrer" className={link}>
           every normal input attribute works
         </a>
         , like <C>type</C>, <C>placeholder</C>, <C>disabled</C> and <C>required</C>. Base UI adds a few more, like <C>onValueChange</C>, see{" "}
-        <a href="https://base-ui.com/react/components/input" className={link}>
+        <a href="https://base-ui.com/react/components/input" target="_blank" rel="noreferrer" className={link}>
           Base UI Input
         </a>
         . One small change: <C>className</C> takes a plain string. Base UI also accepts a function there; threadcn does not.

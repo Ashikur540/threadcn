@@ -50,7 +50,12 @@ export function SiteFooter() {
             <div key={col.title} className="grid content-start gap-1.5 text-[15px]">
               <h2 className="font-(family-name:--tx-font-heading) text-base font-bold">{col.title}</h2>
               {col.links.map((link) => (
-                <Link key={link.href} href={link.href} className="underline-offset-4 hover:underline">
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  {...(link.href.startsWith("http") && { target: "_blank", rel: "noreferrer" })}
+                  className="underline-offset-4 hover:underline"
+                >
                   {link.label}
                 </Link>
               ))}

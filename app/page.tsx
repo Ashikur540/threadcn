@@ -158,12 +158,12 @@ export default function Home() {
               are welcome.
             </p>
             <div className="flex flex-wrap gap-3">
-              <a href={repoUrl} className={buttonVariants()}>
+              <a href={repoUrl} target="_blank" rel="noreferrer" className={buttonVariants()}>
                 <Stitch />
                 <GitHubIcon />
                 Star on GitHub
               </a>
-              <a href={`${repoUrl}/issues`} className={buttonVariants({ variant: "secondary" })}>
+              <a href={`${repoUrl}/issues`} target="_blank" rel="noreferrer" className={buttonVariants({ variant: "secondary" })}>
                 <Stitch />
                 Report an issue
               </a>

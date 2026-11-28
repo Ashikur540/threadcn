@@ -34,7 +34,7 @@ export default {
     {
       slug: "disabled",
       title: "On a disabled field",
-      description: "Fade the label with `opacity-50` so it matches the faded field below it.",
+      description: "The label fades by itself when its field is disabled: above an input, wrapped around a checkbox, or after a switch. Wrapped, only the text fades, so the box isn't faded twice.",
       file: `${dir}/disabled.tsx`,
       Component: LabelDisabled,
     },

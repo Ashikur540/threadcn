@@ -30,7 +30,7 @@ export function SelectNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/select" className="font-semibold underline underline-offset-4">
+        <a href="https://base-ui.com/react/components/select" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
           All other props come from Base UI Select
         </a>
         , like <C>items</C>, <C>value</C>, <C>onValueChange</C>, <C>multiple</C> and <C>disabled</C> on <C>Select</C>, and <C>disabled</C> on{" "}

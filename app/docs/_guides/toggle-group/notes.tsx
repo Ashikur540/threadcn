@@ -32,7 +32,7 @@ export function ToggleGroupNotes() {
       <H2 id="props">Props</H2>
       <p>
         These are the <C>ToggleGroup</C> props threadcn adds. They match shadcn/ui.{" "}
-        <a href="https://base-ui.com/react/components/toggle-group" className="font-semibold underline underline-offset-4">
+        <a href="https://base-ui.com/react/components/toggle-group" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
           All other props come from Base UI Toggle Group
         </a>
         , like <C>multiple</C>, <C>value</C>, <C>defaultValue</C>, <C>onValueChange</C>, <C>loopFocus</C> and <C>disabled</C>. The value is

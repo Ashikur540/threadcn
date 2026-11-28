@@ -9,7 +9,7 @@ export function TextareaNotes() {
       <H2 id="props">Props</H2>
       <p>
         threadcn adds no props. Textarea is a plain <C>&lt;textarea&gt;</C> (not a Base UI part), so{" "}
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" className={link}>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea" target="_blank" rel="noreferrer" className={link}>
           every normal textarea attribute works
         </a>
         , like <C>rows</C>, <C>maxLength</C>, <C>disabled</C> and <C>required</C>.

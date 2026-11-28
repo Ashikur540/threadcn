@@ -18,7 +18,7 @@ export function CheckboxNotes() {
       <H2 id="props">Props</H2>
       <p>
         threadcn adds no props.{" "}
-        <a href="https://base-ui.com/react/components/checkbox" className={link}>
+        <a href="https://base-ui.com/react/components/checkbox" target="_blank" rel="noreferrer" className={link}>
           All props come from Base UI Checkbox
         </a>
         , like <C>checked</C>, <C>defaultChecked</C>, <C>onCheckedChange</C>, <C>indeterminate</C>, <C>disabled</C>, <C>required</C> and{" "}

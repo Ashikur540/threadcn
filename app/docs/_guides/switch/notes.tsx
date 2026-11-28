@@ -28,7 +28,7 @@ export function SwitchNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/switch" className="font-semibold underline underline-offset-4">
+        <a href="https://base-ui.com/react/components/switch" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
           All other props come from Base UI Switch
         </a>
         , like <C>checked</C>, <C>defaultChecked</C>, <C>onCheckedChange</C>, <C>disabled</C> and <C>name</C>.

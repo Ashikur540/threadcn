@@ -27,7 +27,7 @@ export function ToggleNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/toggle" className="font-semibold underline underline-offset-4">
+        <a href="https://base-ui.com/react/components/toggle" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
           All other props come from Base UI Toggle
         </a>
         , like <C>pressed</C>, <C>defaultPressed</C>, <C>onPressedChange</C> and <C>disabled</C>. <C>toggleVariants()</C> is also exported, if

@@ -609,6 +609,21 @@
           ".tx-canvas::placeholder": {
             "color": "color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field))"
           },
+          ".tx-canvas::file-selector-button": {
+            "margin-right": "12px",
+            "padding": "3px 12px",
+            "border": "0",
+            "border-radius": "calc(var(--tx-radius) - 8px)",
+            "background-color": "var(--tx-leather)",
+            "color": "var(--tx-leather-foreground)",
+            "font": "inherit",
+            "font-size": "13px",
+            "font-weight": "600",
+            "outline": "var(--tx-thread-width) dashed color-mix(in srgb, var(--tx-leather-foreground) 70%, transparent)",
+            "outline-offset": "-4px",
+            "box-shadow": "0 2px 0 var(--tx-leather-edge)",
+            "cursor": "pointer"
+          },
           ".tx-canvas:hover:where(:not(:disabled, [data-disabled]))": {
             "outline-color": "var(--tx-field-foreground)"
           },

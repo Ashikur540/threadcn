@@ -26,7 +26,7 @@ export function SiteHeader() {
         </nav>
         <span className="flex-1" />
         <Search />
-        <a href={repoUrl} className="flex items-center gap-2 text-[15px] font-semibold hover:text-(--tx-thread)">
+        <a href={repoUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 text-[15px] font-semibold hover:text-(--tx-thread)">
           <GitHubIcon className="size-5" />
           <span className="max-sm:sr-only">GitHub</span>
         </a>

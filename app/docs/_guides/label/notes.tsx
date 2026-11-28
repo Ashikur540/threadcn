@@ -9,7 +9,7 @@ export function LabelNotes() {
       <H2 id="props">Props</H2>
       <p>
         threadcn adds no props. Label is a plain <C>&lt;label&gt;</C> (not a Base UI part), so{" "}
-        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label" className={link}>
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label" target="_blank" rel="noreferrer" className={link}>
           every normal label attribute works
         </a>
         . The one you need most is <C>htmlFor</C>: set it to the <C>id</C> of the field.
@@ -19,8 +19,9 @@ export function LabelNotes() {
         out its children in a row with a small gap, so a box and its text, or a word and a * marker, line up on their own.
       </p>
       <p>
-        It fades by itself in one case only: when it comes after a disabled field that has the <C>peer</C> class, inside the same parent. When the label sits above
-        the field, add <C>opacity-50</C> to it yourself, like the On a disabled field example above.
+        It fades by itself when its field is disabled, so you don&apos;t add anything. That works when the label sits right before the field, right
+        after a checkbox, radio or switch, around one of them, or inside a wrapper marked <C>data-disabled=&quot;true&quot;</C> with the <C>group</C> class (the shadcn/ui way).
+        Wrapped around a checkbox, radio or switch, only the text fades, because the control fades on its own.
       </p>
 
       <H2 id="accessibility">Accessibility</H2>

@@ -31,7 +31,7 @@ export function SliderNotes() {
       <H2 id="props">Props</H2>
       <p>
         Only what threadcn adds or changes is listed here.{" "}
-        <a href="https://base-ui.com/react/components/slider" className="font-semibold underline underline-offset-4">
+        <a href="https://base-ui.com/react/components/slider" target="_blank" rel="noreferrer" className="font-semibold underline underline-offset-4">
           All other props come from Base UI Slider
         </a>
         , like <C>min</C>, <C>max</C>, <C>step</C>, <C>largeStep</C>, <C>onValueChange</C>, <C>orientation</C> and <C>disabled</C>.

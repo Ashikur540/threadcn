@@ -2,7 +2,7 @@
  * (Not called "field": shadcn already has a Field component.)
  *
  * Public tokens it reads: --tx-field*, --tx-invalid-edge, --tx-ring,
- *   --tx-radius, --tx-thread-width
+ *   --tx-radius, --tx-thread-width, --tx-leather* (the file button)
  *
  * An <input> can't hold <Stitch />, so fields stitch with a dashed outline.
  */
@@ -22,6 +22,24 @@
   /* 70% keeps the hint lighter than typed text but readable (the contrast test checks it). */
   .tx-canvas::placeholder {
     color: color-mix(in srgb, var(--tx-field-foreground) 70%, var(--tx-field));
+  }
+
+  /* <input type="file">: the "Choose file" button is a small leather patch
+     sewn onto the canvas, the same leather as a ticked Checkbox. */
+  .tx-canvas::file-selector-button {
+    margin-right: 12px;
+    padding: 3px 12px;
+    border: 0;
+    border-radius: calc(var(--tx-radius) - 8px);
+    background-color: var(--tx-leather);
+    color: var(--tx-leather-foreground);
+    font: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    outline: var(--tx-thread-width) dashed color-mix(in srgb, var(--tx-leather-foreground) 70%, transparent);
+    outline-offset: -4px;
+    box-shadow: 0 2px 0 var(--tx-leather-edge);
+    cursor: pointer;
   }
 
   /* ---- States: hover, focus, error, disabled ---- */
